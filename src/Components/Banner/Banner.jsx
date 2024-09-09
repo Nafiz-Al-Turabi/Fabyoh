@@ -1,37 +1,93 @@
-import Slider from "react-slick";
-import image1 from './../../assets/images/slider/image1.webp'
-import image2 from './../../assets/images/slider/image2.webp'
-import image3 from './../../assets/images/slider/image3.webp'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { useState, useEffect, useRef } from 'react';
+import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
 
-const Banner = () => {
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: true, 
+import image1 from './../../assets/images/slider/image1.webp';
+import image2 from './../../assets/images/slider/image2.webp';
+import image3 from './../../assets/images/slider/image3.webp';
+import image4 from './../../assets/images/slider/image4.jpg';
+import image5 from './../../assets/images/slider/image5.jpg';
+import image6 from './../../assets/images/slider/image6.jpg';
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+
+const CustomSlider = () => {
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isHovering, setIsHovering] = useState(false);
+    const slideIntervalRef = useRef(null);
+
+    const imagesDesktop = [image1, image2, image3];
+    const imagesMobile = [image4, image5, image6];
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        const imagesToShow = isMobile ? imagesMobile : imagesDesktop;
+        const totalImages = imagesToShow.length;
+
+        if (isHovering) return; // Stop autoplay if hovering
+
+        slideIntervalRef.current = setInterval(() => {
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % (totalImages + 1));
+        }, 3000); // Change slide every 3 seconds
+
+        return () => clearInterval(slideIntervalRef.current);
+    }, [isMobile, isHovering]);
+
+    const handleNext = () => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % ((isMobile ? imagesMobile.length : imagesDesktop.length) + 1));
     };
 
+    const handlePrev = () => {
+        setCurrentSlide((prevSlide) =>
+            (prevSlide - 1 + ((isMobile ? imagesMobile.length : imagesDesktop.length) + 1)) % ((isMobile ? imagesMobile.length : imagesDesktop.length) + 1)
+        );
+    };
+
+    const imagesToShow = isMobile ? [...imagesMobile, imagesMobile[0]] : [...imagesDesktop, imagesDesktop[0]];
+
     return (
-        <div className="w-full h-[500px]">
-            <Slider {...settings}>
-                <div>
-                    <img src={image1} alt="Slide 1" className="w-full h-5/6 object-cover" />
+        <div
+            className="relative w-full overflow-hidden"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+        >
+            
+            <div className="relative">
+                <div
+                    className="flex transition-transform duration-500"
+                    style={{
+                        transform: `translateX(-${(currentSlide % (isMobile ? imagesMobile.length : imagesDesktop.length)) * 100}%)`,
+                    }}
+                >
+                    {imagesToShow.map((image, index) => (
+                        <div key={index} className="min-w-full">
+                            <img src={image} alt={`Slide ${index + 1}`} className="w-full h-[100%] object-cover" />
+                        </div>
+                    ))}
                 </div>
-                <div>
-                    <img src={image2} alt="Slide 2" className="w-full h-5/6 object-cover" />
+                <div className="absolute inset-0 flex items-center justify-between pointer-events-none">
+                    <button
+                        className=" text-white p-2 rounded-full pointer-events-auto"
+                        onClick={handlePrev}
+                    >
+                        <MdArrowBackIosNew className='text-3xl lg:text-5xl'/>
+                    </button>
+                    <button
+                        className=" text-white p-2 rounded-full pointer-events-auto"
+                        onClick={handleNext}
+                    >
+                       <MdArrowForwardIos className='text-3xl lg:text-5xl' />
+                    </button>
                 </div>
-                <div>
-                    <img src={image3} alt="Slide 3" className="w-full h-5/6 object-cover" />
-                </div>
-            </Slider>
+            </div>
         </div>
     );
 };
 
-export default Banner;
+export default CustomSlider;
