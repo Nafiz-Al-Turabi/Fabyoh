@@ -10,11 +10,63 @@ import discover from './../assets/images/payment/discover.webp'
 import paypal from './../assets/images/payment/paypal.webp'
 import applepay from './../assets/images/payment/applepay.webp'
 import googlepay from './../assets/images/payment/googlepay.webp'
+import trending from './../assets/images/trending.gif'
+import Marquee from 'react-fast-marquee';
+import image from './../assets/images/fabyoh/women2.webp'
+import image2 from './../assets/images/fabyoh/menblack.webp'
+import image3 from './../assets/images/fabyoh/manNavy.webp'
+import image4 from './../assets/images/fabyoh/women.webp'
+import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
     return (
-        <footer className='font-josefin pt-40 '>
+        <footer className='font-josefin pt-4 border-t'>
+            <div className=''>
+                <div className='flex items-center px-4 sm:px-6 lg:px-8'>
+                    <h1 className='text-xl'>Trending Now </h1>
+                    <img src={trending} alt="" className='w-6' />
+                </div>
+                <div className='relative'>
+                    {/* Fog overlays */}
+                    <div className="absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+                    {/* Marquee component */}
+                    <Marquee className='py-8 flex justify-between'
+                        pauseOnHover={true}
+                        gradient={false}
+                        speed={30}
+                    >
+                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
+                                <img src={image3} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
+                            </div>
+                            <h1>Men's Navy Jacket</h1>
+                        </Link>
+                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
+                                <img src={image} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
+                            </div>
+                            <h1>Premium Women cloths</h1>
+                        </Link>
+                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
+                                <img src={image2} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
+                            </div>
+                            <h1>Men's Horse Printed Tshirt</h1>
+                        </Link>
+                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
+                                <img src={image4} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
+                            </div>
+                            <h1>Premium comfy women jacket</h1>
+                        </Link>
+                        
+                    </Marquee>
+                </div>
+
+            </div>
             <div className=' md:max-w-[1305px] mx-auto mb-20 md:mb-0  '>
                 <div className='space-y-12 md:space-y-0 md:grid md:grid-cols-3 xl:flex xl:gap-32 py-20 border-y px-4'>
                     <div className='md:col-span-4 xl:col-auto mb-10'>
