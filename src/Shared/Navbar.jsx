@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="flex justify-between h-20 items-center">
           
           {/* Left side - Menu Items (PC only) */}
-          <div className="hidden md:flex space-x-6 font-josefin">
+          <div className="hidden xl:flex space-x-6 font-josefin">
             <a href="#home" className="text-gray-800 text-xl hover:text-gray-600">Shirts</a>
             <a href="#about" className="text-gray-800 text-xl hover:text-gray-600">Tshirts</a>
             <a href="#services" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</a>
@@ -19,21 +19,21 @@ const Navbar = () => {
           </div>
           {/* Mobile menu toggle button */}
           <button
-              className="md:hidden text-gray-800 focus:outline-none"
+              className="xl:hidden text-gray-800 focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <FiX size={36} /> : <FiMenu size={36} />}
             </button>
           {/* Center - Logo */}
           <div className="flex-1 flex justify-center items-center">
-            <img src={logo} alt="" className='w-32 xl:mr-40' />
+            <img src={logo} alt="" className=' w-28 md:w-32 xl:mr-40' />
           </div>
 
           {/* Right side - Search, Cart, User (For both PC and Mobile) */}
           <div className="flex space-x-6 items-center">
             <FiSearch className="text-gray-800" size={30} />
             <FiShoppingCart className="text-gray-800" size={30} />
-            <FiUser className="text-gray-800 hidden md:block" size={30} />
+            <FiUser className="text-gray-800 hidden xl:block" size={30} />
             
           </div>
         </div>
