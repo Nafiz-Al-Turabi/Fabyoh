@@ -19,6 +19,9 @@
 .p-text{
   @apply text-[#9578ed]
 }
+.s-text{
+  @apply text-[#939393]
+}
 
 .p-btn{
   @apply bg-[#2b2b2b]
