@@ -1,0 +1,15 @@
+
+@keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  /* Applying shimmer animation */
+  .shimmer-effect {
+    background-size: 200% 100%;
+    animation: shimmer 1.9s infinite linear;
+  }
