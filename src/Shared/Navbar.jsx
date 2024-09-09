@@ -17,6 +17,7 @@ const Navbar = () => {
             <a href="#services" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</a>
             <a href="#contact" className="text-gray-800 text-xl hover:text-gray-600">Jackets</a>
           </div>
+          {/* Mobile menu toggle button */}
           <button
               className="md:hidden text-gray-800 focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -40,7 +41,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 w-full  bg-white h-full shadow-lg z-50 transform ${
+        className={`fixed top-0 left-0 w-2/3  bg-white h-full shadow-lg z-50 transform ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out`}
       >
@@ -62,7 +63,7 @@ const Navbar = () => {
       {/* Overlay for mobile */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-gray-900 bg-opacity-50 z-40"
+          className="fixed  inset-0 bg-gray-900 bg-opacity-5 z-40"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

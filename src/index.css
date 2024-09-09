@@ -1,6 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-josefin {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.p-bg{
+  @apply bg-[#9578ed]
+}
+.p-text{
+  @apply text-[#9578ed]
+}
+
+.p-btn{
+  @apply bg-[#2b2b2b]
+}
+
+/* for bottomNav Shadow */
+.bottom-shadow{
+  box-shadow: 5px 5px 10px 5px #e9e9e9;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

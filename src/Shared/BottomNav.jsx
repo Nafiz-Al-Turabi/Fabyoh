@@ -3,34 +3,35 @@ import { CiGrid41 } from 'react-icons/ci';
 import { FaOpencart } from 'react-icons/fa';
 import { HiOutlineHome } from 'react-icons/hi';
 import { LiaUser } from 'react-icons/lia';
+import ActiveBottomNav from '../ActiveLinks/ActiveBottomNav';
 
 const BottomNav = () => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md border-t border-gray-200 z-50 md:hidden font-josefin">
+    <div className="fixed bottom-0 left-0 right-0 bg-white bottom-shadow z-50 md:hidden font-josefin">
       <div className="flex justify-around items-center py-2">
         {/* Home */}
-        <div className="flex flex-col items-center text-gray-700">
-          <HiOutlineHome  className="text-2xl" />
-          <span className="text-xs">Home</span>
-        </div>
+        <ActiveBottomNav to='/' className="flex flex-col gap-3 items-center p-text ">
+          <HiOutlineHome  className="text-3xl" />
+          <span className="font-[300] ">Home</span>
+        </ActiveBottomNav>
 
         {/* Shop */}
-        <div className="flex flex-col items-center text-gray-700">
-          <CiGrid41 className="text-2xl" />
-          <span className="text-xs">Shop</span>
-        </div>
+        <ActiveBottomNav to='/shop' className="flex flex-col items-center ">
+          <CiGrid41 className="text-3xl" />
+          <span className="font-[300]">Shop</span>
+        </ActiveBottomNav>
 
         {/* Profile */}
-        <div className="flex flex-col items-center text-gray-700">
-          <LiaUser className="text-2xl" />
-          <span className="text-xs">Profile</span>
-        </div>
+        <ActiveBottomNav to='/profile' className="flex flex-col items-center ">
+          <LiaUser className="text-3xl" />
+          <span className="font-[300]">Profile</span>
+        </ActiveBottomNav>
 
         {/* Cart */}
-        <div className="flex flex-col items-center text-gray-700">
-          <FaOpencart  className="text-2xl" />
-          <span className="text-xs">Cart</span>
-        </div>
+        <ActiveBottomNav to='/cart' className="flex flex-col items-center ">
+          <FaOpencart  className="text-3xl" />
+          <span className="font-[300]">Cart</span>
+        </ActiveBottomNav>
       </div>
     </div>
   );
