@@ -5,6 +5,7 @@ import FindStyle from '../../Components/FindStyle/FindStyle';
 import FeaturedProducts from '../../Components/FeaturedProducts/FeaturedProducts';
 import JoinNow from '../../Components/JoinNow/JoinNow';
 import Delivary from '../../Components/Delivary/Delivary';
+import TodaysDeal from '../../Components/Today\'sDeal/TodaysDeal';
 
 const Home = () => {
     return (
@@ -13,7 +14,8 @@ const Home = () => {
             <OfferTwo />
             <FindStyle />
             <FeaturedProducts />
-            <Delivary/>
+            <Delivary />
+            <TodaysDeal />
             <JoinNow />
         </div>
     );
