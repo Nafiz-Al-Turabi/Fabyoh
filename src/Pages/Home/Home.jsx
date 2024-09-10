@@ -4,6 +4,7 @@ import OfferTwo from '../../Components/OfferTwo/OfferTwo';
 import FindStyle from '../../Components/FindStyle/FindStyle';
 import FeaturedProducts from '../../Components/FeaturedProducts/FeaturedProducts';
 import JoinNow from '../../Components/JoinNow/JoinNow';
+import Delivary from '../../Components/Delivary/Delivary';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <OfferTwo />
             <FindStyle />
             <FeaturedProducts />
+            <Delivary/>
             <JoinNow />
         </div>
     );

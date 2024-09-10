@@ -1,0 +1,243 @@
+[
+    {
+      "id": 1,
+      "title": "Men's Slim Fit Jacket",
+      "price": 79.99,
+      "discount": 20,
+      "colors": ["Black", "Navy", "Olive", "Gray", "Brown"],
+      "description": "A stylish slim-fit jacket perfect for casual and semi-formal occasions. Made with premium materials for comfort and durability.",
+      "images": [
+        "https://example.com/images/mens_jacket_front.jpg",
+        "https://example.com/images/mens_jacket_back.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Women's Floral Summer Dress",
+      "price": 59.99,
+      "discount": 15,
+      "colors": ["Pink", "Yellow", "White", "Green", "Blue"],
+      "description": "A lightweight, floral print summer dress that keeps you cool and stylish. Ideal for beach outings and casual day wear.",
+      "images": [
+        "https://example.com/images/womens_summerdress_front.jpg",
+        "https://example.com/images/womens_summerdress_back.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Men's Casual T-Shirt",
+      "price": 29.99,
+      "discount": 10,
+      "colors": ["White", "Black", "Gray", "Blue", "Green"],
+      "description": "Comfortable and breathable cotton t-shirt for everyday wear. Available in multiple colors to match your style.",
+      "images": [
+        "https://example.com/images/mens_tshirt_front.jpg",
+        "https://example.com/images/mens_tshirt_back.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Women's High-Waisted Jeans",
+      "price": 49.99,
+      "discount": 25,
+      "colors": ["Blue", "Black", "Gray", "White", "Light Blue"],
+      "description": "High-waisted skinny jeans that flatter your figure and offer a perfect fit. Made with stretchable fabric for added comfort.",
+      "images": [
+        "https://example.com/images/womens_jeans_front.jpg",
+        "https://example.com/images/womens_jeans_back.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Men's Formal Dress Shirt",
+      "price": 39.99,
+      "discount": 5,
+      "colors": ["White", "Light Blue", "Gray", "Black", "Pink"],
+      "description": "A classic dress shirt designed for formal and business occasions. Made from high-quality fabric for a sharp look.",
+      "images": [
+        "https://example.com/images/mens_dressshirt_front.jpg",
+        "https://example.com/images/mens_dressshirt_back.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Women's Casual Hoodie",
+      "price": 59.99,
+      "discount": 20,
+      "colors": ["Gray", "Black", "Red", "Pink", "Navy"],
+      "description": "Soft and comfortable hoodie perfect for lounging or casual outings. Features a front pocket and drawstring hood.",
+      "images": [
+        "https://example.com/images/womens_hoodie_front.jpg",
+        "https://example.com/images/womens_hoodie_back.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Men's Cargo Pants",
+      "price": 45.99,
+      "discount": 15,
+      "colors": ["Khaki", "Olive", "Black", "Gray", "Navy"],
+      "description": "Durable and stylish cargo pants with multiple pockets. Ideal for outdoor activities or casual wear.",
+      "images": [
+        "https://example.com/images/mens_cargopants_front.jpg",
+        "https://example.com/images/mens_cargopants_back.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Women's Sports Bra",
+      "price": 24.99,
+      "discount": 10,
+      "colors": ["Black", "White", "Pink", "Blue", "Gray"],
+      "description": "High-support sports bra designed for active lifestyles. Made with moisture-wicking fabric to keep you dry and comfortable.",
+      "images": [
+        "https://example.com/images/womens_sportsbra_front.jpg",
+        "https://example.com/images/womens_sportsbra_back.jpg"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Men's Polo Shirt",
+      "price": 34.99,
+      "discount": 10,
+      "colors": ["Navy", "White", "Black", "Green", "Red"],
+      "description": "Classic polo shirt with a modern fit. Suitable for casual wear or a relaxed business setting.",
+      "images": [
+        "https://example.com/images/mens_polo_front.jpg",
+        "https://example.com/images/mens_polo_back.jpg"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Women's Maxi Dress",
+      "price": 69.99,
+      "discount": 20,
+      "colors": ["Red", "Black", "White", "Navy", "Green"],
+      "description": "Elegant and flowing maxi dress, perfect for special occasions or evening wear. Made with soft fabric for comfort and style.",
+      "images": [
+        "https://example.com/images/womens_maxidress_front.jpg",
+        "https://example.com/images/womens_maxidress_back.jpg"
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Men's Denim Jacket",
+      "price": 79.99,
+      "discount": 15,
+      "colors": ["Blue", "Black", "Gray", "White", "Dark Blue"],
+      "description": "A rugged denim jacket that pairs well with any casual outfit. Designed to last and provide a timeless look.",
+      "images": [
+        "https://example.com/images/mens_denimjacket_front.jpg",
+        "https://example.com/images/mens_denimjacket_back.jpg"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Women's Blouse",
+      "price": 39.99,
+      "discount": 10,
+      "colors": ["White", "Pink", "Blue", "Black", "Red"],
+      "description": "Chic and lightweight blouse with elegant details, perfect for both work and casual settings.",
+      "images": [
+        "https://example.com/images/womens_blouse_front.jpg",
+        "https://example.com/images/womens_blouse_back.jpg"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Men's Track Pants",
+      "price": 49.99,
+      "discount": 15,
+      "colors": ["Black", "Gray", "Navy", "Olive", "Red"],
+      "description": "Comfortable and flexible track pants made for workouts or casual lounging. Breathable fabric ensures all-day comfort.",
+      "images": [
+        "https://example.com/images/mens_trackpants_front.jpg",
+        "https://example.com/images/mens_trackpants_back.jpg"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Women's Yoga Leggings",
+      "price": 39.99,
+      "discount": 10,
+      "colors": ["Black", "Gray", "Blue", "Purple", "Pink"],
+      "description": "High-waisted yoga leggings with a flattering fit. Stretchy and soft fabric for maximum flexibility during workouts.",
+      "images": [
+        "https://example.com/images/womens_leggings_front.jpg",
+        "https://example.com/images/womens_leggings_back.jpg"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Men's Sweater",
+      "price": 59.99,
+      "discount": 20,
+      "colors": ["Gray", "Black", "Navy", "Olive", "Brown"],
+      "description": "Cozy and stylish sweater made with soft, warm materials. Perfect for chilly days and casual wear.",
+      "images": [
+        "https://example.com/images/mens_sweater_front.jpg",
+        "https://example.com/images/mens_sweater_back.jpg"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Women's Denim Shorts",
+      "price": 29.99,
+      "discount": 5,
+      "colors": ["Blue", "White", "Black", "Gray", "Light Blue"],
+      "description": "Comfortable denim shorts with a classic design, great for warm days and casual outings.",
+      "images": [
+        "https://example.com/images/womens_denimshorts_front.jpg",
+        "https://example.com/images/womens_denimshorts_back.jpg"
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Men's Leather Jacket",
+      "price": 129.99,
+      "discount": 30,
+      "colors": ["Black", "Brown", "Gray", "Red", "Navy"],
+      "description": "A premium leather jacket that adds an edge to any outfit. Perfect for a rugged and timeless look.",
+      "images": [
+        "https://example.com/images/mens_leatherjacket_front.jpg",
+        "https://example.com/images/mens_leatherjacket_back.jpg"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Women's Puffer Coat",
+      "price": 99.99,
+      "discount": 25,
+      "colors": ["Red", "Black", "White", "Gray", "Navy"],
+      "description": "A warm and lightweight puffer coat designed for ultimate winter protection. Stylish and functional for cold weather.",
+      "images": [
+        "https://example.com/images/womens_puffercoat_front.jpg",
+        "https://example.com/images/womens_puffercoat_back.jpg"
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Men's Running Shoes",
+      "price": 89.99,
+      "discount": 15,
+      "colors": ["Black", "White", "Gray", "Blue", "Red"],
+      "description": "High-performance running shoes designed for comfort and support. Lightweight and breathable for optimal performance.",
+      "images": [
+        "https://example.com/images/mens_runningshoes_front.jpg",
+        "https://example.com/images/mens_runningshoes_back.jpg"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Women's Heeled Sandals",
+      "price": 49.99,
+      "discount": 20,
+      "colors": ["Beige", "Black", "White", "Pink", "Navy"],
+      "description": "Elegant and comfortable heeled sandals perfect for evening wear. Available in various colors to match any outfit.",
+      "images": [
+        "https://example.com/images/womens_sandals_front.jpg",
+        "https://example.com/images/womens_sandals_back.jpg"
+      ]
+    }
+  ]
+  

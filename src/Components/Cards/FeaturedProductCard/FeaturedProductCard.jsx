@@ -51,7 +51,7 @@ const FeaturedProductCard = () => {
                     <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">Men's Navy Jacket</h3>
 
                     {/* Price */}
-                    <p className="mb-4 text-red-600">(20% off)</p>
+                    <p className="mb-4 text-red-500 uppercase ml-5 text-sm">(20% off)</p>
 
                     {/* Add to Wishlist Button */}
                     <div className="absolute top-4 right-4">
