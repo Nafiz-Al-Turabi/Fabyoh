@@ -14,10 +14,10 @@
 }
 
 .p-bg{
-  @apply bg-[#9578ed]
+  @apply bg-[#7e61da]
 }
 .p-text{
-  @apply text-[#9578ed]
+  @apply text-[#7e61da]
 }
 .s-text{
   @apply text-[#939393]
