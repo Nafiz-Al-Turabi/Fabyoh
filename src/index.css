@@ -16,6 +16,9 @@
 .p-bg{
   @apply bg-[#7e61da]
 }
+.s-bg{
+  @apply bg-[#2b2b2b]
+}
 .p-text{
   @apply text-[#7e61da]
 }
@@ -24,7 +27,7 @@
 }
 
 .p-btn{
-  @apply bg-[#2b2b2b]
+  @apply  w-full p-2 rounded  hover:shadow-xl hover:-translate-y-[1px] active:shadow-none active:translate-y-[1px] transition-all duration-100
 }
 
 /* for bottomNav Shadow */

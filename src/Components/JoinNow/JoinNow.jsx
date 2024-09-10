@@ -18,7 +18,7 @@ const JoinNow = () => {
                             placeholder='Enter your email' 
                         />
                         <button 
-                            className="p-btn w-full p-2  text-lg sm:text-2xl rounded text-white hover:shadow-xl hover:-translate-y-[1px] active:shadow-none active:translate-y-[1px] transition-all duration-100">
+                            className="p-btn s-bg text-white text-lg sm:text-2xl">
                             Join now
                         </button>
                     </div>
