@@ -46,7 +46,10 @@ const Navbar = () => {
           } transition-transform duration-300 ease-in-out`}
       >
         <div className="p-5">
-          <button className="text-gray-600 float-end" onClick={() => setIsMenuOpen(false)}>
+          <div>
+            <img src={logo} alt="" className='w-24' />
+          </div>
+          <button className="text-gray-600 absolute top-6 right-5" onClick={() => setIsMenuOpen(false)}>
             <FiX size={24} />
           </button>
 
