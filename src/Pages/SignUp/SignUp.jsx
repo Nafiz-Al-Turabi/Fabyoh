@@ -1,22 +1,20 @@
-import React from 'react';
 import logo from './../../assets/images/logo.webp';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const SignUp = () => {
     return (
-        <div
-            style={{
-                backgroundImage: 'url("https://i.ibb.co/w4TjXSj/shopping.jpg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                height: '100vh'
-            }}
-            className='flex justify-center items-center font-josefin'>
+        <div style={{
+            backgroundImage: 'url("https://i.ibb.co/w4TjXSj/shopping.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            height: '100vh'
+        }}
+        className='flex justify-center items-center font-josefin'>
             <div className='bg-white w-[550px] p-6 xl:p-16 rounded-lg '>
                 <Link to="/" className='flex justify-center'>
-                    <img src={logo} alt="" className='w-32  mb-14' />
+                    <img src={logo} alt="" className='w-32 mb-14' />
                 </Link>
-                <h1 className='text-3xl text-center mb-6'>Nice to see you again!</h1>
+                <h1 className='text-3xl text-center mb-6'>Create an account</h1>
                 <form action="" className='space-y-8'>
                     <div className="relative h-11 w-full min-w-[200px]">
                         <input
@@ -40,11 +38,11 @@ const Login = () => {
                             Passowrd
                         </label>
                     </div>
-                    <a href="" className='block float-end p-text font-semibold'>Forget Passowrd?</a>
-                    <button className='p-btn s-bg text-white uppercase p-3'>Login</button>
+                    <p className='block float-end text-sm font-semibold'>By creating an account, you agree to our <Link to='/' className='p-text'>Terms and conditions</Link>, and Privacy <Link to='/' className='p-text'>Policy</Link>.</p>
+                    <button className='p-btn s-bg text-white uppercase p-3'>Create account</button>
 
-                    <p className='text-center'>Don't have an account?
-                        <Link to="/signup" className='p-text ml-2'>Sign Up</Link>
+                    <p className='text-center'>Already have an account?
+                        <Link to="/login" className='p-text ml-2'>Sign In</Link>
                     </p>
 
                     <div className='flex items-center gap-5'>
@@ -63,4 +61,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
