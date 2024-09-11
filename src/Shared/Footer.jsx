@@ -23,7 +23,7 @@ const Footer = () => {
     return (
         <footer className='font-josefin pt-4 border-t'>
             <div className=''>
-                <div className='flex items-center px-4 sm:px-6 lg:px-8'>
+                <div className='flex items-center px-4 sm:px-6 lg:px-6'>
                     <h1 className='text-xl'>Trending Now </h1>
                     <img src={trending} alt="" className='w-6' />
                 </div>
