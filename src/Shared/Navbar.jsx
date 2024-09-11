@@ -74,7 +74,7 @@ const Navbar = () => {
                 {/* Right side - Search, Cart, User (For both PC and Mobile) */}
                 <div className="flex space-x-6 items-center">
                   <button><FiSearch onClick={toggleSearch} className="text-gray-800 cursor-pointer" size={30} /></button>
-                  <button><CiGlobe  className="text-gray-800 cursor-pointer" size={30} /></button>
+                  <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button>
                   <button><FiShoppingCart className="text-gray-800" size={30} /></button>
                   <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
 
@@ -117,7 +117,7 @@ const Navbar = () => {
                   <li><a href="#about" className="text-xl">Profile</a></li>
                   <li><a href="#services" className="text-xl">Wishlist</a></li>
                   <li><a href="#contact" className="text-xl">Help</a></li>
-                  <li><a href="#contact" className="text-xl">Login</a></li>
+                  <li><Link to="/login" className="text-xl">Login</Link></li>
                 </ul>
               </div>
             </div>

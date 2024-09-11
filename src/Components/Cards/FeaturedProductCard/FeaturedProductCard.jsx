@@ -5,12 +5,16 @@ import black_jacket1 from './../../../assets/images/Featured products/navy-jacke
 import black_jacket2 from './../../../assets/images/Featured products/navy-jacket2.webp';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 
-const FeaturedProductCard = () => {
+const FeaturedProductCard = ({ product }) => {
     const [loading, setLoading] = useState(true);
+
+    console.log(product);
+
+    const { title, discount, imageMain, imageSecond,id } = product
 
     useEffect(() => {
         // Simulate loading time
-        setTimeout(() => setLoading(false), 4000);
+        setTimeout(() => setLoading(false), 1000);
     }, []);
 
     return (
@@ -19,7 +23,7 @@ const FeaturedProductCard = () => {
             {loading ? (
                 <div>
                     {/* Shimmer Loader for Image */}
-                    <div className="relative w-full min-h-80 bg-gray-300 rounded-lg mb-4 overflow-hidden">
+                    <div className="relative w-full min-h-96 bg-gray-300 rounded-lg mb-4 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect"></div>
                     </div>
                     {/* Shimmer Loader for Title */}
@@ -34,24 +38,24 @@ const FeaturedProductCard = () => {
             ) : (
                 <>
                     {/* Responsive images */}
-                    <div className="flex justify-center items-center relative w-full min-h-80 overflow-hidden">
+                    <div className="flex justify-center items-center relative w-full min-h-96 overflow-hidden">
                         <img
-                            src={black_jacket1}
+                            src={imageMain}
                             alt="Image 1"
                             className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out group-hover:opacity-0"
                         />
                         <img
-                            src={black_jacket2}
+                            src={imageSecond}
                             alt="Image 2"
                             className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
                         />
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">Men's Navy Jacket</h3>
+                    <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">{title}</h3>
 
                     {/* Price */}
-                    <p className="mb-4 text-red-500 uppercase ml-5 text-sm">(20% off)</p>
+                    <p className="mb-4 text-red-500 uppercase ml-5 text-sm">({discount}% off)</p>
 
                     {/* Add to Wishlist Button */}
                     <div className="absolute top-4 right-4">
