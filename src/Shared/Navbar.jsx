@@ -55,7 +55,7 @@ const Navbar = () => {
                 {/* Left side - Menu Items (PC only) */}
                 <div className="hidden xl:flex space-x-6 font-josefin">
                   <Link to="/shirts" className="text-gray-800 text-xl hover:text-gray-600">Shirts</Link>
-                  <Link to="/" className="text-gray-800 text-xl hover:text-gray-600">Tshirts</Link>
+                  <Link to="/tshirts" className="text-gray-800 text-xl hover:text-gray-600">Tshirts</Link>
                   <Link to="/" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</Link>
                   <Link to="/" className="text-gray-800 text-xl hover:text-gray-600">Jackets</Link>
                 </div>

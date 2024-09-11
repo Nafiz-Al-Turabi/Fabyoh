@@ -72,7 +72,7 @@ const Filters = () => {
 
     return (
         <div>
-            <div className='flex justify-between items-center p-6 border-2 bg-white relative'>
+            <div className='flex justify-between items-center p-6 border-2 bg-white relative font-josefin'>
                 <p>{filteredProducts.length} Items Found</p>
                 <div className='relative'>
                     <span className='w-56 p-2 text-slate-400 border rounded-md flex items-center cursor-pointer' onClick={handleDropdownToggle}>
@@ -103,7 +103,7 @@ const Filters = () => {
                     )}
                 </div>
             </div>
-            <div className='flex'>
+            <div className='flex font-josefin'>
                 <div className='hidden lg:block w-1/3 bg-white border-r mb-6'>
                     <div className='flex justify-between items-center mb-6 p-6'>
                         <h1 className='text-xl font-semibold text-gray-800'>Filters</h1>
