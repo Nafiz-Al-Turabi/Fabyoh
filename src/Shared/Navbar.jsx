@@ -11,6 +11,7 @@ const Navbar = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
 
 
   const toggleSearch = () => {
@@ -19,7 +20,9 @@ const Navbar = () => {
   const toggleLogin = () => {
     setIsLogin(!isLogin)
   }
-
+  const toggleCart = () => {
+    setCartOpen(!isCartOpen)
+  }
   // for sticky login
   useEffect(() => {
     const handleScroll = () => {
@@ -56,8 +59,8 @@ const Navbar = () => {
                 <div className="hidden xl:flex space-x-6 font-josefin">
                   <Link to="/shirts" className="text-gray-800 text-xl hover:text-gray-600">Shirts</Link>
                   <Link to="/tshirts" className="text-gray-800 text-xl hover:text-gray-600">Tshirts</Link>
-                  <Link to="/" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</Link>
-                  <Link to="/" className="text-gray-800 text-xl hover:text-gray-600">Jackets</Link>
+                  <Link to="/hoodies" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</Link>
+                  <Link to="/jackets" className="text-gray-800 text-xl hover:text-gray-600">Jackets</Link>
                 </div>
                 {/* Mobile menu toggle button */}
                 <button
@@ -75,8 +78,8 @@ const Navbar = () => {
                 <div className="flex space-x-6 items-center">
                   <button><FiSearch onClick={toggleSearch} className="text-gray-800 cursor-pointer" size={30} /></button>
                   <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button>
-                  <button><FiShoppingCart className="text-gray-800" size={30} /></button>
                   <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
+                  <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
 
                 </div>
               </div>
@@ -144,6 +147,49 @@ const Navbar = () => {
               <Link to='/login' onClick={toggleLogin} className="p-btn w-40 py-3 border uppercase hover:bg-[#2b2b2b] hover:text-white duration-100 ease-out">
                 Login to start
               </Link>
+            </div>
+          </>
+        )
+      }
+
+      {
+        isCartOpen && (
+          <>
+            <div className='fixed z-50 bg-white w-[450px] h-full top-0 right-0 font-josefin '>
+              <div className='relative px-6 '>
+                <button onClick={toggleCart}>
+                  <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
+                </button>
+                <div>
+                  <h1 className='text-center mt-16 mb-10'>Yay! No Shipping fees on this order 2</h1>
+                {/* cart Card */}
+                  <div className='flex  gap-3 border-b pb-6 mb-5'>
+                    <div>
+                      <img src="https://i.ibb.co.com/47y7qgp/women-p-jacket.webp" alt="" className='w-24 h-24 object-cover' />
+                    </div>
+                    <div className='space-y-1.5 '>
+                      <h3>Fabyoh Premium Hoodies</h3>
+                      <p>Color/L</p>
+                      <p className='w-24 flex justify-between border-2 p-1 text-center  '>
+                        <button>-</button>
+                        5
+                        <button>+</button></p>
+                    </div>
+                  </div>
+                    <button className='p-btn border mt-5'>Add More From Wishlist</button>
+
+                    <div className='mt-5 p-2'>
+                      <h1 className='text-lg'>Total MRP</h1>
+                        <div className='flex justify-between bg-gray-100 p-2 mt-2'>
+                          <p>Total Amount</p>
+                          <p>$250</p>
+                        </div>
+                    </div>
+
+                    <button className='p-btn s-bg text-white uppercase mt-10'>Proceed to checkout</button>
+                    <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10 '>View cart</button>
+                </div>
+              </div>
             </div>
           </>
         )

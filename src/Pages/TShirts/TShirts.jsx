@@ -5,7 +5,7 @@ import Filters from '../../Components/Filters/Filters';
 
 const TShirts = () => {
     const backgroundStyles = useBackgroundStyles("https://i.ibb.co.com/xgpNZYC/fgffg.jpg");
-    const { title, description } = useTextContent("Shop", "You don't need to approach fashion. Fashion approaches you here.");
+    const { title, description } = useTextContent("Shop T-Shirts", "You don't need to approach fashion. Fashion approaches you here.");
     return (
         <div>
             <div style={backgroundStyles} className='relative font-josefin'>

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useBackgroundStyles from '../../Hooks/useBackgroundStyles';
 import useTextContent from '../../Hooks/useTextContent';
 import Filters from '../../Components/Filters/Filters';
 
-const Shirts = () => {
-    const backgroundStyles = useBackgroundStyles("https://i.ibb.co/0mwWHGc/bg.webp");
-    const { title, description } = useTextContent("Shop Shirts", "You don't need to approach fashion. Fashion approaches you here.");
-
-
+const Jackets = () => {
+    const backgroundStyles = useBackgroundStyles("https://i.ibb.co.com/cCtxSTR/2147689024-1.jpg");
+    const { title, description } = useTextContent("Shop Jacktes", "You don't need to approach fashion. Fashion approaches you here.");
     return (
         <div className='font-josefin'>
             <div style={backgroundStyles} className='relative'>
@@ -21,4 +19,4 @@ const Shirts = () => {
     );
 };
 
-export default Shirts;
+export default Jackets;

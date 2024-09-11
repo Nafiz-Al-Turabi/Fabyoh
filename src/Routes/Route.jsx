@@ -6,6 +6,8 @@ import Login from '../Pages/Login/Login';
 import SignUp from '../Pages/SignUp/SignUp';
 import Shirts from '../Pages/Shirts/Shirts';
 import TShirts from '../Pages/TShirts/TShirts';
+import Hoodies from '../Pages/Hoodies/Hoodies';
+import Jackets from '../Pages/Jackets/Jackets';
 
 const router = createBrowserRouter([
     {
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
             {
                 path: '/tshirts',
                 element: <TShirts />
+            },
+            {
+                path: '/hoodies',
+                element: <Hoodies />
+            },
+            {
+                path: '/jackets',
+                element: <Jackets />
             },
         ]
     },
