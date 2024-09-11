@@ -77,7 +77,7 @@ const Navbar = () => {
                 {/* Right side - Search, Cart, User (For both PC and Mobile) */}
                 <div className="flex space-x-6 items-center">
                   <button><FiSearch onClick={toggleSearch} className="text-gray-800 cursor-pointer" size={30} /></button>
-                  <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button>
+                  {/* <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button> */}
                   <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
                   <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
 
@@ -155,7 +155,7 @@ const Navbar = () => {
       {
         isCartOpen && (
           <>
-            <div className='fixed z-50 bg-white w-[450px] h-full top-0 right-0 font-josefin '>
+            <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin '>
               <div className='relative px-6 '>
                 <button onClick={toggleCart}>
                   <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
