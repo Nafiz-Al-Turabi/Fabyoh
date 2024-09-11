@@ -107,16 +107,16 @@ const Navbar = () => {
                     {/* Dropdown Items */}
                     {isDropdownOpen && (
                       <ul className="mt-2 ml-4 space-y-8">
-                        <li><a href="#shirts" className="text-xl">Shirts</a></li>
-                        <li><a href="#tshirts" className="text-xl">Tshirts</a></li>
-                        <li><a href="#hoodies" className="text-xl">Hoodies</a></li>
-                        <li><a href="#jackets" className="text-xl">Jackets</a></li>
+                        <li><Link to="/shirts" className="text-xl">Shirts</Link></li>
+                        <li><Link to="/tshirts" className="text-xl">Tshirts</Link></li>
+                        <li><Link to="/hoodies" className="text-xl">Hoodies</Link></li>
+                        <li><Link to="/jackets" className="text-xl">Jackets</Link></li>
                       </ul>
                     )}
                   </li>
-                  <li><a href="#about" className="text-xl">Profile</a></li>
-                  <li><a href="#services" className="text-xl">Wishlist</a></li>
-                  <li><a href="#contact" className="text-xl">Help</a></li>
+                  <li><Link to="/profile" className="text-xl">Profile</Link></li>
+                  <li><Link to="/wishlist" className="text-xl">Wishlist</Link></li>
+                  <li><Link to="/help" className="text-xl">Help</Link></li>
                   <li><Link to="/login" className="text-xl">Login</Link></li>
                 </ul>
               </div>
