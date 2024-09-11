@@ -7,6 +7,7 @@ const Filters = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('Newest');
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
 
     // Handle the dropdown toggle
@@ -42,12 +43,37 @@ const Filters = () => {
         } catch (error) {
             console.log('Failed to fetch products', error)
         }
-    }
+    };
+
+    // sort 
+
+    useEffect(() => {
+        sortProducts();
+    }, [selectedOption, products]);
+
+    const sortProducts = () => {
+        let sorted = [...products];
+
+        switch (selectedOption) {
+            case 'Newest':
+                sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+                break;
+            case 'Low to High':
+                sorted.sort((a, b) => a.price - b.price);
+                break;
+            case 'High to Low':
+                sorted.sort((a, b) => b.price - a.price);
+                break;
+            default:
+                break;
+        }
+        setFilteredProducts(sorted);
+    };
 
     return (
         <div>
             <div className='flex justify-between items-center p-6 border-2 bg-white relative'>
-                <p>26 Items Found</p>
+                <p>{filteredProducts.length} Items Found</p>
                 <div className='relative'>
                     <span className='w-56 p-2 text-slate-400 border rounded-md flex items-center cursor-pointer' onClick={handleDropdownToggle}>
                         Store by:
@@ -215,7 +241,7 @@ const Filters = () => {
                 <div className='w-full py-4 lg:p-6'>
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6 mx-4 xl:mx-0'>
                         {
-                            products.map(product => <FeaturedProductCard key={product.id} product={product} />)
+                            filteredProducts.map(product => <FeaturedProductCard key={product.id} product={product} />)
                         }
                     </div>
                 </div>

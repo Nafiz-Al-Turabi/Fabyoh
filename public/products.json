@@ -4,77 +4,230 @@
     "title": "Men's Horse Printed Tshirt",
     "price": 79.99,
     "discount": 20,
-    "colors": ["Black", "Navy", "Olive", "Gray", "Brown"],
+    "colors": [
+      "Black",
+      "Navy",
+      "Olive",
+      "Gray",
+      "Brown"
+    ],
     "description": "A stylish slim-fit jacket perfect for casual and semi-formal occasions. Made with premium materials for comfort and durability.",
     "imageMain": "https://i.ibb.co.com/ccLZ6hV/red-t-shirt.webp",
     "imageSecond": "https://i.ibb.co.com/PYVFn1K/red-t-shirt-second.webp",
     "category": "t-shirts",
     "in_stock": true,
-    "trending": true
+    "trending": true,
+    "date": "2024-09-10"
   },
   {
     "id": 2,
     "title": "Premium Women's Crop Top Tshirt",
     "price": 59.99,
     "discount": 15,
-    "colors": ["Pink", "Yellow", "White", "Green", "Blue"],
+    "colors": [
+      "Pink",
+      "Yellow",
+      "White",
+      "Green",
+      "Blue"
+    ],
     "description": "A lightweight, floral print summer dress that keeps you cool and stylish. Ideal for beach outings and casual day wear.",
     "imageMain": "https://i.ibb.co.com/5FGxXqt/women-cloths.webp",
     "imageSecond": "https://i.ibb.co.com/P1HxRb1/women-cloths-second.webp",
     "category": "t-shirts",
     "in_stock": true,
-    "trending": false
+    "trending": false,
+    "date": "2024-08-15"
   },
   {
     "id": 3,
     "title": "Pavilion Tshirt (Limited Edition)",
     "price": 29.99,
     "discount": 10,
-    "colors": ["White", "Black", "Gray", "Blue", "Green"],
+    "colors": [
+      "White",
+      "Black",
+      "Gray",
+      "Blue",
+      "Green"
+    ],
     "description": "Comfortable and breathable cotton t-shirt for everyday wear. Available in multiple colors to match your style.",
     "imageMain": "https://i.ibb.co.com/LrL1Zsd/blue-shirt.webp",
     "imageSecond": "https://i.ibb.co.com/qRcpzhB/blue-shirt-second.webp",
     "category": "t-shirts",
     "in_stock": true,
-    "trending": true
+    "trending": true,
+    "date": "2024-07-22"
   },
   {
     "id": 4,
     "title": "Women's Minimal Full Sleeves",
     "price": 49.99,
     "discount": 25,
-    "colors": ["Blue", "Black", "Gray", "White", "Light Blue"],
+    "colors": [
+      "Blue",
+      "Black",
+      "Gray",
+      "White",
+      "Light Blue"
+    ],
     "description": "High-waisted skinny jeans that flatter your figure and offer a perfect fit. Made with stretchable fabric for added comfort.",
     "imageMain": "https://i.ibb.co.com/yPYmSdK/women-t-shirt-second.webp",
     "imageSecond": "https://i.ibb.co.com/V37NpvB/women-t-shirt.webp",
     "category": "jacket",
     "in_stock": true,
-    "trending": false
+    "trending": false,
+    "date": "2024-06-30"
   },
   {
     "id": 5,
     "title": "Men's Oversized Back Printed T-Shirt",
     "price": 39.99,
     "discount": 5,
-    "colors": ["White", "Light Blue", "Gray", "Black", "Pink"],
+    "colors": [
+      "White",
+      "Light Blue",
+      "Gray",
+      "Black",
+      "Pink"
+    ],
     "description": "A classic dress shirt designed for formal and business occasions. Made from high-quality fabric for a sharp look.",
     "imageMain": "https://i.ibb.co.com/X3twJJ1/white-shirt.webp",
     "imageSecond": "https://i.ibb.co.com/hKrRWHB/white-shirt-second.webp",
     "category": "shirts",
     "in_stock": false,
-    "trending": false
+    "trending": false,
+    "date": "2024-05-18"
   },
   {
     "id": 6,
     "title": "Women's Printed Sleeveless Tshirt",
     "price": 59.99,
     "discount": 20,
-    "colors": ["Gray", "Black", "Red", "Pink", "Navy"],
+    "colors": [
+      "Gray",
+      "Black",
+      "Red",
+      "Pink",
+      "Navy"
+    ],
     "description": "Soft and comfortable hoodie perfect for lounging or casual outings. Features a front pocket and drawstring hood.",
     "imageMain": "https://i.ibb.co.com/f8RcgX4/women-shirt-second.webp",
     "imageSecond": "https://i.ibb.co.com/d4kZHwb/women-shirt.webp",
     "category": "hoodies",
     "in_stock": true,
-    "trending": true
+    "trending": true,
+    "date": "2024-04-10"
+  },
+  {
+    "id": 7,
+    "title": "Women's Casual Hooded Sweatshirt",
+    "price": 89.99,
+    "discount": 30,
+    "colors": [
+      "Red",
+      "Black",
+      "Gray",
+      "White",
+      "Purple"
+    ],
+    "description": "A trendy casual hoodie perfect for winter wear, with a soft interior and stylish hood design.",
+    "imageMain": "https://i.ibb.co.com/FHvcPhW/women-hoode-s.webp",
+    "imageSecond": "https://i.ibb.co.com/2NF5SfL/women-hoode.webp",
+    "category": "hoodies",
+    "in_stock": true,
+    "trending": false,
+    "date": "2024-03-15"
+  },
+  {
+    "id": 8,
+    "title": "Women's Padded Jacket",
+    "price": 129.99,
+    "discount": 25,
+    "colors": [
+      "Navy",
+      "Olive",
+      "Maroon",
+      "White"
+    ],
+    "description": "A warm padded jacket that offers excellent insulation and protection against cold weather. Designed for outdoor activities.",
+    "imageMain": "https://i.ibb.co.com/J32Bzn9/women-p-jacket-21.webp",
+    "imageSecond": "https://i.ibb.co.com/5rNqk7s/women-p-jacket-2.webp",
+    "category": "jackets",
+    "in_stock": true,
+    "trending": true,
+    "date": "2024-02-20"
+  },
+  {
+    "id": 9,
+    "title": "Women's Puff Jacket",
+    "price": 119.99,
+    "discount": 20,
+    "colors": [
+      "Black",
+      "Gray",
+      "Pink"
+    ],
+    "description": "Lightweight puff jacket ideal for layering in colder months. Features a fitted silhouette with a hood for added warmth.",
+    "imageMain": "https://i.ibb.co.com/xfszdQQ/women-p-jacket-s.webp",
+    "imageSecond": "https://i.ibb.co.com/47y7qgp/women-p-jacket.webp",
+    "category": "jackets",
+    "in_stock": true,
+    "trending": false,
+    "date": "2024-01-30"
+  },
+  {
+    "id": 10,
+    "title": "Men's Basic Hoodie",
+    "price": 69.99,
+    "discount": 10,
+    "colors": [
+      "Navy",
+      "Gray",
+      "Black",
+      "Red"
+    ],
+    "description": "A simple yet stylish hoodie with a kangaroo pocket and adjustable drawstrings. Perfect for casual outings.",
+    "imageMain": "https://i.ibb.co.com/v32M6HZ/hoode.webp",
+    "imageSecond": "https://i.ibb.co.com/PMf6TPv/hoode-second.webp",
+    "category": "hoodies",
+    "in_stock": false,
+    "trending": false,
+    "date": "2024-01-15"
+  },
+  {
+    "id": 11,
+    "title": "Women's Winter Jacket",
+    "price": 149.99,
+    "discount": 35,
+    "colors": [
+      "Black",
+      "Beige",
+      "Light Gray"
+    ],
+    "description": "Stylish winter jacket with faux fur collar. Provides maximum warmth and is perfect for colder climates.",
+    "imageMain": "https://i.ibb.co.com/tXwLB9S/woemn-j-jacket.webp",
+    "imageSecond": "https://i.ibb.co.com/gZW9xYc/woemn-j-jacket-second.webp",
+    "category": "jackets",
+    "in_stock": true,
+    "trending": true,
+    "date": "2023-12-10"
+  },
+  {
+    "id": 12,
+    "title": "Men's Leather Jacket",
+    "price": 199.99,
+    "discount": 20,
+    "colors": [
+      "Black",
+      "Brown"
+    ],
+    "description": "Classic leather jacket made from high-quality materials, offering both style and durability. Ideal for casual and semi-formal occasions.",
+    "imageMain": "https://i.ibb.co.com/7j7g6Rx/black-jacket.webp",
+    "imageSecond": "https://i.ibb.co.com/7pTKFgv/black-jacket-second.webp",
+    "category": "jackets",
+    "in_stock": false,
+    "trending": false,
+    "date": "2023-11-20"
   }
 ]
