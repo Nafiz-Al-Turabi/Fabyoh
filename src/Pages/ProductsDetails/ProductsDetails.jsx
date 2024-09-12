@@ -116,7 +116,7 @@ const ProductsDetails = () => {
                                     <div
                                         key={color}
                                         onClick={() => handleColorSelect(color)}
-                                        className={`w-6 h-6 rounded-full border border-gray-300 cursor-pointer ${selectedColor === color ? 'ring-2 ring-offset-2 ring-gray-300' : ''}`}
+                                        className={`w-6 h-6 rounded-full border border-gray-300 cursor-pointer ${selectedColor === color ? 'ring-2 ring-offset-2 ring-violet-500' : ''}`}
                                         style={{ backgroundColor: color }}
                                     ></div>
                                 ))}

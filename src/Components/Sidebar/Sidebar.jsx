@@ -45,10 +45,7 @@ const Sidebar = ({ toggleCart }) => {
                 <button onClick={toggleCart}>
                     <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
                 </button>
-                <div>
-                    <h1 className='text-center mt-16 mb-10'>
-                        Yay! No Shipping fees on this order
-                    </h1>
+                <div className='mt-16'>
                     {cartItems.length > 0 ? (
                         <>
                             {/* Cart Items */}
@@ -66,7 +63,10 @@ const Sidebar = ({ toggleCart }) => {
                                     </div>
                                     <div className='space-y-1.5'>
                                         <h3>{item.title}</h3>
-                                        <p>{item.color}/{item.size}</p>
+                                        <div className='flex gap-2 items-center'>
+                                            <p style={{ backgroundColor: item.color }} className='h-4 w-4'></p><span className='text-xl text-gray-300'>|</span>
+                                            <p>{item.size}</p>
+                                        </div>
                                         <div className='flex justify-between items-center'>
                                             <div className='w-24 flex justify-between border-2 p-1 text-center'>
                                                 <button onClick={() => handleDecreaseQuantity(index)}>-</button>
@@ -105,7 +105,12 @@ const Sidebar = ({ toggleCart }) => {
                             </button>
                         </>
                     ) : (
-                        <p>Your cart is empty.</p>
+                        <div className='mt-56 '>
+                            <div className='flex flex-col justify-center items-center space-y-32'>
+                                <p className='text-lg'>There is nothing in your bag!</p>
+                                <img src="https://i.ibb.co.com/r03M1Fv/cart-min.png" alt="" className='w-56' />
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
