@@ -48,6 +48,10 @@
   cursor: pointer;
 }
 
+.checkbox:hover{
+  background-color: #af99f7;
+}
+
 .checkbox:checked {
   background-color: #7e61da;
   border-color: #7e61da;

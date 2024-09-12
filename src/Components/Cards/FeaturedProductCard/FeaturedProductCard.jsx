@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import './FeaturedProductCard.css';
-import black_jacket1 from './../../../assets/images/Featured products/navy-jacket.webp';
-import black_jacket2 from './../../../assets/images/Featured products/navy-jacket2.webp';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 
 const FeaturedProductCard = ({ product }) => {

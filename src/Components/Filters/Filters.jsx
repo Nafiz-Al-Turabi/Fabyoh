@@ -7,7 +7,7 @@ const Filters = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     
-    const [openCategory, setOpenCategory] = useState(false);
+    const [openCategory, setOpenCategory] = useState(true);
     const [openPrice, setOpenPrice] = useState(false);
     const [openAvailability, setOpenAvailability] = useState(false);
     const [openTrending, setOpenTrending] = useState(false);
@@ -20,6 +20,12 @@ const Filters = () => {
 
     useEffect(() => {
         fetchProducts();
+        // to select category according to Navigation bar
+        const path = window.location.pathname;
+        const category = path.split('/').pop(); // Get the last part of the path
+        if (category && category !== 'products') { 
+            setSelectedCategory([category]);
+        }
     }, []);
 
     const fetchProducts = async () => {
@@ -171,7 +177,7 @@ const Filters = () => {
                 </div>
             </div>
             <div className='flex font-josefin'>
-                <div className='hidden lg:block w-1/3 bg-white border-r mb-6'>
+                <div className='hidden lg:block w-1/4 bg-white border-r mb-6'>
                     <div className='flex justify-between items-center mb-6 p-6'>
                         <h1 className='text-xl font-semibold text-gray-800'>Filters</h1>
                         <button className='text-red-500 hover:text-red-600 font-medium' onClick={() => {
@@ -206,6 +212,7 @@ const Filters = () => {
                                         <input
                                             type='checkbox'
                                             className='checkbox'
+                                            checked={selectedCategory.includes(item.toLowerCase())}
                                             onChange={() => handleCategoryChange(item.toLowerCase())}
                                         />
                                         <span className='ml-2 text-gray-700'>{item}</span>
@@ -314,7 +321,7 @@ const Filters = () => {
                         )}
                     </div>
                 </div>
-                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 p-4 gap-2 md:gap-6 mx-4 xl:mx-0'>
+                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 p-4 xl:px-16 xl:py-4 gap-2 md:gap-6 mx-4 xl:mx-0'>
                     {filteredProducts.map((product) => (
                         <FeaturedProductCard key={product.id} product={product} />
                     ))}
