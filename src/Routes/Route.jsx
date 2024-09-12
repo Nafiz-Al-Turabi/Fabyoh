@@ -8,6 +8,7 @@ import Shirts from '../Pages/Shirts/Shirts';
 import TShirts from '../Pages/TShirts/TShirts';
 import Hoodies from '../Pages/Hoodies/Hoodies';
 import Jackets from '../Pages/Jackets/Jackets';
+import ProductsDetails from '../Pages/ProductsDetails/ProductsDetails';
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,11 @@ const router = createBrowserRouter([
             {
                 path: '/jackets',
                 element: <Jackets />
+            },
+            {
+                path: '/productDetails/:id',
+                element: <ProductsDetails />,
+                loader: ({ params }) => fetch('products.json')
             },
         ]
     },

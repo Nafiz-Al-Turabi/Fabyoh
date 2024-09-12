@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import './FeaturedProductCard.css';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 
 const FeaturedProductCard = ({ product }) => {
     const [loading, setLoading] = useState(true);
@@ -16,12 +17,12 @@ const FeaturedProductCard = ({ product }) => {
     }, []);
 
     return (
-        <div className="relative w-full sm:w-60 md:w-full h-auto group font-josefin">
+        <Link to={`/productDetails/${id}`} className="relative w-full sm:w-60 md:w-full h-auto group font-josefin">
             {/* Skeleton Loader */}
             {loading ? (
                 <div>
                     {/* Shimmer Loader for Image */}
-                    <div className="relative w-full min-h-96 bg-gray-300 rounded-lg mb-4 overflow-hidden">
+                    <div className="relative xl:w-80 min-h-96 bg-gray-300 rounded-lg mb-4 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect"></div>
                     </div>
                     {/* Shimmer Loader for Title */}
@@ -36,7 +37,7 @@ const FeaturedProductCard = ({ product }) => {
             ) : (
                 <>
                     {/* Responsive images */}
-                    <div className="flex justify-center items-center relative w-full min-h-96 overflow-hidden">
+                    <div className="flex justify-center items-center relative xl:w-80 min-h-96 overflow-hidden">
                         <img
                             src={imageMain}
                             alt="Image 1"
@@ -64,7 +65,7 @@ const FeaturedProductCard = ({ product }) => {
                     </div>
                 </>
             )}
-        </div>
+        </Link>
     );
 };
 
