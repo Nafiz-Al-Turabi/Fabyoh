@@ -103,7 +103,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Items */}
                 <ul className="mt-16 space-y-12 font-josefin">
-                  <li><a href="#about" className="text-xl">Shop</a></li>
+                  <li><ActiveLink to="/">Shop</ActiveLink></li>
                   <li>
                     {/* Dropdown Menu for Category */}
                     <div className="flex justify-between items-center cursor-pointer" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -113,17 +113,17 @@ const Navbar = () => {
                     {/* Dropdown Items */}
                     {isDropdownOpen && (
                       <ul className="mt-2 ml-4 space-y-8">
-                        <li><Link to="/shirts" className="text-xl">Shirts</Link></li>
-                        <li><Link to="/tshirts" className="text-xl">Tshirts</Link></li>
-                        <li><Link to="/hoodies" className="text-xl">Hoodies</Link></li>
-                        <li><Link to="/jackets" className="text-xl">Jackets</Link></li>
+                        <li><ActiveLink to="/shirts">Shirts</ActiveLink></li>
+                        <li><ActiveLink to="/tshirts">Tshirts</ActiveLink></li>
+                        <li><ActiveLink to="/hoodies">Hoodies</ActiveLink></li>
+                        <li><ActiveLink to="/jackets">Jackets</ActiveLink></li>
                       </ul>
                     )}
                   </li>
-                  <li><Link to="/profile" className="text-xl">Profile</Link></li>
-                  <li><Link to="/wishlist" className="text-xl">Wishlist</Link></li>
-                  <li><Link to="/help" className="text-xl">Help</Link></li>
-                  <li><Link to="/login" className="text-xl">Login</Link></li>
+                  <li><ActiveLink to="/profile">Profile</ActiveLink></li>
+                  <li><ActiveLink to="/wishlist">Wishlist</ActiveLink></li>
+                  <li><ActiveLink to="/help">Help</ActiveLink></li>
+                  <li><ActiveLink to="/login">Login</ActiveLink></li>
                 </ul>
               </div>
             </div>
