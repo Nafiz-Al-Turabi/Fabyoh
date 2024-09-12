@@ -4,6 +4,7 @@ import logo from './../assets/Images/logo.webp'
 import { IoClose, IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { CiGlobe } from 'react-icons/ci';
+import ActiveLink from '../ActiveLinks/ActiveLink';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -57,10 +58,10 @@ const Navbar = () => {
 
                 {/* Left side - Menu Items (PC only) */}
                 <div className="hidden xl:flex space-x-6 font-josefin">
-                  <Link to="/shirts" className="text-gray-800 text-xl hover:text-gray-600">Shirts</Link>
-                  <Link to="/tshirts" className="text-gray-800 text-xl hover:text-gray-600">Tshirts</Link>
-                  <Link to="/hoodies" className="text-gray-800 text-xl hover:text-gray-600">Hoodies</Link>
-                  <Link to="/jackets" className="text-gray-800 text-xl hover:text-gray-600">Jackets</Link>
+                  <ActiveLink to="/shirts" >Shirts</ActiveLink>
+                  <ActiveLink to="/tshirts" >Tshirts</ActiveLink>
+                  <ActiveLink to="/hoodies" >Hoodies</ActiveLink>
+                  <ActiveLink to="/jackets" >Jackets</ActiveLink>
                 </div>
                 {/* Mobile menu toggle button */}
                 <button
@@ -71,7 +72,9 @@ const Navbar = () => {
                 </button>
                 {/* Center - Logo */}
                 <div className="flex-1 flex justify-center items-center">
-                  <img src={logo} alt="" className=' w-28 md:w-32 xl:mr-40' />
+                  <Link to='/'>
+                    <img src={logo} alt="" className=' w-28 md:w-32 xl:mr-40' />
+                  </Link>
                 </div>
 
                 {/* Right side - Search, Cart, User (For both PC and Mobile) */}
@@ -162,7 +165,7 @@ const Navbar = () => {
                 </button>
                 <div>
                   <h1 className='text-center mt-16 mb-10'>Yay! No Shipping fees on this order 2</h1>
-                {/* cart Card */}
+                  {/* cart Card */}
                   <div className='flex  gap-3 border-b pb-6 mb-5'>
                     <div>
                       <img src="https://i.ibb.co.com/47y7qgp/women-p-jacket.webp" alt="" className='w-24 h-24 object-cover' />
@@ -176,18 +179,18 @@ const Navbar = () => {
                         <button>+</button></p>
                     </div>
                   </div>
-                    <button className='p-btn border mt-5'>Add More From Wishlist</button>
+                  <button className='p-btn border mt-5'>Add More From Wishlist</button>
 
-                    <div className='mt-5 p-2'>
-                      <h1 className='text-lg'>Total MRP</h1>
-                        <div className='flex justify-between bg-gray-100 p-2 mt-2'>
-                          <p>Total Amount</p>
-                          <p>$250</p>
-                        </div>
+                  <div className='mt-5 p-2'>
+                    <h1 className='text-lg'>Total MRP</h1>
+                    <div className='flex justify-between bg-gray-100 p-2 mt-2'>
+                      <p>Total Amount</p>
+                      <p>$250</p>
                     </div>
+                  </div>
 
-                    <button className='p-btn s-bg text-white uppercase mt-10'>Proceed to checkout</button>
-                    <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10 '>View cart</button>
+                  <button className='p-btn s-bg text-white uppercase mt-10'>Proceed to checkout</button>
+                  <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10 '>View cart</button>
                 </div>
               </div>
             </div>

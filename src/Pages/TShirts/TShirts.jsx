@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useBackgroundStyles from '../../Hooks/useBackgroundStyles';
 import useTextContent from '../../Hooks/useTextContent';
 import Filters from '../../Components/Filters/Filters';
@@ -6,6 +6,10 @@ import Filters from '../../Components/Filters/Filters';
 const TShirts = () => {
     const backgroundStyles = useBackgroundStyles("https://i.ibb.co.com/xgpNZYC/fgffg.jpg");
     const { title, description } = useTextContent("Shop T-Shirts", "You don't need to approach fashion. Fashion approaches you here.");
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     return (
         <div>
             <div style={backgroundStyles} className='relative font-josefin'>
