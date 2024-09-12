@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 import logo from './../assets/Images/logo.webp'
 import { IoClose, IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { CiGlobe } from 'react-icons/ci';
 import ActiveLink from '../ActiveLinks/ActiveLink';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import { CartContext } from '../Provider/CartProvider';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +15,7 @@ const Navbar = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
+  const { cartItems } = useContext(CartContext)
 
 
   const toggleSearch = () => {
@@ -82,7 +85,10 @@ const Navbar = () => {
                   <button><FiSearch onClick={toggleSearch} className="text-gray-800 cursor-pointer" size={30} /></button>
                   {/* <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button> */}
                   <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
-                  <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
+                  <div className='relative'>
+                    <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
+                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems.length}</p>
+                  </div>
 
                 </div>
               </div>
@@ -158,42 +164,8 @@ const Navbar = () => {
       {
         isCartOpen && (
           <>
-            <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin '>
-              <div className='relative px-6 '>
-                <button onClick={toggleCart}>
-                  <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
-                </button>
-                <div>
-                  <h1 className='text-center mt-16 mb-10'>Yay! No Shipping fees on this order 2</h1>
-                  {/* cart Card */}
-                  <div className='flex  gap-3 border-b pb-6 mb-5'>
-                    <div>
-                      <img src="https://i.ibb.co.com/47y7qgp/women-p-jacket.webp" alt="" className='w-24 h-24 object-cover' />
-                    </div>
-                    <div className='space-y-1.5 '>
-                      <h3>Fabyoh Premium Hoodies</h3>
-                      <p>Color/L</p>
-                      <p className='w-24 flex justify-between border-2 p-1 text-center  '>
-                        <button>-</button>
-                        5
-                        <button>+</button></p>
-                    </div>
-                  </div>
-                  <button className='p-btn border mt-5'>Add More From Wishlist</button>
-
-                  <div className='mt-5 p-2'>
-                    <h1 className='text-lg'>Total MRP</h1>
-                    <div className='flex justify-between bg-gray-100 p-2 mt-2'>
-                      <p>Total Amount</p>
-                      <p>$250</p>
-                    </div>
-                  </div>
-
-                  <button className='p-btn s-bg text-white uppercase mt-10'>Proceed to checkout</button>
-                  <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10 '>View cart</button>
-                </div>
-              </div>
-            </div>
+            <div className='fixed inset-0 bg-black bg-opacity-50 z-40' onClick={toggleCart}></div>
+            <Sidebar toggleCart={toggleCart} />
           </>
         )
       }

@@ -12,7 +12,7 @@ const Home = () => {
         window.scrollTo(0, 0)
     }, [])
     return (
-        <div className=''>
+        <div>
             <Banner />
             <OfferTwo />
             <FindStyle />

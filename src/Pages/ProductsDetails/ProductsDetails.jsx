@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useParams } from 'react-router-dom';
+import { CartContext } from '../../Provider/CartProvider';
 
 const ProductsDetails = () => {
+    const { addToCart  } = useContext(CartContext)
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
-    const [itemCount, setItemCount] = useState(1); 
+    const [itemCount, setItemCount] = useState(1);
     const { id } = useParams();
     const [details, setDetails] = useState({});
     const [loading, setLoading] = useState(true);
@@ -31,29 +33,10 @@ const ProductsDetails = () => {
             size: selectedSize,
             price: details.price,
             totalItems: itemCount,
-            image: details.imageMain, 
+            image: details.imageMain,
             totalPrice: details.price * itemCount, // Calculate total price for the item count
         };
-
-        // Get existing cart items from localStorage
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Check if the item already exists in the cart (based on title and color)
-        const existingItemIndex = cart.findIndex(
-            (item) => item.title === cartItem.title && item.color === cartItem.color && item.size === cartItem.size
-        );
-
-        if (existingItemIndex > -1) {
-            // Item already exists in the cart, update its quantity and total price
-            cart[existingItemIndex].totalItems += itemCount;
-            cart[existingItemIndex].totalPrice += details.price * itemCount;
-        } else {
-            // Item does not exist, add it to the cart
-            cart.push(cartItem);
-        }
-
-        // Save updated cart to localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
+        addToCart (cartItem);
 
         alert('Item added to cart!');
     };

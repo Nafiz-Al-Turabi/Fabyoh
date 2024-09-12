@@ -1,0 +1,116 @@
+import React, { useEffect, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
+
+const Sidebar = ({ toggleCart }) => {
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        setCartItems(cart);
+    }, []);
+
+    // Increase Quantity
+    const handleIncreaseQuantity = (index) => {
+        const updatedCart = [...cartItems];
+        updatedCart[index].totalItems += 1;
+        updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
+        setCartItems(updatedCart)
+        localStorage.setItem('cart', JSON.stringify(updatedCart))
+    };
+
+    const handleDecreaseQuantity = (index) => {
+        const updatedCart = [...cartItems]
+        if (updatedCart[index].totalItems > 1) {
+            updatedCart[index].totalItems -= 1;
+            updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
+            setCartItems(updatedCart)
+            localStorage.setItem('cart', JSON.stringify(updatedCart))
+        }
+    };
+
+    const handleRemoveItem = (index) => {
+        const updatedCart = cartItems.filter((_, item) => item !== index);
+        setCartItems(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart))
+    };
+
+    const calculateTotalPrice = () => {
+        const totalPrice = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        return totalPrice.toFixed(2); // Ensure two decimal
+    };
+
+    return (
+        <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto'>
+            <div className='relative px-6'>
+                <button onClick={toggleCart}>
+                    <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
+                </button>
+                <div>
+                    <h1 className='text-center mt-16 mb-10'>
+                        Yay! No Shipping fees on this order
+                    </h1>
+                    {cartItems.length > 0 ? (
+                        <>
+                            {/* Cart Items */}
+                            {cartItems.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className='relative flex gap-3 border-b pb-6 mb-5'
+                                >
+                                    <div>
+                                        <img
+                                            src={item.image}
+                                            alt={item.title}
+                                            className='w-24 h-24 object-cover'
+                                        />
+                                    </div>
+                                    <div className='space-y-1.5'>
+                                        <h3>{item.title}</h3>
+                                        <p>{item.color}/{item.size}</p>
+                                        <div className='flex justify-between items-center'>
+                                            <div className='w-24 flex justify-between border-2 p-1 text-center'>
+                                                <button onClick={() => handleDecreaseQuantity(index)}>-</button>
+                                                {item.totalItems}
+                                                <button onClick={() => handleIncreaseQuantity(index)}>+</button>
+                                            </div>
+                                            <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
+                                        </div>
+                                    </div>
+                                    {/* For delete added cart */}
+                                    <button
+                                        className='absolute top-0 right-0'
+                                        onClick={() => handleRemoveItem(index)}
+                                    >
+                                        <IoClose />
+                                    </button>
+                                </div>
+                            ))}
+
+                            {/* Total and Checkout */}
+                            <button className='p-btn border mt-5'>Add More From Wishlist</button>
+
+                            <div className='mt-5 p-2'>
+                                <h1 className='text-lg'>Total MRP</h1>
+                                <div className='flex justify-between bg-gray-100 p-2 mt-2'>
+                                    <p>Total Amount</p>
+                                    <p>${calculateTotalPrice()}</p>
+                                </div>
+                            </div>
+
+                            <button className='p-btn s-bg text-white uppercase mt-10'>
+                                Proceed to checkout
+                            </button>
+                            <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10'>
+                                View cart
+                            </button>
+                        </>
+                    ) : (
+                        <p>Your cart is empty.</p>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Sidebar;
