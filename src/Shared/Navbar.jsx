@@ -7,6 +7,7 @@ import { CiGlobe } from 'react-icons/ci';
 import ActiveLink from '../ActiveLinks/ActiveLink';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { CartContext } from '../Provider/CartProvider';
+import { Result } from 'postcss';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,11 +16,15 @@ const Navbar = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
-  const { cartItems } = useContext(CartContext)
+  const { cartItems } = useContext(CartContext);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products, setProducts] = useState([])
 
 
   const toggleSearch = () => {
     setIsSearch(!isSearch)
+    setSearchTerm(''); // Reset the search input when closing
   }
   const toggleLogin = () => {
     setIsLogin(!isLogin)
@@ -43,17 +48,68 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch('/products.json')
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      const filtered = products.filter(product =>
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts([]); // Clear when searchTerm is empty
+    }
+  }, [searchTerm, products]);
+  
+
   return (
     <>
       {
         isSearch ? (
-          <div className='flex justify-center p-bg items-center h-20 bg-white sticky top-0 sticky-shadow-md shadow z-50'>
+          <div className='flex justify-center items-center h-20 bg-white sticky top-0 shadow z-50'>
             <div className='w-full lg:w-1/2 px-4 lg:px-0 relative'>
-              <input type="text" placeholder='What are you looking for...' className='w-full pl-16 py-4  m border hover:border-gray-700 focus:outline-[#9578ed]' />
-              <button onClick={toggleSearch}><IoClose className='text-4xl absolute z-50 top-2.5 right-10 text-slate-500' />  </button>
-              <button><IoSearch className='text-3xl absolute z-50 top-3.5 left-5 text-slate-500' />  </button>
+              <input
+                type="text"
+                placeholder='What are you looking for...'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className='w-full pl-16 py-4 m border hover:border-gray-700 focus:outline-none'
+              />
+              <button onClick={toggleSearch}>
+                <IoClose className='text-4xl absolute z-50 top-2.5 right-10 text-slate-500' />
+              </button>
+              <button>
+                <IoSearch className='text-3xl absolute z-50 top-3.5 left-5 text-slate-500' />
+              </button>
+            </div>
+
+            <div className='w-1/2 absolute top-20 z-40 bg-white p-2 rounded-b-md shadow-md'>
+              {searchTerm.trim() === '' ? (
+                <p>Type something...</p>
+              ) : filteredProducts.length > 0 ? (
+                filteredProducts.map(product => (
+                  <div key={product.id} className='p-1 hover:bg-violet-200'>
+                    <Link to={`/productDetails/${product.id}`}>{product.title}</Link>
+                  </div>
+                ))
+              ) : (
+                <p>No results found</p>
+              )}
             </div>
           </div>
+
         ) :
           <nav className="bg-white sticky top-0 sticky-shadow-md shadow z-30">
             <div className="px-4 sm:px-6 lg:px-8">
