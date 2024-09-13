@@ -85,7 +85,7 @@ const Navbar = () => {
                 placeholder='What are you looking for...'
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className='w-full pl-16 py-4 m border hover:border-gray-700 focus:outline-none'
+                className='w-full pl-16 py-4 m border hover:border-gray-700 focus:outline-violet-500'
               />
               <button onClick={toggleSearch}>
                 <IoClose className='text-4xl absolute z-50 top-2.5 right-10 text-slate-500' />
@@ -101,7 +101,7 @@ const Navbar = () => {
               ) : filteredProducts.length > 0 ? (
                 filteredProducts.map(product => (
                   <div key={product.id} className='p-1 hover:bg-violet-200'>
-                    <Link to={`/productDetails/${product.id}`}>{product.title}</Link>
+                    <Link onClick={toggleSearch} to={`/productDetails/${product.id}`}>{product.title}</Link>
                   </div>
                 ))
               ) : (
