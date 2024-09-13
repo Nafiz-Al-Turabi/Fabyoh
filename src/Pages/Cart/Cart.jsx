@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../../Provider/CartProvider';
 import { IoClose } from 'react-icons/io5';
 import logo from './../../assets/images/logo.webp'
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const [isSticky, setIsSticky] = useState(false);
@@ -92,9 +93,9 @@ const Cart = () => {
                             <p className='text-xl font-bold'>Total Amount</p>
                             <p className='text-xl font-bold'>${calculateTotalPrice()}</p>
                         </div>
-                        <button className='p-btn s-bg text-white uppercase mt-10'>
-                            Proceed to checkout
-                        </button>
+                        <Link to='/checkout'>
+                            <button className='p-btn s-bg text-white uppercase mt-10'>Proceed to checkout</button>
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -75,13 +75,13 @@ const CustomSlider = () => {
                 </div>
                 <div className="absolute inset-0 flex items-center justify-between pointer-events-none">
                     <button
-                        className=" text-white p-2 rounded-full pointer-events-auto"
+                        className=" p-text p-2 rounded-full pointer-events-auto"
                         onClick={handlePrev}
                     >
                         <MdArrowBackIosNew className='text-3xl lg:text-5xl'/>
                     </button>
                     <button
-                        className=" text-white p-2 rounded-full pointer-events-auto"
+                        className=" p-text p-2 rounded-full pointer-events-auto"
                         onClick={handleNext}
                     >
                        <MdArrowForwardIos className='text-3xl lg:text-5xl' />

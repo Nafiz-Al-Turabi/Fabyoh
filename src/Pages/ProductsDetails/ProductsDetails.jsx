@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../../Provider/CartProvider';
-
 const ProductsDetails = () => {
-    const { addToCart  } = useContext(CartContext)
+    const { addToCart } = useContext(CartContext)
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
     const [itemCount, setItemCount] = useState(1);
@@ -12,6 +11,7 @@ const ProductsDetails = () => {
     const [details, setDetails] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [notification, setNotification] = useState('')
 
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
@@ -36,10 +36,19 @@ const ProductsDetails = () => {
             image: details.imageMain,
             totalPrice: details.price * itemCount, // Calculate total price for the item count
         };
-        addToCart (cartItem);
+        addToCart(cartItem);
 
-        alert('Item added to cart!');
+        setNotification('Item added to cart!');
     };
+    // Notification
+    useEffect(() => {
+        if (notification) {
+            const timer = setTimeout(() => {
+                setNotification('');
+            }, 3000);
+            return () => clearTimeout(timer)
+        }
+    }, [notification])
 
     const handleItemCountChange = (delta) => {
         setItemCount(prev => Math.max(1, prev + delta)); // Ensure item count is at least 1
@@ -77,6 +86,11 @@ const ProductsDetails = () => {
 
     return (
         <div className='lg:my-10 font-josefin'>
+            {notification && (
+                <div className="r fixed md:bottom-5 md:right-5 z-50 bg-violet-500 text-white p-1 rounded transition-transform transform scale-105">
+                    {notification}
+                </div>
+            )}
             <div className='xl:flex p-4 xl:p-6 gap-6'>
                 <div className='flex xl:w-1/2 gap-1'>
                     <div className='overflow-hidden'>

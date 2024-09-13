@@ -10,6 +10,7 @@ import Hoodies from '../Pages/Hoodies/Hoodies';
 import Jackets from '../Pages/Jackets/Jackets';
 import ProductsDetails from '../Pages/ProductsDetails/ProductsDetails';
 import Cart from '../Pages/Cart/Cart';
+import CheckOut from '../Pages/CheckOut/CheckOut';
 
 const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: '/cart',
                 element: <Cart />
+            },
+            {
+                path: '/checkout',
+                element: <CheckOut />
             },
             {
                 path: '/productDetails/:id',

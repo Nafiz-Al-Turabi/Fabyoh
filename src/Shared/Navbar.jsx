@@ -62,6 +62,7 @@ const Navbar = () => {
     }
   }
 
+  // Search system....
   useEffect(() => {
     if (searchTerm.trim()) {
       const filtered = products.filter(product =>
@@ -78,7 +79,7 @@ const Navbar = () => {
     <>
       {
         isSearch ? (
-          <div className='flex justify-center items-center h-20 bg-white sticky top-0 shadow z-50'>
+          <div className='flex justify-center items-center h-20 bg-white sticky top-0 shadow z-50 font-josefin'>
             <div className='w-full lg:w-1/2 px-4 lg:px-0 relative'>
               <input
                 type="text"
@@ -95,7 +96,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            <div className='w-1/2 absolute top-20 z-40 bg-white p-2 rounded-b-md shadow-md'>
+            <div className='w-full lg:w-1/2 absolute top-20 z-40 bg-white p-4 rounded-b-md shadow-md'>
               {searchTerm.trim() === '' ? (
                 <p>Type something...</p>
               ) : filteredProducts.length > 0 ? (
