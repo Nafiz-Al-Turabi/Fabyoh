@@ -1,44 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { CartContext } from '../../Provider/CartProvider';
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ toggleCart }) => {
-    const [cartItems, setCartItems] = useState([]);
-
-    useEffect(() => {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        setCartItems(cart);
-    }, []);
-
-    // Increase Quantity
-    const handleIncreaseQuantity = (index) => {
-        const updatedCart = [...cartItems];
-        updatedCart[index].totalItems += 1;
-        updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
-        setCartItems(updatedCart)
-        localStorage.setItem('cart', JSON.stringify(updatedCart))
-    };
-
-    const handleDecreaseQuantity = (index) => {
-        const updatedCart = [...cartItems]
-        if (updatedCart[index].totalItems > 1) {
-            updatedCart[index].totalItems -= 1;
-            updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
-            setCartItems(updatedCart)
-            localStorage.setItem('cart', JSON.stringify(updatedCart))
-        }
-    };
-
-    const handleRemoveItem = (index) => {
-        const updatedCart = cartItems.filter((_, item) => item !== index);
-        setCartItems(updatedCart);
-        localStorage.setItem('cart', JSON.stringify(updatedCart))
-    };
-
-    const calculateTotalPrice = () => {
-        const totalPrice = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
-        return totalPrice.toFixed(2); // Ensure two decimal
-    };
-
+    const { cartItems, increaseQuantity, decreaseQuantity, removeItem, calculateTotalPrice } = useContext(CartContext);
     return (
         <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto'>
             <div className='relative px-6'>
@@ -69,9 +35,9 @@ const Sidebar = ({ toggleCart }) => {
                                         </div>
                                         <div className='flex justify-between items-center'>
                                             <div className='w-24 flex justify-between border-2 p-1 text-center'>
-                                                <button onClick={() => handleDecreaseQuantity(index)}>-</button>
+                                                <button onClick={() => decreaseQuantity(index)}>-</button>
                                                 {item.totalItems}
-                                                <button onClick={() => handleIncreaseQuantity(index)}>+</button>
+                                                <button onClick={() => increaseQuantity(index)}>+</button>
                                             </div>
                                             <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
                                         </div>
@@ -79,7 +45,7 @@ const Sidebar = ({ toggleCart }) => {
                                     {/* For delete added cart */}
                                     <button
                                         className='absolute top-0 right-0'
-                                        onClick={() => handleRemoveItem(index)}
+                                        onClick={() => removeItem(index)}
                                     >
                                         <IoClose />
                                     </button>
@@ -100,8 +66,10 @@ const Sidebar = ({ toggleCart }) => {
                             <button className='p-btn s-bg text-white uppercase mt-10'>
                                 Proceed to checkout
                             </button>
-                            <button className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10'>
-                                View cart
+                            <button onClick={()=> toggleCart()} className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10'>
+                                <Link to='/cart' >
+                                    View cart
+                                </Link>
                             </button>
                         </>
                     ) : (

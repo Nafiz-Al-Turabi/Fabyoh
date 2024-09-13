@@ -31,8 +31,38 @@ export const CartProvider = ({ children }) => {
 
         setCartItems(updatedCart);
     };
+
+     // Increase quantity of a cart item
+     const increaseQuantity = (index) => {
+        const updatedCart = [...cartItems];
+        updatedCart[index].totalItems += 1;
+        updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
+        setCartItems(updatedCart);
+    };
+
+    // Decrease quantity of a cart item
+    const decreaseQuantity = (index) => {
+        const updatedCart = [...cartItems];
+        if (updatedCart[index].totalItems > 1) {
+            updatedCart[index].totalItems -= 1;
+            updatedCart[index].totalPrice = updatedCart[index].totalItems * updatedCart[index].price;
+            setCartItems(updatedCart);
+        }
+    };
+
+    // Remove item from cart
+    const removeItem = (index) => {
+        const updatedCart = cartItems.filter((_, i) => i !== index);
+        setCartItems(updatedCart);
+    };
+
+    // Calculate total price
+    const calculateTotalPrice = () => {
+        const totalPrice = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        return totalPrice.toFixed(2);
+    };
     return (
-        <CartContext.Provider value={{ cartItems, addToCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeItem, calculateTotalPrice }}>
             {children}
         </CartContext.Provider>
     );
