@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './../assets/images/logo.webp'
 import facebook from './../assets/images/social/facebook.webp'
 import instagram from './../assets/images/social/instagram.webp'
@@ -20,6 +20,20 @@ import { Link } from 'react-router-dom';
 
 
 const Footer = () => {
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetchProducts()
+    }, []);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('/products.json')
+            const data = await response.json();
+            setProducts(data)
+        } catch (error) {
+            console.log('Error to get products in footer', error);
+        }
+    }
     return (
         <footer className='font-josefin pt-4 border-t'>
             <div className=''>
@@ -38,31 +52,16 @@ const Footer = () => {
                         gradient={false}
                         speed={30}
                     >
-                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
-                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
-                                <img src={image3} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
-                            </div>
-                            <h1>Men's Navy Jacket</h1>
-                        </Link>
-                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
-                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
-                                <img src={image} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
-                            </div>
-                            <h1>Premium Women cloths</h1>
-                        </Link>
-                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
-                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
-                                <img src={image2} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
-                            </div>
-                            <h1>Men's Horse Printed Tshirt</h1>
-                        </Link>
-                        <Link to='/' className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
-                            <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
-                                <img src={image4} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
-                            </div>
-                            <h1>Premium comfy women jacket</h1>
-                        </Link>
-                        
+                        {
+                            products.map(product =>
+                                <Link key={product.id} to={`/productDetails/${product.id}`} className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                                    <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
+                                        <img src={product.imageMain} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
+                                    </div>
+                                    <h1>{product.title}</h1>
+                                </Link>
+                            )
+                        }
                     </Marquee>
                 </div>
 
