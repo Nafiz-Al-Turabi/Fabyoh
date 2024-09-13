@@ -68,7 +68,7 @@ const CustomSlider = () => {
                     }}
                 >
                     {imagesToShow.map((image, index) => (
-                        <div key={index} className="min-w-full xl:h-[750px] overflow-hidden">
+                        <div key={index} className="min-w-full xl:h-[780px] overflow-hidden">
                             <img src={image} alt={`Slide ${index + 1}`} className="w-full h-[100%] object-cover" />
                         </div>
                     ))}

@@ -35,7 +35,7 @@ const Cart = () => {
                     {cartItems.map((item, index) => (
                         <div
                             key={index}
-                            className='relative flex gap-3 border-b pb-6 mb-5 bg-white shadow-lg shadow-violet-500/20 p-4 rounded-t-md rounded-md border-t-2 border-t-violet-500'
+                            className='relative flex gap-3 border-b pb-6 mb-5 bg-white shadow-lg shadow-violet-500/20 hover:shadow-xl hover:shadow-violet-500/50 duration-300 p-4 rounded-t-md rounded-md border-t-2 border-t-violet-500'
                         >
                             <div>
                                 <img
@@ -69,7 +69,7 @@ const Cart = () => {
                         </div>
                     ))}
                 </div>
-                <div className={`${isSticky ? '2xl:fixed top-[89px] right-80 border' : '2xl:fixed top-[150px] right-80'} bg-white 2xl:z-40 md:w-full xl:w-[450px] shadow `}>
+                <div className={`${isSticky ? '2xl:fixed top-[89px] right-80 border' : '2xl:fixed top-[150px] right-80'} bg-white 2xl:z-30 md:w-full xl:w-[450px] shadow `}>
                     <div className='mt-5 p-2'>
                         <div className='flex justify-center mb-6'>
                             <div>

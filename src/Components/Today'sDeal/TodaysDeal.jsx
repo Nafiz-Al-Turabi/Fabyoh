@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-import TodaysDeal1 from './../../assets/images/fabyoh/todaysdeal1.webp';
-import TodaysDeal2 from './../../assets/images/fabyoh/todaysdeal2.webp';
-import TodaysDeal3 from './../../assets/images/fabyoh/todaysdeal3.webp';
-import TodaysDeal4 from './../../assets/images/fabyoh/todaysdeal4.webp';
-import promot from './../../assets/images/fabyoh/promot1.webp';
+// import promot from './../../assets/images/fabyoh/promot1.webp';
+import promot from './../../assets/images/slider/image7.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
@@ -40,34 +37,6 @@ const TodaysDeal = () => {
             },
         ],
     };
-
-    // Sample deals data
-    // const deals = [
-    //     {
-    //         id: 1,
-    //         title: "Premium Shirt",
-    //         discount: "20% Off",
-    //         image: TodaysDeal1,
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "Summer Dress",
-    //         discount: "15% Off",
-    //         image: TodaysDeal2,
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "Leather Jacket",
-    //         discount: "25% Off",
-    //         image: TodaysDeal3,
-    //     },
-    //     {
-    //         id: 4,
-    //         title: "Casual Sneakers",
-    //         discount: "30% Off",
-    //         image: TodaysDeal4,
-    //     },
-    // ];
 
     useEffect(() => {
         fetchProducts()
