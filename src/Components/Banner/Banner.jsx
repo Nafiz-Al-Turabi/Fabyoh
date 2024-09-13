@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is imported
 
-import image1 from './../../assets/images/slider/image1.webp';
-import image2 from './../../assets/images/slider/image2.webp';
-import image3 from './../../assets/images/slider/image3.webp';
+import image12 from './../../assets/images/slider/image12.jpg';
+import image8 from './../../assets/images/slider/image8.jpg';
+import image9 from './../../assets/images/slider/image9.jpg';
+import image10 from './../../assets/images/slider/image10.jpg';
+import image11 from './../../assets/images/slider/image11.jpg';
 import image4 from './../../assets/images/slider/image4.jpg';
 import image5 from './../../assets/images/slider/image5.jpg';
 import image6 from './../../assets/images/slider/image6.jpg';
@@ -15,7 +17,7 @@ const CustomSlider = () => {
     const [isHovering, setIsHovering] = useState(false);
     const slideIntervalRef = useRef(null);
 
-    const imagesDesktop = [image1, image2, image3];
+    const imagesDesktop = [image12, image8, image9,image10,image11];
     const imagesMobile = [image4, image5, image6];
 
     useEffect(() => {
@@ -66,7 +68,7 @@ const CustomSlider = () => {
                     }}
                 >
                     {imagesToShow.map((image, index) => (
-                        <div key={index} className="min-w-full">
+                        <div key={index} className="min-w-full xl:h-[750px] overflow-hidden">
                             <img src={image} alt={`Slide ${index + 1}`} className="w-full h-[100%] object-cover" />
                         </div>
                     ))}

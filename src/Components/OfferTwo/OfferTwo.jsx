@@ -3,7 +3,7 @@ import Marquee from 'react-fast-marquee';
 const OfferTwo = () => {
     return (
         <Marquee
-            className='bg-[#8c6cf2] text-white mt-5'
+            className='bg-[#8c6cf2] text-white mt-3'
             pauseOnHover={false}
             gradient={false}
             speed={50}
