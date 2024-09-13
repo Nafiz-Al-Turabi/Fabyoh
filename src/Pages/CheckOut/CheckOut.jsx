@@ -101,7 +101,7 @@ const CheckOut = () => {
                 return (
                     <div>
                         <h2 className="text-xl font-bold mb-4">Billing Information</h2>
-                        <div className='flex justify-between'>
+                        <div className='md:flex justify-between'>
                             <div>
                                 {
                                     cartItems.map((item, index) =>
@@ -166,7 +166,7 @@ const CheckOut = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-gray-100 p-4 xl:p-6">
             <div className="max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6">Checkout</h2>
                 <div className="mb-4">
