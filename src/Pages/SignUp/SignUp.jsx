@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'; // Import react-hook-form
 import logo from './../../assets/images/logo.webp';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import axiosInstance from '../../Axios/axiosInstance';
 const SignUp = () => {
     // Initialize useForm hook
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const navigate = useNavigate()
 
@@ -16,8 +18,15 @@ const SignUp = () => {
         try {
             const response = await axiosInstance.post('/register', data);
             console.log(response.data);
-            navigate('/login')
+            setSuccessMessage('Account created successfully! Redirecting to login page...');
+            setErrorMessage('');
+
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);
         } catch (error) {
+            setErrorMessage(error.response?.data?.message || 'An error occurred');
+            setErrorMessage('');
         }
     };
 
@@ -34,6 +43,8 @@ const SignUp = () => {
                     <img src={logo} alt="Logo" className='w-32 mb-14' />
                 </Link>
                 <h1 className='text-3xl text-center mb-6'>Create an account</h1>
+                {errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
+                {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
 
                 {/* Handle form submission with handleSubmit */}
                 <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
