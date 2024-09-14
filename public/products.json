@@ -194,23 +194,6 @@
     "in_stock": false,
     "trending": false,
     "date": "2024-01-15"
-  },
-  {
-    "id": 11,
-    "title": "Women's Winter Jacket",
-    "price": 149.99,
-    "discount": 35,
-    "colors": [
-      "#000000",
-      "#808080",
-      "#8b4513"
-    ],
-    "description": "Durable winter jacket designed for extreme cold conditions. Features multiple pockets and insulated lining for extra warmth.",
-    "imageMain": "https://i.ibb.co.com/tdYdfh7/women-winter-jacket.webp",
-    "imageSecond": "https://i.ibb.co.com/9R9wPvJ/women-winter-jacket-second.webp",
-    "category": "jackets",
-    "in_stock": true,
-    "trending": true,
-    "date": "2023-12-01"
   }
+  
 ]
