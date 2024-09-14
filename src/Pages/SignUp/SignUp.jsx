@@ -10,7 +10,6 @@ const SignUp = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
-    const navigate = useNavigate()
 
     // Submit handler
     const onSubmit = async (data) => {
