@@ -1,41 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'; // Import react-hook-form
 import logo from './../../assets/images/logo.webp';
 import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Axios/axiosInstance';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+
+    const { login, errorMessage, successMessage } = useContext(AuthContext)
 
 
     const onSubmit = async (data) => {
+        const { email, password } = data;
         try {
-            const response = await axiosInstance.post('/login', data);
-
-            if (response && response.data) {
-                setSuccessMessage(response.data.message);
-                setErrorMessage('');
-
-                setTimeout(() => {
-                    navigate('/');
-                }, 3000);
-
-                if (response.data.token) {
-                    localStorage.setItem('authToken', response.data.token);
-                    console.log('Login successful. Token stored in localStorage.');
-                } else {
-                    console.error('Token not found in response.');
-                }
-            } else {
-                console.error('Invalid response from server.');
-            }
+            await login(email, password);
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
         } catch (error) {
-            console.error('Error during login:', error.response?.data?.message || error.message);
-            setErrorMessage(error.response?.data?.message || 'Login failed, please try again.');
-            setErrorMessage('');
+            console.error('Login failed:', error);
         }
     };
 
