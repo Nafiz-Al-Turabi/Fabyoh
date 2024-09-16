@@ -8,7 +8,7 @@ import Footer from '../Shared/Footer';
 const Layout = () => {
     // Conditional rendaring for navbar and other
     const location = useLocation();
-    const hide = location.pathname === '/login' || location.pathname === '/signup';
+    const hide = location.pathname === '/login' || location.pathname === '/signup'||  location.pathname === '/userdashboard';
     return (
         <div>
             {!hide && <Offer />}

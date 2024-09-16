@@ -9,7 +9,6 @@ const AuthProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(true);
-    // const navigate = useNavigate();
 
 
     useEffect(() => {

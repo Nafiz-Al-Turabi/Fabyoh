@@ -10,6 +10,7 @@ import { CartContext } from '../Provider/CartProvider';
 import { Result } from 'postcss';
 import axiosInstance from '../Axios/axiosInstance';
 import { AuthContext } from '../Provider/AuthProvider';
+import { FcBusinessman } from 'react-icons/fc';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -171,7 +172,12 @@ const Navbar = () => {
                 <div className="flex space-x-6 items-center">
                   <button><FiSearch onClick={toggleSearch} className="text-gray-800 cursor-pointer" size={30} /></button>
                   {/* <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button> */}
-                  <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
+                  {
+                    userInfo ? (<div>
+                      <Link to='/userdashboard'><FcBusinessman className='' size={30} /></Link>
+                    </div>)
+                    : <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
+                  }
                   <div className='relative'>
                     <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
                     <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems.length}</p>
