@@ -7,8 +7,6 @@ import { Link } from 'react-router-dom';
 const FeaturedProductCard = ({ product }) => {
     const [loading, setLoading] = useState(true);
 
-    console.log(product);
-
     const { title, discount, imageMain, imageSecond,id } = product
 
     useEffect(() => {

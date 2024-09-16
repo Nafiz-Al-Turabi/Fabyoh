@@ -63,14 +63,16 @@ const Sidebar = ({ toggleCart }) => {
                                 </div>
                             </div>
 
-                            <button className='p-btn s-bg text-white uppercase mt-10'>
-                                Proceed to checkout
-                            </button>
-                            <button onClick={()=> toggleCart()} className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10'>
-                                <Link to='/cart' >
+                            <Link to='/checkout'>
+                                <button onClick={() => toggleCart()} className='p-btn s-bg text-white uppercase mt-10'>
+                                    Proceed to checkout
+                                </button>
+                            </Link>
+                            <Link to='/cart'>
+                                <button onClick={() => toggleCart()} className='p-btn hover:bg-[#2b2b2b] border hover:text-white uppercase mt-10'>
                                     View cart
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                         </>
                     ) : (
                         <div className='mt-56 '>

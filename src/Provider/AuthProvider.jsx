@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(true);
@@ -15,6 +15,20 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         if (token) {
+            axiosInstance.get('/userinfo', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(res => {
+                    setUser(res.data)
+                    console.log(res.data);
+                })
+                .catch(() => {
+                    localStorage.removeItem('authToken');
+                    setUser(null)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
             setUser(true);
         }
         setLoading(false)
@@ -49,8 +63,8 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         setLoading(true);
         setUser(false);
-        localStorage.removeItem('authToken');    
-        setLoading(false);    
+        localStorage.removeItem('authToken');
+        setLoading(false);
     };
 
     const Information = {
@@ -58,7 +72,8 @@ const AuthProvider = ({ children }) => {
         successMessage,
         login,
         logout,
-        user
+        user,
+        loading
     }
     return (
         <AuthContext.Provider value={Information}>

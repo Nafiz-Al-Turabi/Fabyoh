@@ -8,6 +8,8 @@ import ActiveLink from '../ActiveLinks/ActiveLink';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { CartContext } from '../Provider/CartProvider';
 import { Result } from 'postcss';
+import axiosInstance from '../Axios/axiosInstance';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +21,9 @@ const Navbar = () => {
   const { cartItems } = useContext(CartContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const [userInfo, setUserInfo] = useState(null);
+  const { user, loading } = useContext(AuthContext);
 
 
   const toggleSearch = () => {
@@ -50,7 +54,8 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+    fetchUserInfo();
+  }, [user]);
 
   const fetchProducts = async () => {
     try {
@@ -73,8 +78,33 @@ const Navbar = () => {
       setFilteredProducts([]); // Clear when searchTerm is empty
     }
   }, [searchTerm, products]);
-  
 
+
+  // User info
+  useEffect(() => {
+    fetchUserInfo();
+  }, [user]);
+
+  const fetchUserInfo = async () => {
+    const authtoken = localStorage.getItem('authToken'); 
+
+    if (!authtoken) {
+      console.error("No auth token found.");
+      return;
+    }
+    try {
+      const response = await axiosInstance.get('/userinfo', {
+        headers: {
+          'Authorization': `Bearer ${authtoken}`
+        }
+      });
+      setUserInfo(response.data);
+    } catch (error) {
+      console.error("Error fetching user info", error);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
   return (
     <>
       {
@@ -209,6 +239,7 @@ const Navbar = () => {
               className={`hidden xl:block p-5 ${isSticky ? 'w-64 fixed top-20 right-4 border' : 'w-64 fixed right-4'} z-50 bg-white  mt-2 rounded-lg font-josefin shadow-lg`}
             >
               <div></div>
+              <h1>Welcome, {userInfo.name}</h1>
               <h1 className="text-xl font-bold mb-12">Want To Shop</h1>
               <Link to='/login' onClick={toggleLogin} className="p-btn w-40 py-3 border uppercase hover:bg-[#2b2b2b] hover:text-white duration-100 ease-out">
                 Login to start
