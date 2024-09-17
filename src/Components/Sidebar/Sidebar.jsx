@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { CartContext } from '../../Provider/CartProvider';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ toggleCart }) => {
-    const { cartItems, increaseQuantity, decreaseQuantity, removeItem, calculateTotalPrice } = useContext(CartContext);
+    const { cartItems, removeItem, calculateTotalPrice } = useContext(CartContext);
     return (
         <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto'>
             <div className='relative px-6'>
@@ -15,9 +15,9 @@ const Sidebar = ({ toggleCart }) => {
                     {cartItems.length > 0 ? (
                         <>
                             {/* Cart Items */}
-                            {cartItems.map((item, index) => (
+                            {cartItems.map((item) => (
                                 <div
-                                    key={index}
+                                    key={item._id} // Use item's unique ID as key
                                     className='relative flex gap-3 border-b pb-6 mb-5'
                                 >
                                     <div>
@@ -35,17 +35,15 @@ const Sidebar = ({ toggleCart }) => {
                                         </div>
                                         <div className='flex justify-between items-center'>
                                             <div className='w-24 flex justify-between border-2 p-1 text-center'>
-                                                <button onClick={() => decreaseQuantity(index)}>-</button>
-                                                {item.totalItems}
-                                                <button onClick={() => increaseQuantity(index)}>+</button>
+                                               <p>Items :{item.totalItems}</p>
                                             </div>
-                                            <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
+                                            <p className='font-bold'>${item.totalPrice}</p>
                                         </div>
                                     </div>
                                     {/* For delete added cart */}
                                     <button
                                         className='absolute top-0 right-0'
-                                        onClick={() => removeItem(index)}
+                                        onClick={() => removeItem(item._id)}
                                     >
                                         <IoClose />
                                     </button>
@@ -75,10 +73,10 @@ const Sidebar = ({ toggleCart }) => {
                             </Link>
                         </>
                     ) : (
-                        <div className='mt-56 '>
+                        <div className='mt-56'>
                             <div className='flex flex-col justify-center items-center space-y-32'>
                                 <p className='text-lg'>There is nothing in your bag!</p>
-                                <img src="https://i.ibb.co.com/r03M1Fv/cart-min.png" alt="" className='w-56' />
+                                <img src="https://i.ibb.co/com/r03M1Fv/cart-min.png" alt="" className='w-56' />
                             </div>
                         </div>
                     )}

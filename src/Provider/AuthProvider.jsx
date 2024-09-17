@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
             })
                 .then(res => {
                     setUser(res.data)
-                    console.log(res.data);
                 })
                 .catch(() => {
                     localStorage.removeItem('authToken');
@@ -43,7 +42,6 @@ const AuthProvider = ({ children }) => {
 
                 if (response.data.token) {
                     localStorage.setItem('authToken', response.data.token);
-                    console.log('Login successful. Token stored in localStorage.');
                     setUser(true)
                 } else {
                     console.error('Token not found in response.');

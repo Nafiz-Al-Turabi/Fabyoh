@@ -33,9 +33,9 @@ const Cart = () => {
         <div className='xl:w-[1300px] mx-auto p-4 xl:p-6 font-josefin' style={{ paddingBottom: '220px' }}>
             <div className='xl:flex justify-between relative'>
                 <div className='xl:w-3/5'>
-                    {cartItems.map((item, index) => (
+                    {cartItems.map((item) => (
                         <div
-                            key={index}
+                            key={item._id}
                             className='relative flex gap-3 border-b pb-6 mb-5 bg-white shadow-lg shadow-violet-500/20 hover:shadow-xl hover:shadow-violet-500/50 duration-300 p-4 rounded-t-md rounded-md border-t-2 border-t-violet-500'
                         >
                             <div>
@@ -53,9 +53,7 @@ const Cart = () => {
                                 </div>
                                 <div className='flex justify-between items-center'>
                                     <div className='w-24 flex justify-between border-2 p-1 text-center'>
-                                        <button onClick={() => decreaseQuantity(index)}>-</button>
-                                        {item.totalItems}
-                                        <button onClick={() => increaseQuantity(index)}>+</button>
+                                    <p>Items :{item.totalItems}</p>
                                     </div>
                                     <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
                                 </div>
@@ -63,7 +61,7 @@ const Cart = () => {
                             {/* For delete added cart */}
                             <button
                                 className='absolute top-5 right-5'
-                                onClick={() => removeItem(index)}
+                                onClick={() => removeItem(item._id)}
                             >
                                 <IoClose className='text-2xl' />
                             </button>

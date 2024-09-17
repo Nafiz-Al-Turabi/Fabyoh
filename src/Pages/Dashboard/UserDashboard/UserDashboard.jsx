@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import logo from './../../../assets/images/logo.webp'
 
 const UserDashboard = () => {
-    const { user } = useContext(AuthContext)
+    const { user,logout } = useContext(AuthContext)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -41,9 +41,9 @@ const UserDashboard = () => {
                             </Link>
                         </li>
                         <li className="">
-                            <Link to='/' className="flex items-center p-4 hover:bg-violet-700">
+                            <button onClick={()=>logout()} className="w-full flex items-center p-4 hover:bg-violet-700">
                                 <FaSignOutAlt className="mr-3" /> Logout
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </nav>
@@ -75,7 +75,7 @@ const UserDashboard = () => {
                     <div className="bg-gray-50 p-6 rounded">
                         <p><strong>Email:</strong> {user.email}</p>
                         <p><strong>Address:</strong>{user?.city}</p>
-                        <p><strong>Phone:</strong>{user.phone}</p>
+                        <p><strong>Post code:</strong>{user.postcode}</p>
                     </div>
                 </section>
 

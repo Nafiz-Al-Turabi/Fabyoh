@@ -11,7 +11,7 @@ const ProductsDetails = () => {
     const [details, setDetails] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [notification, setNotification] = useState('')
+    const [notification, setNotification] = useState('');
 
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
@@ -23,7 +23,7 @@ const ProductsDetails = () => {
 
     const handleAddToCart = () => {
         if (!selectedSize || !selectedColor) {
-            alert('Please select size and color.');
+            setNotification('Please select size and color.');
             return;
         }
 

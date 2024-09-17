@@ -245,7 +245,6 @@ const Navbar = () => {
               className={`hidden xl:block p-5 ${isSticky ? 'w-64 fixed top-20 right-4 border' : 'w-64 fixed right-4'} z-50 bg-white  mt-2 rounded-lg font-josefin shadow-lg`}
             >
               <div></div>
-              <h1>Welcome, {userInfo.name}</h1>
               <h1 className="text-xl font-bold mb-12">Want To Shop</h1>
               <Link to='/login' onClick={toggleLogin} className="p-btn w-40 py-3 border uppercase hover:bg-[#2b2b2b] hover:text-white duration-100 ease-out">
                 Login to start
