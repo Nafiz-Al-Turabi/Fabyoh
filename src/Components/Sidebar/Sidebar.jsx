@@ -78,7 +78,7 @@ const Sidebar = ({ toggleCart }) => {
                         <div className='mt-56'>
                             <div className='flex flex-col justify-center items-center space-y-32'>
                                 <p className='text-lg'>There is nothing in your bag!</p>
-                                <img src="https://i.ibb.co/com/r03M1Fv/cart-min.png" alt="" className='w-56' />
+                                <img src="https://i.ibb.co.com/r03M1Fv/cart-min.png" alt="" className='w-56' />
                             </div>
                         </div>
                     )}

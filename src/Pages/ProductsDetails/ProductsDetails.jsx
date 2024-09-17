@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../../Provider/CartProvider';
+import { AuthContext } from '../../Provider/AuthProvider';
 const ProductsDetails = () => {
+    const {user}=useContext(AuthContext)
     const { addToCart } = useContext(CartContext)
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
@@ -13,6 +15,8 @@ const ProductsDetails = () => {
     const [error, setError] = useState(null);
     const [notification, setNotification] = useState('');
 
+    const navigate=useNavigate();
+
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
     };
@@ -22,6 +26,9 @@ const ProductsDetails = () => {
     };
 
     const handleAddToCart = () => {
+        if(!user){
+            navigate('/login')
+        }
         if (!selectedSize || !selectedColor) {
             setNotification('Please select size and color.');
             return;
