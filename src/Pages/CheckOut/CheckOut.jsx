@@ -8,7 +8,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_Stripe_key)
 const CheckOut = () => {
     const { cartItems, calculateTotalPrice } = useContext(CartContext);
     return (
-        <div className='max-w-7xl mx-auto my-16 font-josefin h-screen'>
+        <div className='max-w-7xl mx-auto my-16 p-4 xl:p-0 font-josefin h-screen'>
             <div>
                 <h2 className="text-xl font-bold mb-4 md:text-3xl">Billing Information</h2>
                 <div className='md:flex justify-between items-center'>
@@ -37,7 +37,7 @@ const CheckOut = () => {
 
                     </div>
 
-                    <div className='w-1/2'>
+                    <div className='w-full md:w-1/2'>
                         <h1 className='mb-5 text-xl font-bold'>Total: ${calculateTotalPrice()}</h1>
                         <Elements stripe={stripePromise}>
                             <Payment></Payment>

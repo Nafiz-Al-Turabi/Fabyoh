@@ -53,7 +53,9 @@ const Cart = () => {
                                 </div>
                                 <div className='flex justify-between items-center'>
                                     <div className='w-24 flex justify-between border-2 p-1 text-center'>
-                                    <p>Items :{item.totalItems}</p>
+                                        <button onClick={() => decreaseQuantity(item._id)}>-</button>
+                                        {item.totalItems}
+                                        <button onClick={() => increaseQuantity(item._id)}>+</button>
                                     </div>
                                     <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
                                 </div>

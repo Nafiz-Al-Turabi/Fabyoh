@@ -4,7 +4,7 @@ import { CartContext } from '../../Provider/CartProvider';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({ toggleCart }) => {
-    const { cartItems, removeItem, calculateTotalPrice } = useContext(CartContext);
+    const { cartItems, increaseQuantity, decreaseQuantity, removeItem, calculateTotalPrice } = useContext(CartContext);
     return (
         <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto'>
             <div className='relative px-6'>
@@ -35,7 +35,9 @@ const Sidebar = ({ toggleCart }) => {
                                         </div>
                                         <div className='flex justify-between items-center'>
                                             <div className='w-24 flex justify-between border-2 p-1 text-center'>
-                                               <p>Items :{item.totalItems}</p>
+                                                <button onClick={() => decreaseQuantity(item._id)}>-</button>
+                                                {item.totalItems}
+                                                <button onClick={() => increaseQuantity(item._id)}>+</button>
                                             </div>
                                             <p className='font-bold'>${item.totalPrice}</p>
                                         </div>

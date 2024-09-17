@@ -7,8 +7,7 @@ export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-
-    const token = localStorage.getItem('authToken')
+    const token = localStorage.getItem('authToken');
 
     const fetchCartItems = async () => {
         try {
@@ -63,6 +62,20 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+    // Update cart item quantity on the server
+    const updateCartItem = async (itemId, updateData) => {
+        try {
+            await axiosInstance.patch(`/cart/${itemId}`, updateData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        } catch (error) {
+            console.error('Error updating cart item:', error.response || error.message);
+            setError('Failed to update the cart item on the server.');
+        }
+    };
+
     const increaseQuantity = (itemId) => {
         setCartItems(prevItems => 
             prevItems.map(item =>
@@ -71,7 +84,7 @@ export const CartProvider = ({ children }) => {
                     : item
             )
         );
-        
+        updateCartItem(itemId, { totalItems: cartItems.find(item => item._id === itemId).totalItems + 1 });
     };
     
     const decreaseQuantity = (itemId) => {
@@ -82,6 +95,7 @@ export const CartProvider = ({ children }) => {
                     : item
             )
         );
+        updateCartItem(itemId, { totalItems: Math.max(1, cartItems.find(item => item._id === itemId).totalItems - 1) });
     };
     
 
@@ -100,8 +114,6 @@ export const CartProvider = ({ children }) => {
             setError('Failed to remove the item from the server.'); 
         }
     };
-    
-
 
     // Calculate total price of the cart items
     const calculateTotalPrice = () => {
