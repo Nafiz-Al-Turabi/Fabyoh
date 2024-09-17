@@ -76,27 +76,54 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const increaseQuantity = (itemId) => {
-        setCartItems(prevItems => 
-            prevItems.map(item =>
+    const increaseQuantity = async (itemId) => {
+        setCartItems(prevItems => {
+            // Find the item to be updated
+            const updatedItems = prevItems.map(item =>
                 item._id === itemId
-                    ? { ...item, totalItems: item.totalItems + 1, totalPrice: item.price * (item.totalItems + 1) }
+                    ? { 
+                        ...item, 
+                        totalItems: item.totalItems + 1, 
+                        totalPrice: item.price * (item.totalItems + 1) 
+                      }
                     : item
-            )
-        );
-        updateCartItem(itemId, { totalItems: cartItems.find(item => item._id === itemId).totalItems + 1 });
+            );
+            const updatedItem = updatedItems.find(item => item._id === itemId);
+            
+            // Update item on the server
+            updateCartItem(itemId, { 
+                totalItems: updatedItem.totalItems, 
+                totalPrice: updatedItem.totalPrice 
+            });
+    
+            return updatedItems;
+        });
     };
     
-    const decreaseQuantity = (itemId) => {
-        setCartItems(prevItems => 
-            prevItems.map(item =>
+    const decreaseQuantity = async (itemId) => {
+        setCartItems(prevItems => {
+            // Find the item to be updated
+            const updatedItems = prevItems.map(item =>
                 item._id === itemId
-                    ? { ...item, totalItems: Math.max(1, item.totalItems - 1), totalPrice: item.price * Math.max(1, item.totalItems - 1) }
+                    ? { 
+                        ...item, 
+                        totalItems: Math.max(1, item.totalItems - 1), 
+                        totalPrice: item.price * Math.max(1, item.totalItems - 1) 
+                      }
                     : item
-            )
-        );
-        updateCartItem(itemId, { totalItems: Math.max(1, cartItems.find(item => item._id === itemId).totalItems - 1) });
+            );
+            const updatedItem = updatedItems.find(item => item._id === itemId);
+            
+            // Update item on the server
+            updateCartItem(itemId, { 
+                totalItems: updatedItem.totalItems, 
+                totalPrice: updatedItem.totalPrice 
+            });
+    
+            return updatedItems;
+        });
     };
+    
     
 
     // Remove item from the cart and update the server
