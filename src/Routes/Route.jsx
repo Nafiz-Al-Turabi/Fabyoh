@@ -14,6 +14,8 @@ import CheckOut from '../Pages/CheckOut/CheckOut';
 import PrivateRoutes from './PrivateRoutes';
 import UserDashboard from '../Pages/Dashboard/UserDashboard/UserDashboard';
 import PrivateRoute from './PrivateRoutes';
+import AdminDashboard from '../Pages/Dashboard/AdminDashboard/AdminDashboard';
+import Dashboard from '../Pages/Dashboard/Dashboard';
 
 const router = createBrowserRouter([
     {
@@ -53,9 +55,18 @@ const router = createBrowserRouter([
                 element: <Cart />
             },
             {
+                path: '/dashboard',
+                element: <PrivateRoute><Dashboard /></PrivateRoute>
+            },
+            {
                 path: '/userdashboard',
                 element: <PrivateRoute><UserDashboard /></PrivateRoute>
             },
+            {
+                path: '/admin',
+                element: <PrivateRoute><AdminDashboard /></PrivateRoute>
+            },
+           
             {
                 path: '/checkout',
                 element: <PrivateRoute><CheckOut /></PrivateRoute>

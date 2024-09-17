@@ -20,7 +20,7 @@ const UserDashboard = () => {
                 className={`fixed inset-y-0 left-0 p-bg text-white w-64 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } md:translate-x-0 md:static md:w-64 md:flex md:flex-col`}
             >
-                <Link to='/' className="p-4 flex justify-center ">
+                <Link to='/' className="p-4 flex ">
                     <img src={logo} alt="" className='w-28' />
                 </Link>
                 <nav className="flex-1">

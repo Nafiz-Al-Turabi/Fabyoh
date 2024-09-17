@@ -39,7 +39,7 @@ const Sidebar = ({ toggleCart }) => {
                                                 {item.totalItems}
                                                 <button onClick={() => increaseQuantity(item._id)}>+</button>
                                             </div>
-                                            <p className='font-bold'>${item.totalPrice}</p>
+                                            <p className='font-bold'>${item.totalPrice.toFixed(2)}</p>
                                         </div>
                                     </div>
                                     {/* For delete added cart */}

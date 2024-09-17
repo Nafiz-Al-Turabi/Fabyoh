@@ -174,7 +174,7 @@ const Navbar = () => {
                   {/* <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button> */}
                   {
                     userInfo ? (<div>
-                      <Link to='/userdashboard'><FcBusinessman className='' size={30} /></Link>
+                      <Link to='/dashboard'><FcBusinessman className='' size={30} /></Link>
                     </div>)
                     : <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
                   }

@@ -1,13 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'; // Import react-hook-form
 import logo from './../../assets/images/logo.webp';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, replace, useLocation, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../Axios/axiosInstance';
 import { AuthContext } from '../../Provider/AuthProvider';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const from  = location.state?.from?.pathname || '/';
 
     const { login, errorMessage, successMessage } = useContext(AuthContext)
 
@@ -17,7 +20,7 @@ const Login = () => {
         try {
             await login(email, password);
             setTimeout(() => {
-                navigate('/');
+                navigate(from, {replace: true});
             }, 3000);
         } catch (error) {
             console.error('Login failed:', error);

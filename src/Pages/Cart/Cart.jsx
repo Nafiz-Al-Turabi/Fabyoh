@@ -30,7 +30,7 @@ const Cart = () => {
     }, [])
 
     return (
-        <div className='xl:w-[1300px] mx-auto p-4 xl:p-6 font-josefin' style={{ paddingBottom: '220px' }}>
+        <div className='xl:w-[1300px] h-dvh mx-auto p-4 xl:p-6 font-josefin' style={{ paddingBottom: '220px' }}>
             <div className='xl:flex justify-between relative'>
                 <div className='xl:w-3/5'>
                     {cartItems.map((item) => (
