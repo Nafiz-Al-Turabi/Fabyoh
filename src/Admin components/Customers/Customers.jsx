@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaSearch, FaTrashAlt } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../../Axios/axiosInstance';
 import emoji from './../../assets/images/emoji.svg'
 import emoji2 from './../../assets/images/emoji2.svg'
+import Loading from '../../Components/Loading/Loading';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { PiUsersThreeLight } from 'react-icons/pi';
+import CustomersTable from '../CustomersTable/CustomersTable';
 
 const Customers = () => {
+    const { user } = useContext(AuthContext)
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredData, setFilteredData] = useState([]);
 
@@ -26,7 +31,7 @@ const Customers = () => {
         alert('Delete action triggered');
     };
 
-    const { isPending, isError, data = [], error, refetch } = useQuery({
+    const { isLoading, isError, data = [], error, refetch } = useQuery({
         queryKey: ['todos'],
         queryFn: async () => {
             const response = await axiosInstance.get('/users');
@@ -38,6 +43,9 @@ const Customers = () => {
         setFilteredData(data);
     }, [data]);
 
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div className="overflow-x-auto p-4">
             <div className='flex justify-between mb-4'>
@@ -76,41 +84,15 @@ const Customers = () => {
                             <tr className="bg-gray-100 border-b">
                                 <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Name</th>
                                 <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Role</th>
+                                {
+                                    user.role === 'super-admin' ? <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Update Role</th> : ''
+                                }
                                 <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredData.map(user => (
-                                <tr key={user._id} className="hover:bg-gray-50 border-b transition-colors duration-300">
-                                    <td className="px-4 py-2 md:px-6 md:py-4 flex items-center space-x-2 text-sm">
-                                        <img
-                                            src={user.image || "https://via.placeholder.com/40"}
-                                            alt="Profile"
-                                            className="w-10 h-10 rounded-full"
-                                        />
-                                        <div>
-                                            <p>{user.name}</p>
-                                            <p>{user.email}</p>
-                                        </div>
-                                    </td>
-                                    <td className="px-4 py-2 md:px-6 md:py-4">
-                                        <select
-                                            className="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-violet-500"
-                                        >
-                                            <option value="Admin">Admin</option>
-                                            <option value="User">User</option>
-                                        </select>
-                                    </td>
-                                    <td className="px-4 py-2 md:px-6 md:py-4 flex items-center space-x-2">
-                                        <button
-                                            onClick={handleDelete}
-                                            className="flex items-center bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors duration-300"
-                                        >
-                                            <FaTrashAlt className="mr-1" />
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
+                            {filteredData.map(userData => (
+                                <CustomersTable userData={userData} key={userData._id}  />
                             ))}
                         </tbody>
                     </table>
