@@ -13,6 +13,7 @@ const Customers = () => {
     const { user } = useContext(AuthContext)
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [loadingRoleUpdate, setLoadingRoleUpdate] = useState(false);
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
@@ -46,6 +47,41 @@ const Customers = () => {
     if (isLoading) {
         return <Loading />
     }
+
+    // Function to handle role toggling
+    const toggleRole = async (userId, currentRole) => {
+        if (user.role !== 'super-admin') {
+            alert('Only super-admin can update roles');
+            return;
+        }
+
+        const newRole = currentRole === 'admin' ? 'user' : 'admin';
+
+        try {
+            setLoadingRoleUpdate(true); // Start loading
+            const token = localStorage.getItem('authToken');
+
+            const response = await axiosInstance.patch(
+                `/update-role/${userId}`,
+                { role: newRole },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`, 
+                    },
+                }
+            );
+
+            if (response.status === 200) {
+                alert('User role updated successfully');
+                refetch(); 
+            }
+        } catch (error) {
+            alert('Failed to update user role');
+        } finally {
+            setLoadingRoleUpdate(false);
+        }
+    };
+
     return (
         <div className="overflow-x-auto p-4">
             <div className='flex justify-between mb-4'>
@@ -81,18 +117,18 @@ const Customers = () => {
                     :
                     <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                         <thead>
-                            <tr className="bg-gray-100 border-b">
-                                <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Name</th>
-                                <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Role</th>
+                            <tr className="bg-violet-500 border-b text-white">
+                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Name</th>
+                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Role</th>
                                 {
-                                    user.role === 'super-admin' ? <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Update Role</th> : ''
+                                    user.role === 'super-admin' ? <th className="px-4 py-2 text-left md:px-6 md:py-3">Update Role</th> : ''
                                 }
-                                <th className="px-4 py-2 text-left text-gray-600 md:px-6 md:py-3">Actions</th>
+                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredData.map(userData => (
-                                <CustomersTable userData={userData} key={userData._id}  />
+                                <CustomersTable userData={userData} key={userData._id} toggleRole={toggleRole} loadingRoleUpdate={loadingRoleUpdate} />
                             ))}
                         </tbody>
                     </table>
