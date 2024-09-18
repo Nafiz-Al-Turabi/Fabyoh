@@ -4,14 +4,19 @@ import { AuthContext } from '../../../Provider/AuthProvider';
 import { IoSettings } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import logo from './../../../assets/images/logo.webp'
+import Loading from '../../../Components/Loading/Loading';
 
 const UserDashboard = () => {
-    const { user,logout } = useContext(AuthContext)
+    const { user, logout, loading } = useContext(AuthContext)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <div className="flex h-screen bg-gray-100 font-josefin">
@@ -41,7 +46,7 @@ const UserDashboard = () => {
                             </Link>
                         </li>
                         <li className="">
-                            <button onClick={()=>logout()} className="w-full flex items-center p-4 hover:bg-violet-700">
+                            <button onClick={() => logout()} className="w-full flex items-center p-4 hover:bg-violet-700">
                                 <FaSignOutAlt className="mr-3" /> Logout
                             </button>
                         </li>

@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axiosInstance from '../Axios/axiosInstance';
-import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext()
 
@@ -9,16 +8,18 @@ const AuthProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(true);
-
+   
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
         if (token) {
+            setLoading(true)
             axiosInstance.get('/userinfo', {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
                 .then(res => {
-                    setUser(res.data)
+                    setUser(res.data);
+                    setErrorMessage('')
                 })
                 .catch(() => {
                     localStorage.removeItem('authToken');
@@ -26,11 +27,12 @@ const AuthProvider = ({ children }) => {
                 })
                 .finally(() => {
                     setLoading(false)
-                })
-            setUser(true);
+                });
+        } else {
+            setLoading(false)
         }
-        setLoading(false)
-    }, []);
+
+    }, [user?.message]);
 
 
     const login = async (email, password) => {
@@ -42,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
                 if (response.data.token) {
                     localStorage.setItem('authToken', response.data.token);
-                    setUser(true)
+                    setUser(response.data)
                 } else {
                     console.error('Token not found in response.');
                     setIsLoggedIn(false);
@@ -57,9 +59,10 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+
     const logout = () => {
         setLoading(true);
-        setUser(false);
+        setUser(null);
         localStorage.removeItem('authToken');
         setLoading(false);
     };
