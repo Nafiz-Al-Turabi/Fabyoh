@@ -14,6 +14,8 @@ const Customers = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const [loadingRoleUpdate, setLoadingRoleUpdate] = useState(false);
+    const token = localStorage.getItem('authToken');
+
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
@@ -28,9 +30,6 @@ const Customers = () => {
         }
     };
 
-    const handleDelete = () => {
-        alert('Delete action triggered');
-    };
 
     const { isLoading, isError, data = [], error, refetch } = useQuery({
         queryKey: ['todos'],
@@ -59,21 +58,20 @@ const Customers = () => {
 
         try {
             setLoadingRoleUpdate(true); // Start loading
-            const token = localStorage.getItem('authToken');
 
             const response = await axiosInstance.patch(
                 `/update-role/${userId}`,
                 { role: newRole },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, 
+                        Authorization: `Bearer ${token}`,
                     },
                 }
             );
 
             if (response.status === 200) {
                 alert('User role updated successfully');
-                refetch(); 
+                refetch();
             }
         } catch (error) {
             alert('Failed to update user role');
@@ -81,6 +79,20 @@ const Customers = () => {
             setLoadingRoleUpdate(false);
         }
     };
+
+    // Delete user..
+    const handleUserDelete = async (userId) => {
+        try {
+            const response = await axiosInstance.delete(`/user/${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            refetch();
+        } catch (error) {
+
+        }
+    }
 
     return (
         <div className="overflow-x-auto p-4">
@@ -128,7 +140,7 @@ const Customers = () => {
                         </thead>
                         <tbody>
                             {filteredData.map(userData => (
-                                <CustomersTable userData={userData} key={userData._id} toggleRole={toggleRole} loadingRoleUpdate={loadingRoleUpdate} />
+                                <CustomersTable userData={userData} key={userData._id} toggleRole={toggleRole} loadingRoleUpdate={loadingRoleUpdate} handleUserDelete={handleUserDelete} />
                             ))}
                         </tbody>
                     </table>

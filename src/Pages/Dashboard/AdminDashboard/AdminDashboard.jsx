@@ -35,7 +35,7 @@ const AdminDashboard = () => {
                 ref={sidebarRef}
                 className={`bg-gray-800 h-dvh text-white w-64 fixed inset-y-0 left-0 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:relative md:translate-x-0`}>
                 <div className="p-4">
-                    <h2 className="text-2xl font-bold mb-6 uppercase ">{user.role}</h2>
+                    <h2 className="text-2xl font-bold mb-6 capitalize ">{user.role}</h2>
                     <div className="flex flex-col">
                         <button
                             className={`p-2 text-left flex items-center space-x-2 mt-2 ${activeTab === "dashboard" ? "bg-gray-700" : "hover:bg-gray-700"}`}

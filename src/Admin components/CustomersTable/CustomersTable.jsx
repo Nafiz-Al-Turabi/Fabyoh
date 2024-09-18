@@ -4,7 +4,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { PiUsersThreeLight } from 'react-icons/pi';
 import { MdAdminPanelSettings } from 'react-icons/md';
 
-const CustomersTable = ({ userData, toggleRole, loadingRoleUpdate }) => {
+const CustomersTable = ({ userData, toggleRole, loadingRoleUpdate,handleUserDelete }) => {
     const { user } = useContext(AuthContext);
     // Dynamic color according to user role
     let textColor
@@ -63,7 +63,7 @@ const CustomersTable = ({ userData, toggleRole, loadingRoleUpdate }) => {
             <td className="px-4 py-2 md:px-6 md:py-4 flex items-center space-x-2">
                 {userData.role !== 'super-admin' && (
                     <button
-                        onClick={() => handleDelete(userData._id)}
+                        onClick={() => handleUserDelete(userData._id)}
                         className="flex items-center text-red-500 p-2 border border-red-500 hover:bg-red-500 hover:text-white hover:shadow-xl hover:shadow-red-600/50 active:scale-90 duration-200 ease-in rounded"
                     >
                         <FaTrashAlt />
