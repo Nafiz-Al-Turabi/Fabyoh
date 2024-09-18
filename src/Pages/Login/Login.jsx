@@ -21,7 +21,7 @@ const Login = () => {
             await login(email, password);
             setTimeout(() => {
                 navigate(from, {replace: true});
-            }, 3000);
+            }, 1000);
         } catch (error) {
             console.error('Login failed:', error);
         }
