@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const UpdateUserProfile = () => {
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
     const token = localStorage.getItem('authToken')
     const {
         register,
@@ -27,13 +27,13 @@ const UpdateUserProfile = () => {
             // reset();
         } catch (error) {
             console.error('Error updating user:', error);
-            toast.error(' User profile updated Unsucessfull');
+            toast.error('You did not change anything');
 
         }
     };
 
     return (
-        <div className="max-w-md lg:container mx-auto p-4 bg-white rounded-lg shadow-md">
+        <div className="max-w-md lg:container mx-auto p-4 bg-white rounded-lg shadow-md border-t-4 border-violet-500">
             <ToastContainer
                 position="top-center"
                 autoClose={5000}

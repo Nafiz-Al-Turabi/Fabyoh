@@ -1,11 +1,14 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
 
-const Payment = () => {
+const Payment = ({ clientSecret }) => {
+    const { user } = useContext(AuthContext)
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
-    
+    console.log('Client Secret:', clientSecret);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -23,6 +26,17 @@ const Payment = () => {
             type: 'card',
             card,
         });
+// for confirm payment
+        const { paymentIntent,} = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email,
+                    name: user?.name
+                }
+            }
+        })
+        console.log(paymentIntent);
 
         if (error) {
             console.log('[error]', error);
@@ -58,7 +72,7 @@ const Payment = () => {
                 </div>
                 <button
                     type="submit"
-                    disabled={!stripe}
+                    disabled={!stripe || !clientSecret}
                     className="w-full bg-violet-600 text-white font-medium py-3 px-6 rounded-md hover:bg-violet-500 focus:ring-4 focus:ring-violet-300 transition duration-150 ease-in-out mt-4"
                 >
                     Pay Now
