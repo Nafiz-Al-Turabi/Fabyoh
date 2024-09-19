@@ -5,6 +5,7 @@ import ManagesRoleTable from '../ManagesRoleTable/ManagesRoleTable';
 import axiosInstance from '../../Axios/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../../Components/Loading/Loading';
 
 const ManagesRoles = () => {
     const { user } = useContext(AuthContext);
@@ -71,6 +72,9 @@ const ManagesRoles = () => {
             toast.error('Failed to delete user');
         }
     };
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <div>
