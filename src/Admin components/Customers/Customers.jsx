@@ -19,12 +19,16 @@ const Customers = () => {
 
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
+            const userRoleData = data.filter(user => user.role === 'user');
+            setFilteredData(userRoleData);
             setFilteredData(data);
         } else {
             const lowerCaseQuery = searchQuery.toLowerCase();
             const results = data.filter(user =>
-                user.name.toLowerCase().includes(lowerCaseQuery) ||
-                user.email.toLowerCase().includes(lowerCaseQuery)
+                user.role === 'user' && (
+                    user.name.toLowerCase().includes(lowerCaseQuery) ||
+                    user.email.toLowerCase().includes(lowerCaseQuery)
+                )
             );
             setFilteredData(results);
         }
@@ -34,13 +38,14 @@ const Customers = () => {
     const { isLoading, isError, data = [], error, refetch } = useQuery({
         queryKey: ['todos'],
         queryFn: async () => {
-            const response = await axiosInstance.get('/users');
+            const response = await axiosInstance.get('/users?role=user');
             return response.data;
         },
     });
 
     useEffect(() => {
-        setFilteredData(data);
+        const filteredUsers = data.filter(user => user.role === 'user');
+        setFilteredData(filteredUsers);
     }, [data]);
 
     if (isLoading) {
