@@ -4,6 +4,7 @@ import { FiMenu, FiLogOut } from "react-icons/fi";
 import { FcBarChart, FcCustomerSupport, FcPaid, FcShop } from "react-icons/fc";
 import { IoIosSettings } from "react-icons/io";
 import Customers from "../../../Admin components/Customers/Customers";
+import Settings from "../../../Admin components/Settings/Settings";
 
 const AdminDashboard = () => {
     const { user, logout } = useContext(AuthContext);
@@ -126,8 +127,7 @@ const AdminDashboard = () => {
                     )}
                     {activeTab === "settings" && (
                         <div>
-                            {/* Settings content */}
-                            <h2 className="text-2xl font-bold">Settings Section</h2>
+                            <Settings />
                         </div>
                     )}
                 </main>

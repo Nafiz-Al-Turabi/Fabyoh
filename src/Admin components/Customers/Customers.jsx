@@ -6,8 +6,9 @@ import emoji from './../../assets/images/emoji.svg'
 import emoji2 from './../../assets/images/emoji2.svg'
 import Loading from '../../Components/Loading/Loading';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { PiUsersThreeLight } from 'react-icons/pi';
 import CustomersTable from '../CustomersTable/CustomersTable';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Customers = () => {
     const { user } = useContext(AuthContext)
@@ -55,7 +56,7 @@ const Customers = () => {
     // Function to handle role toggling
     const toggleRole = async (userId, currentRole) => {
         if (user.role !== 'super-admin') {
-            alert('Only super-admin can update roles');
+            toast.error('Only super-admin can update roles');
             return;
         }
 
@@ -75,11 +76,11 @@ const Customers = () => {
             );
 
             if (response.status === 200) {
-                alert('User role updated successfully');
+                toast.success('User role updated successfully');
                 refetch();
             }
         } catch (error) {
-            alert('Failed to update user role');
+            toast.error('Failed to update user role');
         } finally {
             setLoadingRoleUpdate(false);
         }
@@ -92,15 +93,29 @@ const Customers = () => {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
-            })
+            });
+            toast.success('User deleted successfully');
             refetch();
         } catch (error) {
-
+            toast.error('Failed to delete user');
         }
     }
 
     return (
         <div className="overflow-x-auto p-4">
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition:Bounce
+            />
             <div className='flex justify-between mb-4'>
                 <h2 className="text-2xl font-bold">Customers</h2>
                 <div className='relative'>
