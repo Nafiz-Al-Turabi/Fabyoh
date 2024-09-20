@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { CartContext } from '../../Provider/CartProvider';
 
 const UserProfile = () => {
+    const {user}=useContext(AuthContext);
+    const {cartItems}=useContext(CartContext)
     return (
         <div className='font-josefin'>
             <div className='flex justify-between gap-5'>
@@ -10,8 +14,8 @@ const UserProfile = () => {
                             <img src="https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1726704000&semt=ais_hybrid" alt="image" className='w-32 h-32 object-cover rounded-full border-4 border-violet-400' />
                         </div>
                         <div className='text-center mt-6'>
-                            <h1 className='text-xl font-semibold text-gray-700'>Nafiz Al Turabi</h1>
-                            <p className='s-text'>nafizalturabi@gmail.com</p>
+                            <h1 className='text-xl font-semibold text-gray-700'>{user.name}</h1>
+                            <p className='s-text'>{user.email}</p>
                         </div>
                         <div className='bg-white grid grid-cols-2 gap-5 items-center p-8 m-8 rounded-xl'>
                             <div className='text-center'>
@@ -32,10 +36,10 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <div className='bg-white p-6 m-8 rounded-xl'>
-                            <p className='font-bold text-gray-600'>Adrees: <span className='text-sm s-text '>Badalgachhi, Naogaon</span> </p>
-                            <p className='font-bold text-gray-600'>City: <span className='text-sm s-text '>Naogaon</span> </p>
-                            <p className='font-bold text-gray-600'>Post code: <span className='text-sm s-text '>6369</span> </p>
-                            <p className='font-bold text-gray-600'>Phone: <span className='text-sm s-text '>01755984562</span> </p>
+                            <p className='font-bold text-gray-600'>Adrees: <span className='text-sm s-text '>{user.address}</span> </p>
+                            <p className='font-bold text-gray-600'>City: <span className='text-sm s-text '>{user.city}</span> </p>
+                            <p className='font-bold text-gray-600'>Post code: <span className='text-sm s-text '>{user.postcode}</span> </p>
+                            <p className='font-bold text-gray-600'>Phone: <span className='text-sm s-text '>{user.phone}</span> </p>
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import UserSettings from '../../../User components/UserSettings/UserSettings';
 import UserProfile from '../../../User components/UserProfile/UserProfile';
 import { Link } from 'react-router-dom';
 import UserOrders from '../../../User components/UserOrders/UserOrders';
+import OrdersHistory from '../../../User components/OrdersHistory/OrdersHistory';
 
 const UserDashboard = () => {
     const { user, logout, loading } = useContext(AuthContext);
@@ -69,7 +70,7 @@ const UserDashboard = () => {
                     {isSidebarOpen ? <FaTimes size={24} className='fixed top-5 left-5 ' /> : <FaBars size={24} />}
                 </button>
 
-                <header className="flex justify-between items-center bg-white border-b mb-6 p-6">
+                <header className="flex justify-between items-center bg-white border-b p-6">
                     <h1 className="text-xl md:text-3xl font-bold ">Welcome, <span className='p-text'>{user.name}</span></h1>
                     <button onClick={logout} className="bg-violet-500 text-white px-4 py-2 rounded hover:bg-violet-600">
                         <FaSignOutAlt />
@@ -77,10 +78,10 @@ const UserDashboard = () => {
                 </header>
 
                 {/* Render active tab content */}
-                <section className="p-6 overflow-auto h-[calc(100vh-160px)]"> {/* Adjust height to fit header and footer */}
+                <section className="p-6 overflow-auto"> {/* Adjust height to fit header and footer */}
                     {activeTab === 'profile' && <UserProfile />}
                     {activeTab === 'orders' && <UserOrders />}
-                    {activeTab === 'order-history' && <p>Your order history will be displayed here.</p>}
+                    {activeTab === 'order-history' && <OrdersHistory/>}
                     {activeTab === 'settings' && <UserSettings />}
                 </section>
             </main>
