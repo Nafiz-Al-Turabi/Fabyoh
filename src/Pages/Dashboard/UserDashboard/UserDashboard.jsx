@@ -7,6 +7,7 @@ import Loading from '../../../Components/Loading/Loading';
 import UserSettings from '../../../User components/UserSettings/UserSettings';
 import UserProfile from '../../../User components/UserProfile/UserProfile';
 import { Link } from 'react-router-dom';
+import UserOrders from '../../../User components/UserOrders/UserOrders';
 
 const UserDashboard = () => {
     const { user, logout, loading } = useContext(AuthContext);
@@ -22,10 +23,10 @@ const UserDashboard = () => {
     }
 
     return (
-        <div className="flex h-screen  font-josefin">
+        <div className="flex h-screen font-josefin">
             {/* Sidebar for Desktop */}
             <aside
-                className={`fixed inset-y-0 left-0 md:p-5 w-64 bg-white border-r transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed top-0 inset-y-0 h-screen left-0 md:p-5 w-64 bg-white border-r transition-transform transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     } md:translate-x-0 md:static md:w-64 md:flex md:flex-col`}
             >
                 <div className="p-4 flex justify-center">
@@ -53,13 +54,12 @@ const UserDashboard = () => {
                                 <IoSettings className={`mr-3 ${activeTab === 'settings' ? 'text-white' : 'p-text'}`} /> Settings
                             </button>
                         </li>
-
                     </ul>
                 </nav>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 bg-white">
+            <main className="flex-1 bg-white overflow-auto">
                 {/* Mobile Sidebar Toggle Button */}
                 <button
                     onClick={toggleSidebar}
@@ -76,12 +76,10 @@ const UserDashboard = () => {
                     </button>
                 </header>
 
-
-
                 {/* Render active tab content */}
-                <section className="p-6">
+                <section className="p-6 overflow-auto h-[calc(100vh-160px)]"> {/* Adjust height to fit header and footer */}
                     {activeTab === 'profile' && <UserProfile />}
-                    {activeTab === 'orders' && <p>Your orders will be displayed here.</p>}
+                    {activeTab === 'orders' && <UserOrders />}
                     {activeTab === 'order-history' && <p>Your order history will be displayed here.</p>}
                     {activeTab === 'settings' && <UserSettings />}
                 </section>
