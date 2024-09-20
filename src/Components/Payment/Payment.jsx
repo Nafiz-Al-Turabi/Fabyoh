@@ -1,13 +1,22 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { CartContext } from '../../Provider/CartProvider';
+import axiosInstance from '../../Axios/axiosInstance';
 
-const Payment = ({ clientSecret }) => {
-    const { user } = useContext(AuthContext)
+const Payment = ({ clientSecret, totalPrice }) => {
+    const { user } = useContext(AuthContext);
+    const { cartItems } = useContext(CartContext);
+    console.log(cartItems);
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
-    console.log('Client Secret:', clientSecret);
+    const [successeId, setSuccessId] = useState('');
+    // console.log('Client Secret:', clientSecret);
+    const token = localStorage.getItem('authToken');
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,8 +35,8 @@ const Payment = ({ clientSecret }) => {
             type: 'card',
             card,
         });
-// for confirm payment
-        const { paymentIntent,} = await stripe.confirmCardPayment(clientSecret, {
+        // for confirm payment
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
@@ -36,7 +45,43 @@ const Payment = ({ clientSecret }) => {
                 }
             }
         })
-        console.log(paymentIntent);
+        if (confirmError) {
+            console.log("confirm error", error);
+        } else {
+            console.log("Payment intent", paymentIntent);
+            if (paymentIntent.status === 'succeeded') {
+                console.log('transuction id', paymentIntent.id);
+                setSuccessId(paymentIntent.id)
+                toast.success('Payment Successfull')
+
+                // Payment data save to database..
+                const payment = {
+                    email: user.email,
+                    price: totalPrice,
+                    date: new Date(),
+                    transactionId: paymentIntent.id,
+                    id: cartItems.map(cart => cart._id),
+                    title: cartItems.map(cart => cart.title),
+                    size: cartItems.map(cart => cart.size),
+                    color: cartItems.map(cart => cart.color),
+                    totalItems: cartItems.map(cart => cart.totalItems),
+                    image: cartItems.map(cart => cart.image),
+                    status: 'pending'
+
+                }
+                try {
+                    const response = await axiosInstance.post('/payment', payment, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    })
+                    console.log('Payment saved successfully:', response.data);
+                } catch (error) {
+                    console.error('Error saving payment:', error);
+                }
+
+            }
+        }
 
         if (error) {
             console.log('[error]', error);
@@ -50,6 +95,19 @@ const Payment = ({ clientSecret }) => {
     return (
         <>
             <form onSubmit={handleSubmit} className='bg-white shadow-md border border-slate-300 p-6 rounded-lg max-w-md'>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition:Flip
+                />
                 <h2 className="text-2xl font-semibold mb-4 text-gray-700 text-center">Make a Payment</h2>
                 <div className="mb-4">
                     <CardElement

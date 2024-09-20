@@ -62,7 +62,7 @@ const CheckOut = () => {
                     <div className='w-full md:w-1/2'>
                         <h1 className='mb-5 text-xl font-bold'>Total: ${totalPrice}</h1>
                         <Elements stripe={stripePromise} >
-                            <Payment clientSecret={clientSecret}></Payment>
+                            <Payment clientSecret={clientSecret} totalPrice={totalPrice}></Payment>
                         </Elements>
                     </div>
                 </div>

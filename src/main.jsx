@@ -19,11 +19,11 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <CartProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <CartProvider>
           <RouterProvider router={router} />
-        </QueryClientProvider>
-      </CartProvider>
+        </CartProvider>
+      </QueryClientProvider>
     </AuthProvider>
   </StrictMode>,
 )
