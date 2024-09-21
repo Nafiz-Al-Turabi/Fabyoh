@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [loading, setLoading] = useState(true);
-   
+
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
@@ -36,6 +36,7 @@ const AuthProvider = ({ children }) => {
 
 
     const login = async (email, password) => {
+        setErrorMessage('')
         setErrorMessage('');
         try {
             const response = await axiosInstance.post('/login', { email, password });
@@ -45,6 +46,8 @@ const AuthProvider = ({ children }) => {
                 if (response.data.token) {
                     localStorage.setItem('authToken', response.data.token);
                     setUser(response.data)
+                    setErrorMessage('');
+
                 } else {
                     console.error('Token not found in response.');
                     setIsLoggedIn(false);

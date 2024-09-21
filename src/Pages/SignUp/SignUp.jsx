@@ -9,7 +9,7 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-
+    const navigate = useNavigate()
 
     // Submit handler
     const onSubmit = async (data) => {
