@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ManagesRoles from '../ManagesRoles/ManagesRoles';
 import ProcessingProducts from '../Processing Products/ProcessingProducts';
 import Delevered from '../Delevered Products/Delevered';
+import AddProduct from '../AddProduct/AddProduct';
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState('ManageRoles'); // State to track active tab
@@ -18,7 +19,7 @@ const Settings = () => {
             case 'PaymentOptions':
                 return <div>Payment options content goes here...</div>;
             case 'SiteSettings':
-                return <div>Site settings content goes here...</div>;
+                return <AddProduct/>;
             default:
                 return <div>Manage roles content goes here...</div>;
         }
@@ -61,7 +62,7 @@ const Settings = () => {
                         } hover:text-violet-500 transition-colors`}
                     onClick={() => setActiveTab('SiteSettings')}
                 >
-                    Site Settings
+                    Add Products
                 </button>
             </div>
 

@@ -6,9 +6,9 @@ import { IoIosSettings } from "react-icons/io";
 import Customers from "../../../Admin components/Customers/Customers";
 import Settings from "../../../Admin components/Settings/Settings";
 import Orders from "../../../Admin components/Orders/Orders";
-import AddProduct from "../../../Admin components/AddProduct/AddProduct";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../../Axios/axiosInstance";
+import Products from "../../../Admin components/Products/Products";
 
 const AdminDashboard = () => {
     const { user, logout } = useContext(AuthContext);
@@ -132,7 +132,7 @@ const AdminDashboard = () => {
                     )}
                     {activeTab === "products" && (
                         <div>
-                            <AddProduct />
+                            <Products />
                         </div>
                     )}
                     {activeTab === "orders" && (
