@@ -86,7 +86,7 @@ const ProductsDetails = () => {
     if (error) return <p>{error}</p>;
 
     const { title, colors = [], imageMain, imageSecond, price, description } = details;
-    console.log('this is detail',details);
+    // console.log('this is detail',details);
 
     return (
         <div className='lg:my-10 font-josefin'>

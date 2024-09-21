@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeaturedProductCard from '../Cards/FeaturedProductCard/FeaturedProductCard';
+import axiosInstance from '../../Axios/axiosInstance';
 
 const Filters = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -30,11 +31,8 @@ const Filters = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('/products.json');
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
-            }
-            const result = await response.json();
+            const response = await axiosInstance.get('/products');
+            const result = response.data
             setProducts(result);
             setFilteredProducts(result);
         } catch (error) {
@@ -323,7 +321,7 @@ const Filters = () => {
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 p-4 xl:px-16 xl:py-4 gap-2 md:gap-6 mx-4 xl:mx-0'>
                     {filteredProducts.map((product) => (
-                        <FeaturedProductCard key={product.id} product={product} />
+                        <FeaturedProductCard key={product._id} product={product} />
                     ))}
                 </div>
             </div>

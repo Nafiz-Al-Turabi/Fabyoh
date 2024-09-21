@@ -36,7 +36,7 @@ const Orders = () => {
 
     // Get the current items for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = pendingOrders.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = pendingOrders.reverse().slice(startIndex, startIndex + itemsPerPage);
     return (
         <div className='mt-10'>
              {

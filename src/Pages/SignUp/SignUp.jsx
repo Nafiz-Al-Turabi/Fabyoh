@@ -13,10 +13,8 @@ const SignUp = () => {
 
     // Submit handler
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const response = await axiosInstance.post('/register', data);
-            console.log(response.data);
             setSuccessMessage('Account created successfully! Redirecting to login page...');
             setErrorMessage('');
 

@@ -9,7 +9,7 @@ import axiosInstance from '../../Axios/axiosInstance';
 const Payment = ({ clientSecret, totalPrice }) => {
     const { user } = useContext(AuthContext);
     const { cartItems } = useContext(CartContext);
-    console.log(cartItems);
+    // console.log(cartItems);
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
@@ -48,9 +48,9 @@ const Payment = ({ clientSecret, totalPrice }) => {
         if (confirmError) {
             console.log("confirm error", error);
         } else {
-            console.log("Payment intent", paymentIntent);
+            // console.log("Payment intent", paymentIntent);
             if (paymentIntent.status === 'succeeded') {
-                console.log('transuction id', paymentIntent.id);
+                // console.log('transuction id', paymentIntent.id);
                 setSuccessId(paymentIntent.id)
                 toast.success('Payment Successfull')
 
@@ -75,7 +75,7 @@ const Payment = ({ clientSecret, totalPrice }) => {
                             'Authorization': `Bearer ${token}`
                         }
                     })
-                    console.log('Payment saved successfully:', response.data);
+                    // console.log('Payment saved successfully:', response.data);
                 } catch (error) {
                     console.error('Error saving payment:', error);
                 }
@@ -84,11 +84,11 @@ const Payment = ({ clientSecret, totalPrice }) => {
         }
 
         if (error) {
-            console.log('[error]', error);
+            // console.log('[error]', error);
             setCardError(error.message);
         } else {
             setCardError('');
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
         }
     };
 

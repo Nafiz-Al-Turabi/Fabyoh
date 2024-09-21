@@ -36,11 +36,11 @@ const AuthProvider = ({ children }) => {
 
 
     const login = async (email, password) => {
+        setErrorMessage('');
         try {
             const response = await axiosInstance.post('/login', { email, password });
             if (response && response.data) {
                 setSuccessMessage(response.data.message);
-                setErrorMessage('');
 
                 if (response.data.token) {
                     localStorage.setItem('authToken', response.data.token);
@@ -53,9 +53,8 @@ const AuthProvider = ({ children }) => {
                 console.error('Invalid response from server.');
             }
         } catch (error) {
-            console.error('Error during login:', error.response?.data?.message || error.message);
             setErrorMessage(error.response?.data?.message || 'Login failed, please try again.');
-            setErrorMessage('');
+            setErrorMessage(message);
         }
     };
 

@@ -5,6 +5,7 @@ import promot from './../../assets/images/slider/image7.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
+import axiosInstance from '../../Axios/axiosInstance';
 
 const TodaysDeal = () => {
     const [deals, setDeals] = useState([]);
@@ -44,11 +45,8 @@ const TodaysDeal = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('/products.json');
-            if (response.ok) {
-                console.log(response.data);
-            }
-            const result = await response.json()
+            const response = await axiosInstance('/products');
+            const result = response.data
             setDeals(result);
         } catch (error) {
             console.log("Failed to fetch today deals Products",error);
@@ -63,7 +61,7 @@ const TodaysDeal = () => {
                 </h1>
                 <Slider {...settings}>
                     {deals.slice(0,4).map((deal) => (
-                        <Link to={`/productDetails/${deal.id}`} key={deal.id} className='pl-4'>
+                        <Link to={`/productDetails/${deal._id}`} key={deal._id} className='pl-4'>
                             <div className='bg-[#F3EFFE] rounded-lg overflow-hidden p-3'>
                                 <img
                                     src={deal.imageMain}

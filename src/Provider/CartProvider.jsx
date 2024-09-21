@@ -19,7 +19,7 @@ export const CartProvider = ({ children }) => {
             });
             setCartItems(response.data);
         } catch (error) {
-            console.error('Error fetching cart items:', error.response || error.message);
+            // console.error('Error fetching cart items:', error.response || error.message);
             setError('Failed to load cart items from the server.');
         } finally {
             setLoading(false);
@@ -57,7 +57,7 @@ export const CartProvider = ({ children }) => {
             });
             setCartItems(updatedCart);
         } catch (error) {
-            console.error('Error adding to cart:', error.response || error.message);
+            // console.error('Error adding to cart:', error.response || error.message);
             setError('Failed to update the cart on the server.');
         }
     };
@@ -71,7 +71,7 @@ export const CartProvider = ({ children }) => {
                 },
             });
         } catch (error) {
-            console.error('Error updating cart item:', error.response || error.message);
+            // console.error('Error updating cart item:', error.response || error.message);
             setError('Failed to update the cart item on the server.');
         }
     };
@@ -137,7 +137,7 @@ export const CartProvider = ({ children }) => {
     
             setCartItems((prevItems) => prevItems.filter(item => item._id !== itemId));
         } catch (error) {
-            console.error('Error removing item:', error.response || error.message);
+            // console.error('Error removing item:', error.response || error.message);
             setError('Failed to remove the item from the server.'); 
         }
     };

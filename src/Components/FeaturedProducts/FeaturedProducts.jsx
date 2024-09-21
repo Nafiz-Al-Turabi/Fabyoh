@@ -10,7 +10,6 @@ const FeaturedProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             const response = await axiosInstance.get('/products');
-            console.log(response.data);
             return response.data;
         },
     });
