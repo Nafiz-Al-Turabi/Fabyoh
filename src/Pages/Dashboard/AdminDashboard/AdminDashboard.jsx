@@ -6,6 +6,7 @@ import { IoIosSettings } from "react-icons/io";
 import Customers from "../../../Admin components/Customers/Customers";
 import Settings from "../../../Admin components/Settings/Settings";
 import Orders from "../../../Admin components/Orders/Orders";
+import AddProduct from "../../../Admin components/AddProduct/AddProduct";
 
 const AdminDashboard = () => {
     const { user, logout } = useContext(AuthContext);
@@ -111,8 +112,7 @@ const AdminDashboard = () => {
                     )}
                     {activeTab === "products" && (
                         <div>
-                            {/* Products content */}
-                            <h2 className="text-2xl font-bold">Products Section</h2>
+                            <AddProduct />
                         </div>
                     )}
                     {activeTab === "orders" && (
