@@ -32,7 +32,7 @@ const UserOrders = () => {
 
     // Filter orders with status "Pending" or "In Processing"
     const filteredData = data.filter(order => 
-        order.status === 'Pending' || order.status === 'In Processing'
+        order.status === 'Pending' || order.status === 'In Process'
     );
 
     // Sort the filtered data by date (newest first)
@@ -46,7 +46,7 @@ const UserOrders = () => {
     const currentItems = sortedData.slice(startIndex, startIndex + itemsPerPage);
 
     return (
-        <div className="min-h-screen">
+        <div className="">
             {
                 currentItems.length > 0 ? (
                     currentItems.map((transaction) => (

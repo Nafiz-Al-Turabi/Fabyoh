@@ -39,12 +39,15 @@ const Orders = () => {
     const currentItems = pendingOrders.slice(startIndex, startIndex + itemsPerPage);
     return (
         <div className='mt-10'>
-            {
-                currentItems.map(order =>
-                    <AdminOrderCard key={order._id} order={order} refetch={refetch}/>
+             {
+                currentItems.length > 0 ? (
+                    currentItems.map(order =>
+                        <AdminOrderCard key={order._id} order={order} refetch={refetch} />
+                    )
+                ) : (
+                    <p className="text-center text-gray-500">No 'Pending' orders found.</p>
                 )
             }
-
             {/* Pagination Controls */}
             {totalPages > 1 && (
                 <div className="flex justify-center space-x-2 mt-4">

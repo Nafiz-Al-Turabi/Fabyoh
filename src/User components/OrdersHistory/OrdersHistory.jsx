@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Loading from '../../Components/Loading/Loading';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axiosInstance from '../../Axios/axiosInstance';
@@ -9,6 +9,7 @@ const OrdersHistory = () => {
     const token = localStorage.getItem('authToken');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
+
     const { isLoading, isError, data = [], error } = useQuery({
         queryKey: ['userOrders', { email: user.email }],
         queryFn: async () => {
@@ -28,14 +29,18 @@ const OrdersHistory = () => {
         return <p>Error loading orders: {error.message}</p>;
     }
 
-    const sortedData = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Filter orders with status "Completed" or "Delivered"
+    const filteredData = data.filter(order => order.status === 'Completed' || order.status === 'Delivered');
+
+    // Sort the filtered data by date (newest first)
+    const sortedData = filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // Calculate total pages
     const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
-    // Get the current items
+    // Get the current items for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = data.slice().reverse().slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = sortedData.slice(startIndex, startIndex + itemsPerPage);
 
     return (
         <div className="p-6">
@@ -59,9 +64,15 @@ const OrdersHistory = () => {
                                     <td className="py-2 px-4 border-b">{order._id}</td>
                                     <td className="py-2 px-4 border-b">{order.transactionId}</td>
                                     <td className="py-2 px-4 border-b">{order.title}</td>
-                                    <td className="py-2 px-4 border-b"> {order.totalItems.reduce((acc, item) => acc + item, 0)}</td>
-                                    <td className="py-2 px-4 border-b text-green-600 font-semibold">${order.price}</td>
-                                    <td className="py-2 px-4 border-b">{new Date(order.date).toLocaleDateString()}</td>
+                                    <td className="py-2 px-4 border-b">
+                                        {order.totalItems.reduce((acc, item) => acc + item, 0)}
+                                    </td>
+                                    <td className="py-2 px-4 border-b text-green-600 font-semibold">
+                                        ${order.price}
+                                    </td>
+                                    <td className="py-2 px-4 border-b">
+                                        {new Date(order.date).toLocaleDateString()}
+                                    </td>
                                     <td className={`py-2 px-4 border-b ${order.status === 'Delivered' ? 'text-green-500' : 'text-red-500'}`}>
                                         {order.status}
                                     </td>
@@ -71,10 +82,11 @@ const OrdersHistory = () => {
                     </table>
                 </div>
             ) : (
-                <p className="text-center text-gray-600">No orders found.</p>
+                <p className="text-center text-gray-600">No completed or delivered orders found.</p>
             )}
-             {/* Pagination Controls */}
-             {totalPages > 1 && (
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
                 <div className="flex justify-center space-x-2 mt-4">
                     {Array.from({ length: totalPages }, (_, index) => (
                         <button
