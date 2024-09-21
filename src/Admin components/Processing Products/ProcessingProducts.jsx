@@ -1,20 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import TransactionCard from '../Cards/TransactionCard/TransactionCard';
-import Loading from '../../Components/Loading/Loading';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axiosInstance from '../../Axios/axiosInstance';
+import AdminOrderCard from '../AdminOrderCard/AdminOrderCard';
+import Loading from '../../Components/Loading/Loading';
 
-const UserOrders = () => {
+const ProcessingProducts = () => {
     const { user } = useContext(AuthContext);
     const token = localStorage.getItem('authToken');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
-    const { isLoading, isError, data = [], error } = useQuery({
-        queryKey: ['userOrders', { email: user.email }],
+    const { isLoading, isError, data = [], error, refetch } = useQuery({
+        queryKey: ['userOrders'],
         queryFn: async () => {
-            const response = await axiosInstance.get('/orders', {
+            const response = await axiosInstance.get('/adminOrders', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -30,30 +30,25 @@ const UserOrders = () => {
         return <p>Error loading orders: {error.message}</p>;
     }
 
-    // Filter orders with status "Pending" or "In Processing"
-    const filteredData = data.filter(order => 
-        order.status === 'Pending' || order.status === 'In Processing'
-    );
+    // Filter the data to show only orders with the status 'In Process'
+    const inProcessOrders = data.filter(order => order.status === 'In Process');
 
-    // Sort the filtered data by date (newest first)
-    const sortedData = filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Calculate total pages
-    const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+    // Calculate total pages for pagination
+    const totalPages = Math.ceil(inProcessOrders.length / itemsPerPage);
 
     // Get the current items for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = sortedData.slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = inProcessOrders.reverse().slice(startIndex, startIndex + itemsPerPage);
 
     return (
-        <div className="min-h-screen">
+        <div className='mt-10'>
             {
                 currentItems.length > 0 ? (
-                    currentItems.map((transaction) => (
-                        <TransactionCard key={transaction._id} transaction={transaction} />
-                    ))
+                    currentItems.map(order =>
+                        <AdminOrderCard key={order._id} order={order} refetch={refetch} />
+                    )
                 ) : (
-                    <p className="text-center text-gray-500">No Pending or In Processing orders found.</p>
+                    <p className="text-center text-gray-500">No 'In Process' orders found.</p>
                 )
             }
 
@@ -75,4 +70,4 @@ const UserOrders = () => {
     );
 };
 
-export default UserOrders;
+export default ProcessingProducts;

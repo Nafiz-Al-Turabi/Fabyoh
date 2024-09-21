@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ManagesRoles from '../ManagesRoles/ManagesRoles';
+import ProcessingProducts from '../Processing Products/ProcessingProducts';
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState('ManageRoles'); // State to track active tab
@@ -9,8 +10,8 @@ const Settings = () => {
         switch (activeTab) {
             case 'ManageRoles':
                 return <ManagesRoles />;
-            case 'ManageUsers':
-                return <div>Manage users content goes here...</div>;
+            case 'Processing':
+                return <ProcessingProducts />;
             case 'ShippingSettings':
                 return <div>Shipping settings content goes here...</div>;
             case 'PaymentOptions':
@@ -34,11 +35,11 @@ const Settings = () => {
                     Manage Roles
                 </button>
                 <button
-                    className={`px-4 py-2 m-2 font-semibold border-b-2 ${activeTab === 'ManageUsers' ? 'border-violet-500 text-violet-500' : 'border-transparent'
+                    className={`px-4 py-2 m-2 font-semibold border-b-2 ${activeTab === 'Processing' ? 'border-violet-500 text-violet-500' : 'border-transparent'
                         } hover:text-violet-500 transition-colors`}
-                    onClick={() => setActiveTab('ManageUsers')}
+                    onClick={() => setActiveTab('Processing')}
                 >
-                    Manage Users
+                    Processing Products
                 </button>
                 <button
                     className={`px-4 py-2 m-2 font-semibold border-b-2 ${activeTab === 'ShippingSettings' ? 'border-violet-500 text-violet-500' : 'border-transparent'

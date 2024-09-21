@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../Axios/axiosInstance';
 import { toast, ToastContainer } from 'react-toastify';
 
-const AdminOrderCard = ({ order }) => {
+const AdminOrderCard = ({ order, refetch }) => {
     const statusOptions = ['Pending', 'In Process', 'Complete'];
 
     const [status, setStatus] = useState(order.status);
@@ -20,6 +20,7 @@ const AdminOrderCard = ({ order }) => {
                 }
             });
             toast.success('status updated succesfully');
+            refetch();
         } catch (error) {
             toast.error('Failed to update status');
             console.error('Error updating status:', error);

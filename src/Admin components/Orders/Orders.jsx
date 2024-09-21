@@ -29,19 +29,19 @@ const Orders = () => {
         return <p>Error loading orders: {error.message}</p>;
     }
 
-    const sortedData = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const pendingOrders = data.filter(order => order.status === 'Pending');
 
     // Calculate total pages
-    const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+    const totalPages = Math.ceil(pendingOrders.length / itemsPerPage);
 
-    // Get the current items
+    // Get the current items for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const currentItems = data.slice().reverse().slice(startIndex, startIndex + itemsPerPage);
+    const currentItems = pendingOrders.slice(startIndex, startIndex + itemsPerPage);
     return (
         <div className='mt-10'>
             {
                 currentItems.map(order =>
-                    <AdminOrderCard key={order._id} order={order}/>
+                    <AdminOrderCard key={order._id} order={order} refetch={refetch}/>
                 )
             }
 
