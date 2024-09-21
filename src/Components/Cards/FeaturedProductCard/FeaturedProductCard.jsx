@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const FeaturedProductCard = ({ product }) => {
     const [loading, setLoading] = useState(true);
 
-    const { title, discount, imageMain, imageSecond,id } = product
+    const { title, discount, imageMain, imageSecond,_id } = product
 
     useEffect(() => {
         // Simulate loading time
@@ -15,7 +15,7 @@ const FeaturedProductCard = ({ product }) => {
     }, []);
 
     return (
-        <Link to={`/productDetails/${id}`} className="relative w-full sm:w-60 md:w-full h-auto group font-josefin">
+        <Link to={`/productDetails/${_id}`} className="relative w-full sm:w-60 md:w-full h-auto group font-josefin">
             {/* Skeleton Loader */}
             {loading ? (
                 <div>

@@ -3,9 +3,12 @@ import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../../Provider/CartProvider';
 import { AuthContext } from '../../Provider/AuthProvider';
+import axiosInstance from '../../Axios/axiosInstance';
+import Loading from '../../Components/Loading/Loading';
+
 const ProductsDetails = () => {
-    const {user}=useContext(AuthContext)
-    const { addToCart } = useContext(CartContext)
+    const { user } = useContext(AuthContext);
+    const { addToCart } = useContext(CartContext);
     const [selectedSize, setSelectedSize] = useState('');
     const [selectedColor, setSelectedColor] = useState('');
     const [itemCount, setItemCount] = useState(1);
@@ -15,7 +18,7 @@ const ProductsDetails = () => {
     const [error, setError] = useState(null);
     const [notification, setNotification] = useState('');
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const handleSizeSelect = (size) => {
         setSelectedSize(size);
@@ -26,8 +29,9 @@ const ProductsDetails = () => {
     };
 
     const handleAddToCart = () => {
-        if(!user){
-            navigate('/login')
+        if (!user) {
+            navigate('/login');
+            return;
         }
         if (!selectedSize || !selectedColor) {
             setNotification('Please select size and color.');
@@ -41,60 +45,53 @@ const ProductsDetails = () => {
             price: details.price,
             totalItems: itemCount,
             image: details.imageMain,
-            totalPrice: details.price * itemCount, // Calculate total price for the item count
+            totalPrice: details.price * itemCount,
         };
         addToCart(cartItem);
-
         setNotification('Item added to cart!');
     };
+
     // Notification
     useEffect(() => {
         if (notification) {
             const timer = setTimeout(() => {
                 setNotification('');
             }, 3000);
-            return () => clearTimeout(timer)
+            return () => clearTimeout(timer);
         }
-    }, [notification])
+    }, [notification]);
 
     const handleItemCountChange = (delta) => {
-        setItemCount(prev => Math.max(1, prev + delta)); // Ensure item count is at least 1
+        setItemCount(prev => Math.max(1, prev + delta));
     };
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        fetchData();
-    }, [id]);
 
     const fetchData = async () => {
         try {
-            const response = await fetch('/products.json');
-            if (!response.ok) {
-                throw new Error('Failed to fetch product data.');
-            }
-            const data = await response.json();
-            const product = data.find(detail => detail.id == id);
-            if (product) {
-                setDetails(product);
-            } else {
-                setError('Product not found');
-            }
+            const response = await axiosInstance.get(`/products/${id}`);
+
+            setDetails(response.data);
         } catch (error) {
             setError(error.message);
         } finally {
             setLoading(false);
         }
     };
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        fetchData();
+    }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading />;
     if (error) return <p>{error}</p>;
 
     const { title, colors = [], imageMain, imageSecond, price, description } = details;
+    console.log('this is detail',details);
 
     return (
         <div className='lg:my-10 font-josefin'>
             {notification && (
-                <div className="r fixed md:bottom-5 md:right-5 z-50 bg-violet-500 text-white p-1 rounded transition-transform transform scale-105">
+                <div className="fixed md:bottom-5 md:right-5 z-50 bg-violet-500 text-white p-1 rounded transition-transform transform scale-105">
                     {notification}
                 </div>
             )}
@@ -113,7 +110,6 @@ const ProductsDetails = () => {
                             <h1 className='text-2xl lg:text-4xl'>{title}</h1>
                             <button className="hidden lg:block text-4xl p-bg p-1 text-white rounded hover:bg-violet-400 duration-100">
                                 <PiHeartStraightLight />
-                                {/* <PiHeartStraightFill /> */}
                             </button>
                         </div>
                         <div className='flex gap-5 mt-5'>

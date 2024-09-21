@@ -132,6 +132,7 @@ const AdminDashboard = () => {
                     )}
                     {activeTab === "products" && (
                         <div>
+                            <h1  className="text-2xl font-bold">All Products</h1>
                             <Products />
                         </div>
                     )}

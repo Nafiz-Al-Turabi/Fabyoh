@@ -5,6 +5,7 @@ import Loading from '../../Components/Loading/Loading';
 import axiosInstance from '../../Axios/axiosInstance';
 
 const Products = () => {
+    const itemsPerPage = 5;
     const token = localStorage.getItem('authToken');
     const { isLoading, isError, data = [], error, refetch } = useQuery({
         queryKey: ['products'],
@@ -28,7 +29,7 @@ const Products = () => {
     }
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-5 gap-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-10'>
             {data.map(product => (
                 <ProductsCard key={product._id} product={product} />
             ))}

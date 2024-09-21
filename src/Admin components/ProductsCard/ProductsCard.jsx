@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import UpdateProductModal from '../UpdateProductModal/UpdateProductModal';
 
 const ProductCard = ({ product, onDelete, onUpdate }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleUpdate = (updatedProduct) => {
+        onUpdate(updatedProduct); 
+        setIsModalOpen(false); 
+    };
+
     const {
         title,
         price,
@@ -12,11 +20,11 @@ const ProductCard = ({ product, onDelete, onUpdate }) => {
     } = product;
 
     return (
-        <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden mx-auto transform transition-transform hover:scale-105">
+        <div className="max-w-sm bg-white shadow-lg rounded-lg mx-auto">
             {/* Product Image */}
             <div className="w-full">
                 <img
-                    className="h-48 w-full object-cover top"
+                    className="h-80 object-cover  w-full  rounded-xl"
                     src={imageMain}
                     alt={title}
                 />
@@ -44,25 +52,34 @@ const ProductCard = ({ product, onDelete, onUpdate }) => {
 
                 {/* Description */}
                 <p className="text-gray-600 mt-4 text-sm">
-                    {description.length > 100 ? `${description.slice(0, 100)}...` : description}
+                    {description.length > 100? `${description.slice(0, 60)}...` : description}
                 </p>
 
                 {/* Action Buttons */}
                 <div className="flex justify-between items-center mt-6">
                     <button
-                        onClick={onUpdate}
-                        className="bg-green-500 text-white text-sm px-4 py-2 rounded-md hover:bg-green-600 transition-colors"
+                        onClick={() => setIsModalOpen(true)}
+                        className="text-sm border border-green-300 text-green-500 px-4 py-2 rounded-md hover:text-white hover:shadow-lg hover:shadow-green-500/80 duration-200 ease-in hover:bg-green-500 transition-colors"
                     >
                         Update
                     </button>
                     <button
                         onClick={onDelete}
-                        className="bg-red-500 text-white text-sm px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+                        className="text-sm border border-red-300 text-red-500 px-4 py-2 rounded-md hover:text-white hover:shadow-lg hover:shadow-red-500/80 duration-200 ease-in hover:bg-red-600 transition-colors"
                     >
                         Delete
                     </button>
                 </div>
             </div>
+
+            {/* Update Modal */}
+            {isModalOpen && (
+                <UpdateProductModal
+                    product={product} 
+                    onClose={() => setIsModalOpen(false)} 
+                    onUpdate={handleUpdate} 
+                />
+            )}
         </div>
     );
 };
