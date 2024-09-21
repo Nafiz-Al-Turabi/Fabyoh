@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ManagesRoles from '../ManagesRoles/ManagesRoles';
 import ProcessingProducts from '../Processing Products/ProcessingProducts';
+import Delevered from '../Delevered Products/Delevered';
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState('ManageRoles'); // State to track active tab
@@ -13,7 +14,7 @@ const Settings = () => {
             case 'Processing':
                 return <ProcessingProducts />;
             case 'ShippingSettings':
-                return <div>Shipping settings content goes here...</div>;
+                return <Delevered />;
             case 'PaymentOptions':
                 return <div>Payment options content goes here...</div>;
             case 'SiteSettings':

@@ -7,12 +7,16 @@ import Customers from "../../../Admin components/Customers/Customers";
 import Settings from "../../../Admin components/Settings/Settings";
 import Orders from "../../../Admin components/Orders/Orders";
 import AddProduct from "../../../Admin components/AddProduct/AddProduct";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../../Axios/axiosInstance";
 
 const AdminDashboard = () => {
     const { user, logout } = useContext(AuthContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("dashboard");
     const sidebarRef = useRef(null);
+    const token = localStorage.getItem('authToken');
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -30,6 +34,19 @@ const AdminDashboard = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const { isLoading, isError, data = [], error, refetch } = useQuery({
+        queryKey: ['userOrders'],
+        queryFn: async () => {
+            const response = await axiosInstance.get('/adminOrders', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        },
+    });
+    const pendingOrdersCount = data.filter(order => order.status === 'Pending').length;
 
     return (
         <div className="flex h-screen  font-josefin">
@@ -60,6 +77,9 @@ const AdminDashboard = () => {
                         >
                             <FcPaid className="text-xl" />
                             <span>Orders</span>
+                            {
+                                pendingOrdersCount === 0 ? '':<span className="flex justify-center items-center p-bg h-6 w-6 rounded-full float-end">{pendingOrdersCount}</span>
+                            }
                         </button>
                         <button
                             className={`p-2 text-left flex items-center space-x-2 mt-2 ${activeTab === "customers" ? "bg-gray-700" : "hover:bg-gray-700"}`}

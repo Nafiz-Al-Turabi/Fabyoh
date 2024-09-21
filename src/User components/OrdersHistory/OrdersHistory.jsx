@@ -30,7 +30,7 @@ const OrdersHistory = () => {
     }
 
     // Filter orders with status "Completed" or "Delivered"
-    const filteredData = data.filter(order => order.status === 'Completed' || order.status === 'Delivered');
+    const filteredData = data.filter(order => order.status === 'Complete' || order.status === 'Delivered');
 
     // Sort the filtered data by date (newest first)
     const sortedData = filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));

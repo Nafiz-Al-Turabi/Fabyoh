@@ -66,7 +66,7 @@ const Payment = ({ clientSecret, totalPrice }) => {
                     color: cartItems.map(cart => cart.color),
                     totalItems: cartItems.map(cart => cart.totalItems),
                     image: cartItems.map(cart => cart.image),
-                    status: 'pending'
+                    status: 'Pending'
 
                 }
                 try {
