@@ -11,9 +11,8 @@ const OrderCard = () => {
           className="rounded-lg object-cover w-full h-32 md:h-auto"
         />
       </div>
-
       {/* Order Details */}
-      <div className="md:w-2/3 w-full md:pl-4">
+      <div className="md:w-2/3 w-full md:pl-4 ">
         <div className="mt-4 md:mt-0">
           {/* Product Name */}
           <h2 className="text-lg font-bold">Product Name</h2>
