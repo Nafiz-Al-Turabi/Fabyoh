@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-const UpdateProductModal = ({ product, onClose, onUpdate }) => {
+const UpdateProductModal = ({ product, onClose, onUpdate, onDelete }) => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             title: product.title,
@@ -19,7 +19,7 @@ const UpdateProductModal = ({ product, onClose, onUpdate }) => {
     };
 
     return (
-        <div onClick={onClose} className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg w-full max-w-2xl p-6 relative shadow-lg border-t-4 border-green-100 m-4 lg:m-0">
                 <h2 className="text-xl font-semibold mb-4">Update Product</h2>
 

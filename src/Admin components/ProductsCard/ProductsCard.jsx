@@ -1,12 +1,51 @@
 import React, { useState } from 'react';
 import UpdateProductModal from '../UpdateProductModal/UpdateProductModal';
+import axiosInstance from '../../Axios/axiosInstance';
 
-const ProductCard = ({ product, onDelete, onUpdate }) => {
+const ProductCard = ({ product, refetch }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const token = localStorage.getItem('authToken')
+    const handleUpdate = async (updatedProduct) => {
+        try {
+            const response = await axiosInstance.put(
+                `/products/${product._id}`,
+                updatedProduct,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                }
+            );
 
-    const handleUpdate = (updatedProduct) => {
-        onUpdate(updatedProduct); 
-        setIsModalOpen(false); 
+            if (response.status === 200) {
+                console.log('Product updated successfully');
+                refetch();
+            }
+        } catch (error) {
+            console.error('Error updating product:', error);
+        }
+        setIsModalOpen(false);
+    };
+
+    const handleDelete = async () => {
+        if (!token) {
+            console.error('No token found');
+            return;
+        }
+
+        try {
+            const response = await axiosInstance.delete(`/products/${product._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            });
+            if (response.status === 200) {
+                console.log('Product deleted successfully');
+                refetch(); // Re-fetch products after deletion
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+        }
     };
 
     const {
@@ -52,7 +91,7 @@ const ProductCard = ({ product, onDelete, onUpdate }) => {
 
                 {/* Description */}
                 <p className="text-gray-600 mt-4 text-sm">
-                    {description.length > 100? `${description.slice(0, 60)}...` : description}
+                    {description.length > 100 ? `${description.slice(0, 60)}...` : description}
                 </p>
 
                 {/* Action Buttons */}
@@ -64,7 +103,7 @@ const ProductCard = ({ product, onDelete, onUpdate }) => {
                         Update
                     </button>
                     <button
-                        onClick={onDelete}
+                        onClick={handleDelete}
                         className="text-sm border border-red-300 text-red-500 px-4 py-2 rounded-md hover:text-white hover:shadow-lg hover:shadow-red-500/80 duration-200 ease-in hover:bg-red-600 transition-colors"
                     >
                         Delete
@@ -75,9 +114,9 @@ const ProductCard = ({ product, onDelete, onUpdate }) => {
             {/* Update Modal */}
             {isModalOpen && (
                 <UpdateProductModal
-                    product={product} 
-                    onClose={() => setIsModalOpen(false)} 
-                    onUpdate={handleUpdate} 
+                    product={product}
+                    onClose={() => setIsModalOpen(false)}
+                    onUpdate={handleUpdate}
                 />
             )}
         </div>
