@@ -51,7 +51,7 @@ const UpdateProductModal = ({ product, onClose, onUpdate, onDelete }) => {
                         <label className="block text-gray-700 text-sm font-bold mb-2">Discount</label>
                         <input
                             type="number"
-                            {...register('discount', { required: 'Discount is required' })}
+                            {...register('discount')}
                             className={`w-full px-3 py-2 border ${errors.discount ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-green-300`}
                         />
                         {errors.discount && <span className="text-red-500 text-sm">{errors.discount.message}</span>}

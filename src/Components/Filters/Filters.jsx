@@ -319,7 +319,7 @@ const Filters = () => {
                         )}
                     </div>
                 </div>
-                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 p-4 xl:px-16 xl:py-4 gap-2 md:gap-6 mx-4 xl:mx-0'>
+                <div className='grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 p-4 mx-4 xl:mx-0'>
                     {filteredProducts.map((product) => (
                         <FeaturedProductCard key={product._id} product={product} />
                     ))}

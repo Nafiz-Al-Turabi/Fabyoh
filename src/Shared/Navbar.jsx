@@ -60,9 +60,8 @@ const Navbar = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/products.json')
-      const data = await response.json();
-      setProducts(data);
+      const response = await axiosInstance.get('/products')
+      setProducts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +132,7 @@ const Navbar = () => {
               ) : filteredProducts.length > 0 ? (
                 filteredProducts.map(product => (
                   <div key={product.id} className='p-1 hover:bg-violet-200'>
-                    <Link onClick={toggleSearch} to={`/productDetails/${product.id}`}>{product.title}</Link>
+                    <Link onClick={toggleSearch} to={`/productDetails/${product._id}`}>{product.title}</Link>
                   </div>
                 ))
               ) : (

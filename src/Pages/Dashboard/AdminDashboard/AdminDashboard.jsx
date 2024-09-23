@@ -11,6 +11,7 @@ import axiosInstance from "../../../Axios/axiosInstance";
 import Products from "../../../Admin components/Products/Products";
 
 const AdminDashboard = () => {
+    const [products, setProducts]=useState([])
     const { user, logout } = useContext(AuthContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -47,6 +48,21 @@ const AdminDashboard = () => {
         },
     });
     const pendingOrdersCount = data.filter(order => order.status === 'Pending').length;
+    useEffect(()=>{
+        productsData()
+    },[])
+    const productsData = async () => {
+        try {
+            const response = await axiosInstance.get('/products', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            setProducts(response.data);
+        } catch (error) {
+
+        }
+    }
 
     return (
         <div className="flex h-screen  font-josefin">
@@ -78,7 +94,7 @@ const AdminDashboard = () => {
                             <FcPaid className="text-xl" />
                             <span>Orders</span>
                             {
-                                pendingOrdersCount === 0 ? '':<span className="flex justify-center items-center p-bg h-6 w-6 rounded-full float-end">{pendingOrdersCount}</span>
+                                pendingOrdersCount === 0 ? '' : <span className="flex justify-center items-center p-bg h-6 w-6 rounded-full float-end">{pendingOrdersCount}</span>
                             }
                         </button>
                         <button
@@ -122,17 +138,19 @@ const AdminDashboard = () => {
                             </div>
                             <div className="bg-slate-800 text-white p-4 rounded-lg shadow">
                                 <h3 className="text-lg font-semibold mb-2">New Orders</h3>
-                                <p className="text-2xl font-bold">150</p>
+                                <p className="text-2xl font-bold">{pendingOrdersCount}
+
+                                </p>
                             </div>
                             <div className="bg-slate-800 text-white p-4 rounded-lg shadow">
                                 <h3 className="text-lg font-semibold mb-2">Total Products</h3>
-                                <p className="text-2xl font-bold">500</p>
+                                <p className="text-2xl font-bold">{products.length}</p>
                             </div>
                         </div>
                     )}
                     {activeTab === "products" && (
                         <div>
-                            <h1  className="text-2xl font-bold">All Products</h1>
+                            <h1 className="text-2xl font-bold">All Products</h1>
                             <Products />
                         </div>
                     )}

@@ -132,17 +132,6 @@ const SignUp = () => {
                     <p className='text-center'>Already have an account?
                         <Link to="/login" className='p-text ml-2'>Sign In</Link>
                     </p>
-
-                    <div className='flex items-center gap-5'>
-                        <hr className='w-full' />
-                        <p className='text-slate-500'>or</p>
-                        <hr className='w-full' />
-                    </div>
-
-                    <button className='flex items-center justify-center border text-base md:text-xl p-btn uppercase hover:text-white hover:bg-[#2b2b2b] duration-300'>
-                        <img src="https://i.ibb.co.com/QYsBvmC/pngwing-com-2.png" alt="Google logo" className='w-10' />
-                        Continue with Google
-                    </button>
                 </form>
             </div>
         </div>

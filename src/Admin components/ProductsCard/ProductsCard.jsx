@@ -85,10 +85,9 @@ const ProductCard = ({ product, refetch }) => {
                 </div>
 
                 {/* Stock Status */}
-                <p className={`mt-2 text-sm ${in_stock ? 'text-green-500' : 'text-red-500'}`}>
-                    {in_stock ? 'In Stock' : 'Out of Stock'}
+                <p className={`mt-2 text-sm ${in_stock === true ? 'text-green-500' : 'text-red-500'}`}>
+                    {in_stock === true ? 'In Stock' : 'Out of Stock'}
                 </p>
-
                 {/* Description */}
                 <p className="text-gray-600 mt-4 text-sm">
                     {description.length > 100 ? `${description.slice(0, 60)}...` : description}
