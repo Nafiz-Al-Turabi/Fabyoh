@@ -43,7 +43,7 @@ const OrdersHistory = () => {
     const currentItems = sortedData.slice(startIndex, startIndex + itemsPerPage);
 
     return (
-        <div className="p-6">
+        <div className="lg:p-6">
             {currentItems.length > 0 ? (
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">

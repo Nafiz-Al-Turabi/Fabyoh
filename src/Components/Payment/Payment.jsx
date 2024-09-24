@@ -7,7 +7,7 @@ import { CartContext } from '../../Provider/CartProvider';
 import axiosInstance from '../../Axios/AxiosInstance';
 
 const Payment = ({ clientSecret, totalPrice }) => {
-    const { user } = useContext(AuthContext);
+    const { user, deleteAllCartItems } = useContext(AuthContext);
     const { cartItems } = useContext(CartContext);
     // console.log(cartItems);
     const stripe = useStripe();
@@ -75,6 +75,7 @@ const Payment = ({ clientSecret, totalPrice }) => {
                             'Authorization': `Bearer ${token}`
                         }
                     })
+                    await deleteAllCartItems(user.email);
                     // console.log('Payment saved successfully:', response.data);
                 } catch (error) {
                     console.error('Error saving payment:', error);

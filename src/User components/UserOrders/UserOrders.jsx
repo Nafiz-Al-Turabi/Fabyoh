@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import TransactionCard from '../Cards/TransactionCard/TransactionCard';
 import Loading from '../../Components/Loading/Loading';
 import { AuthContext } from '../../Provider/AuthProvider';
-import axiosInstance from '../../Axios/axiosInstance';
+import axiosInstance from '../../Axios/AxiosInstance';
 
 const UserOrders = () => {
     const { user } = useContext(AuthContext);
@@ -31,7 +31,7 @@ const UserOrders = () => {
     }
 
     // Filter orders with status "Pending" or "In Processing"
-    const filteredData = data.filter(order => 
+    const filteredData = data.filter(order =>
         order.status === 'Pending' || order.status === 'In Process'
     );
 
@@ -47,15 +47,21 @@ const UserOrders = () => {
 
     return (
         <div className="">
-            {
-                currentItems.length > 0 ? (
-                    currentItems.map((transaction) => (
-                        <TransactionCard key={transaction._id} transaction={transaction} />
-                    ))
-                ) : (
-                    <p className="text-center text-gray-500">No Pending or In Processing orders found.</p>
-                )
-            }
+            <div>
+                {
+                    currentItems.length > 0 ? (
+                        <div  className='grid grid-cols-1 xl:grid-cols-2'>
+                            {
+                                currentItems.map((transaction) => (
+                                    <TransactionCard key={transaction._id} transaction={transaction} />
+                                ))
+                            }
+                        </div>
+                    ) : (
+                        <p className="text-center text-gray-500">No Pending or In Processing orders found.</p>
+                    )
+                }
+            </div>
 
             {/* Pagination Controls */}
             {totalPages > 1 && (

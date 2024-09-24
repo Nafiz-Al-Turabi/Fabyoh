@@ -7,8 +7,8 @@ const UserProfile = () => {
     const {cartItems}=useContext(CartContext)
     return (
         <div className='font-josefin'>
-            <div className='flex justify-between gap-5'>
-                <div className='w-96  bg-gray-50 border border-gray-100 rounded-xl'>
+            <div className='md:flex justify-between gap-5'>
+                <div className='md:w-96  bg-gray-50 border border-gray-100 rounded-xl'>
                     <div className='mb-16'>
                         <div className='flex justify-center mt-16'>
                             <img src="https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1726704000&semt=ais_hybrid" alt="image" className='w-32 h-32 object-cover rounded-full border-4 border-violet-400' />
@@ -19,19 +19,19 @@ const UserProfile = () => {
                         </div>
                         <div className='bg-white grid grid-cols-2 gap-5 items-center p-8 m-8 rounded-xl'>
                             <div className='text-center'>
-                                <p className='bg-violet-100 text-violet-500 px-3 py-1 mb-2 rounded-full'>Cart Items</p>
+                                <p className='text-xs md:text-base bg-violet-100 text-violet-500 px-3 py-1 mb-2 rounded-full'>Cart Items</p>
                                 <p className='text-lg font-bold'>2</p>
                             </div>
                             <div  className='text-center'>
-                                <p className='bg-green-100 text-green-500 px-3 py-1 mb-2 rounded-full'>Order Count</p>
+                                <p className='text-xs md:text-base bg-green-100 text-green-500 px-3 py-1 mb-2 rounded-full'>Order Count</p>
                                 <p className='text-lg font-bold'>32</p>
                             </div>
                             <div  className='text-center'>
-                                <p className='bg-rose-100 text-rose-500 px-3 py-1 mb-2 rounded-full'>Wishlist</p>
+                                <p className='text-xs md:text-base bg-rose-100 text-rose-500 px-3 py-1 mb-2 rounded-full'>Wishlist</p>
                                 <p className='text-lg font-bold'>22</p>
                             </div>
                             <div  className='text-center'>
-                                <p className='bg-teal-100 text-teal-500 px-3 py-1 mb-2 rounded-full'>Reviewed</p>
+                                <p className='text-xs md:text-base bg-teal-100 text-teal-500 px-3 py-1 mb-2 rounded-full'>Reviewed</p>
                                 <p className='text-lg font-bold'>22</p>
                             </div>
                         </div>

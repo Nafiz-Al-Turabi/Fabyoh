@@ -13,7 +13,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_Stripe_key);
 const CheckOut = () => {
     const { cartItems, calculateTotalPrice } = useContext(CartContext);
     const [clientSecret, setClientSecret] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('stripe'); 
+    const [paymentMethod, setPaymentMethod] = useState('stripe');
     const token = localStorage.getItem('authToken');
     const totalPrice = calculateTotalPrice();
 
@@ -66,6 +66,10 @@ const CheckOut = () => {
         }
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <div className='max-w-7xl mx-auto my-16 p-4 xl:p-0 font-josefin'>
             <div>
@@ -99,10 +103,9 @@ const CheckOut = () => {
                         {/* Payment Method Selector */}
                         <div className="mb-8 flex gap-4">
                             {/* Stripe Payment Card */}
-                            <div 
-                                className={`border p-4 w-full rounded-lg cursor-pointer transition transform duration-300 hover:scale-105 ${
-                                    paymentMethod === 'stripe' ? 'border-blue-500 bg-blue-50 shadow-md' : 'border-gray-200'
-                                }`}
+                            <div
+                                className={`border p-4 w-full rounded-lg cursor-pointer transition transform duration-300 hover:scale-105 ${paymentMethod === 'stripe' ? 'border-blue-500 bg-blue-50 shadow-md' : 'border-gray-200'
+                                    }`}
                                 onClick={() => setPaymentMethod('stripe')}
                             >
                                 <FaStripe className='text-3xl text-blue-600 mb-2' />
@@ -111,10 +114,9 @@ const CheckOut = () => {
                             </div>
 
                             {/* PayPal Payment Card */}
-                            <div 
-                                className={`border p-4 w-full rounded-lg cursor-pointer transition transform duration-300 hover:scale-105 ${
-                                    paymentMethod === 'paypal' ? 'border-yellow-500 bg-yellow-50 shadow-md' : 'border-gray-200'
-                                }`}
+                            <div
+                                className={`border p-4 w-full rounded-lg cursor-pointer transition transform duration-300 hover:scale-105 ${paymentMethod === 'paypal' ? 'border-yellow-500 bg-yellow-50 shadow-md' : 'border-gray-200'
+                                    }`}
                                 onClick={() => setPaymentMethod('paypal')}
                             >
                                 <FaPaypal className='text-3xl text-yellow-600 mb-2' />
