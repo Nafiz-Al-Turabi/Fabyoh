@@ -4,7 +4,7 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CartContext } from '../../Provider/CartProvider';
-import axiosInstance from '../../Axios/axiosInstance';
+import axiosInstance from '../../Axios/AxiosInstance';
 
 const Payment = ({ clientSecret, totalPrice }) => {
     const { user } = useContext(AuthContext);
@@ -94,7 +94,7 @@ const Payment = ({ clientSecret, totalPrice }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className='bg-white shadow-md border border-slate-300 p-6 rounded-lg max-w-md'>
+            <form onSubmit={handleSubmit} className='bg-white shadow-md border border-slate-300 p-6 rounded-lg max-w-2xl'>
                 <ToastContainer
                     position="top-center"
                     autoClose={5000}

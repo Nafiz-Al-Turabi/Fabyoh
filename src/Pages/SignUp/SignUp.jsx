@@ -11,19 +11,18 @@ const SignUp = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate()
 
-    // Submit handler
     const onSubmit = async (data) => {
+        setErrorMessage(''); 
+        setSuccessMessage(''); 
         try {
             const response = await axiosInstance.post('/register', data);
             setSuccessMessage('Account created successfully! Redirecting to login page...');
-            setErrorMessage('');
-
+            
             setTimeout(() => {
                 navigate('/login');
             }, 3000);
         } catch (error) {
             setErrorMessage(error.response?.data?.message || 'An error occurred');
-            setErrorMessage('');
         }
     };
 
