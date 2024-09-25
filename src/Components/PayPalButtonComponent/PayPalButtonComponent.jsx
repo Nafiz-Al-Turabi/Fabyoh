@@ -44,7 +44,7 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
     };
 
     return (
-        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md relative z-0"> {/* Add z-50 for high z-index */}
+        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md relative z-40"> {/* Add z-50 for high z-index */}
              <ToastContainer
                 position="top-center"
                 autoClose={5000}
