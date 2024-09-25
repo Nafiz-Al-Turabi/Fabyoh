@@ -17,6 +17,7 @@ import image2 from './../assets/images/fabyoh/menblack.webp'
 import image3 from './../assets/images/fabyoh/manNavy.webp'
 import image4 from './../assets/images/fabyoh/women.webp'
 import { Link } from 'react-router-dom';
+import axiosInstance from '../Axios/axiosInstance';
 
 
 const Footer = () => {
@@ -27,9 +28,8 @@ const Footer = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('/products.json')
-            const data = await response.json();
-            setProducts(data)
+            const response = await axiosInstance.get('/products')
+            setProducts(response.data)
         } catch (error) {
             console.log('Error to get products in footer', error);
         }
@@ -54,7 +54,7 @@ const Footer = () => {
                     >
                         {
                             products.map(product =>
-                                <Link key={product.id} to={`/productDetails/${product.id}`} className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
+                                <Link key={product._id} to={`/productDetails/${product._id}`} className='flex items-center text-xl gap-5 hover:-translate-y-2 duration-300 mr-40'>
                                     <div className='relative overflow-hidden w-20 h-20 rounded-full flex justify-center'>
                                         <img src={product.imageMain} alt="Men's Navy Jacket" className='w-full h-full object-cover' />
                                     </div>

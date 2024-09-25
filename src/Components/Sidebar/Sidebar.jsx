@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = ({ toggleCart }) => {
     const { cartItems, increaseQuantity, decreaseQuantity, removeItem, calculateTotalPrice } = useContext(CartContext);
     return (
-        <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto z-50'>
+        <div className='fixed z-50 bg-white md:w-[350px] xl:w-[450px] h-full top-0 right-0 font-josefin border-l overflow-auto sideBar'>
             <div className='relative px-6'>
                 <button onClick={toggleCart}>
                     <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />

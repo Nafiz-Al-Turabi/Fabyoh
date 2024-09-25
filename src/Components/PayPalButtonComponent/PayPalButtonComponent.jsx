@@ -3,8 +3,8 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { FaPaypal } from 'react-icons/fa';
 import { CartContext } from '../../Provider/CartProvider';
 import { AuthContext } from '../../Provider/AuthProvider';
-import axiosInstance from '../../Axios/AxiosInstance';
 import { toast, ToastContainer } from 'react-toastify';
+import axiosInstance from '../../Axios/axiosInstance';
 
 const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
     const { user } = useContext(AuthContext);
@@ -44,7 +44,7 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
     };
 
     return (
-        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md">
+        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md relative z-0"> {/* Add z-50 for high z-index */}
              <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -64,7 +64,7 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
                 <p className="text-gray-600 text-md">Secure and easy payments with PayPal. Your payment of <strong>${totalPrice}</strong> will be processed securely.</p>
             </div>
 
-            <PayPalButtons
+            <PayPalButtons 
                 createOrder={(data, actions) => {
                     return actions.order.create({
                         purchase_units: [{

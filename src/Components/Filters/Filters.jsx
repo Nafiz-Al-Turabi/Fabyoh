@@ -12,7 +12,6 @@ const Filters = () => {
     const [openCategory, setOpenCategory] = useState(true);
     const [openPrice, setOpenPrice] = useState(false);
     const [openAvailability, setOpenAvailability] = useState(false);
-    const [openTrending, setOpenTrending] = useState(false);
 
     // States for selected filter criteria
     const [selectedCategory, setSelectedCategory] = useState([]);
