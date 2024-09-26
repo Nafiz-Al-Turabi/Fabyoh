@@ -1,21 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import './FeaturedProductCard.css';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import trendingImage from './../../../assets/images/trending.gif'
+import axiosInstance from '../../../Axios/axiosInstance';
+import { AuthContext } from '../../../Provider/AuthProvider';
 
 const FeaturedProductCard = ({ product }) => {
+    const { user } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
+    const [isWishlisted, setIsWishlisted] = useState(false);
     const { title, discount, imageMain, imageSecond, trending, _id } = product;
-
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000);
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        const wishlistedItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+        setIsWishlisted(wishlistedItems.includes(_id));
+    }, [_id]);
+    const token = localStorage.getItem('authToken')
+    const handleWishlistClick = async () => {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+        try {
+            const response = await axiosInstance.post('/wishlist', product, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setIsWishlisted(true);
+
+            // Update local storage
+            const wishlistedItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+            localStorage.setItem('wishlist', JSON.stringify([...wishlistedItems, _id]));
+        } catch (error) {
+            console.error('Error adding to wishlist:', error);
+            alert('Failed to add to wishlist. Please try again.');
+        }
+    };
+
+
     return (
-        <Link to={`/productDetails/${_id}`} className="relative w-full sm:w-60 md:w-full h-auto group font-josefin transition-transform transform hover:scale-105 hover:shadow-lg">
+        <div className="relative w-full sm:w-60 md:w-full h-auto group font-josefin transition-transform transform hover:scale-105 hover:shadow-lg">
             {/* Skeleton Loader */}
             {loading ? (
                 <div>
@@ -46,7 +77,9 @@ const FeaturedProductCard = ({ product }) => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2 text-center">{title}</h3>
+                    <Link to={`/productDetails/${_id}`}>
+                        <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2 text-center">{title}</h3>
+                    </Link>
 
                     {/* Price */}
                     {discount > 0 && (
@@ -54,18 +87,18 @@ const FeaturedProductCard = ({ product }) => {
                     )}
 
                     {trending ? (
-                            <img src={trendingImage} alt="" className='w-10 absolute bottom-16 right-5' />
+                        <img src={trendingImage} alt="" className='w-10 absolute bottom-16 right-5' />
                     ) : null}
 
                     {/* Add to Wishlist Button */}
                     <div className="absolute top-4 right-4">
-                        <button className="text-2xl text-white hover:text-red-500 transition-colors duration-200" aria-label="Add to wishlist">
-                            <PiHeartStraightLight />
+                        <button onClick={handleWishlistClick} className="text-2xl text-white hover:text-red-500 transition-colors duration-200" aria-label="Add to wishlist">
+                            {isWishlisted ? <PiHeartStraightFill /> : <PiHeartStraightLight />}
                         </button>
                     </div>
                 </div>
             )}
-        </Link>
+        </div>
     );
 };
 

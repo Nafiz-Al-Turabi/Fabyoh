@@ -3,7 +3,7 @@ import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX, FiChevronDown } from 're
 import logo from './../assets/Images/logo.webp'
 import { IoClose, IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { CiGlobe } from 'react-icons/ci';
+import { TbHeartFilled } from "react-icons/tb";
 import ActiveLink from '../ActiveLinks/ActiveLink';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { CartContext } from '../Provider/CartProvider';
@@ -11,6 +11,7 @@ import { Result } from 'postcss';
 import axiosInstance from '../Axios/axiosInstance';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FcBusinessman } from 'react-icons/fc';
+import Loading from '../Components/Loading/Loading';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,7 @@ const Navbar = () => {
   const [products, setProducts] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const { user, loading } = useContext(AuthContext);
+
 
 
   const toggleSearch = () => {
@@ -86,7 +88,7 @@ const Navbar = () => {
   }, [user]);
 
   const fetchUserInfo = async () => {
-    const authtoken = localStorage.getItem('authToken'); 
+    const authtoken = localStorage.getItem('authToken');
 
     if (!authtoken) {
       console.error("No auth token found.");
@@ -103,8 +105,13 @@ const Navbar = () => {
       console.error("Error fetching user info", error);
     }
   };
+  
+  const  wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return <Loading></Loading>;
+  
+
   return (
     <>
       {
@@ -175,11 +182,15 @@ const Navbar = () => {
                     userInfo ? (<div>
                       <Link to='/dashboard'><FcBusinessman className='' size={30} /></Link>
                     </div>)
-                    : <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
+                      : <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
                   }
                   <div className='relative'>
                     <button><FiShoppingCart onClick={toggleCart} className="text-gray-800" size={30} /></button>
-                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems.length}</p>
+                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems?.length}</p>
+                  </div>
+                  <div className='relative'>
+                    <Link to='wishlist'><TbHeartFilled className="text-violet-800" size={30} /></Link>
+                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{wishlist?.length}</p>
                   </div>
 
                 </div>

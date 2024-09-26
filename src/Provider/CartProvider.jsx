@@ -19,7 +19,6 @@ export const CartProvider = ({ children }) => {
             });
             setCartItems(response.data);
         } catch (error) {
-            // console.error('Error fetching cart items:', error.response || error.message);
             setError('Failed to load cart items from the server.');
         } finally {
             setLoading(false);
@@ -81,64 +80,64 @@ export const CartProvider = ({ children }) => {
             // Find the item to be updated
             const updatedItems = prevItems.map(item =>
                 item._id === itemId
-                    ? { 
-                        ...item, 
-                        totalItems: item.totalItems + 1, 
-                        totalPrice: item.price * (item.totalItems + 1) 
-                      }
+                    ? {
+                        ...item,
+                        totalItems: item.totalItems + 1,
+                        totalPrice: item.price * (item.totalItems + 1)
+                    }
                     : item
             );
             const updatedItem = updatedItems.find(item => item._id === itemId);
-            
+
             // Update item on the server
-            updateCartItem(itemId, { 
-                totalItems: updatedItem.totalItems, 
-                totalPrice: updatedItem.totalPrice 
+            updateCartItem(itemId, {
+                totalItems: updatedItem.totalItems,
+                totalPrice: updatedItem.totalPrice
             });
-    
+
             return updatedItems;
         });
     };
-    
+
     const decreaseQuantity = async (itemId) => {
         setCartItems(prevItems => {
             // Find the item to be updated
             const updatedItems = prevItems.map(item =>
                 item._id === itemId
-                    ? { 
-                        ...item, 
-                        totalItems: Math.max(1, item.totalItems - 1), 
-                        totalPrice: item.price * Math.max(1, item.totalItems - 1) 
-                      }
+                    ? {
+                        ...item,
+                        totalItems: Math.max(1, item.totalItems - 1),
+                        totalPrice: item.price * Math.max(1, item.totalItems - 1)
+                    }
                     : item
             );
             const updatedItem = updatedItems.find(item => item._id === itemId);
-            
+
             // Update item on the server
-            updateCartItem(itemId, { 
-                totalItems: updatedItem.totalItems, 
-                totalPrice: updatedItem.totalPrice 
+            updateCartItem(itemId, {
+                totalItems: updatedItem.totalItems,
+                totalPrice: updatedItem.totalPrice
             });
-    
+
             return updatedItems;
         });
     };
-    
-    
+
+
 
     // Remove item from the cart and update the server
     const removeItem = async (itemId) => {
         try {
             await axiosInstance.delete(`/carts/${itemId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`, 
+                    Authorization: `Bearer ${token}`,
                 },
             });
-    
+
             setCartItems((prevItems) => prevItems.filter(item => item._id !== itemId));
         } catch (error) {
             // console.error('Error removing item:', error.response || error.message);
-            setError('Failed to remove the item from the server.'); 
+            setError('Failed to remove the item from the server.');
         }
     };
 

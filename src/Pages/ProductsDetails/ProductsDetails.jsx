@@ -5,6 +5,7 @@ import { CartContext } from '../../Provider/CartProvider';
 import { AuthContext } from '../../Provider/AuthProvider';
 import axiosInstance from '../../Axios/axiosInstance';
 import Loading from '../../Components/Loading/Loading';
+import { FaPlus } from 'react-icons/fa';
 
 const ProductsDetails = () => {
     const { user } = useContext(AuthContext);
@@ -104,13 +105,26 @@ const ProductsDetails = () => {
                         <img src={imageSecond} alt={`${title} secondary`} className='object-cover hover:scale-125 cursor-zoom-in duration-300' />
                     </div>
                 </div>
-                <div className='flex flex-col justify-between xl:w-1/2 mt-16 xl:mt-0'>
+                <div className='flex flex-col  xl:w-1/2 mt-16 xl:mt-0'>
                     <div>
                         <div className='flex justify-between items-center'>
                             <h1 className='text-2xl lg:text-4xl'>{title}</h1>
-                            <button className="hidden lg:block text-4xl p-bg p-1 text-white rounded hover:bg-violet-400 duration-100">
-                                <PiHeartStraightLight />
-                            </button>
+                            <div className='hidden md:block'>
+                                <button
+                                    className='p-btn text-sm lg:text-lg uppercase s-bg text-white'
+                                    onClick={handleAddToCart}
+                                >
+                                    Add to cart
+                                </button>
+                            </div>
+                            <div className=' md:hidden'>
+                                <button
+                                    className='p-btn text-sm lg:text-lg uppercase s-bg text-white'
+                                    onClick={handleAddToCart}
+                                >
+                                    <FaPlus/>
+                                </button>
+                            </div>
                         </div>
                         <div className='flex gap-5 mt-5'>
                             <p className='text-gray-500'>Size:</p>
@@ -150,19 +164,8 @@ const ProductsDetails = () => {
                             <button onClick={() => handleItemCountChange(1)}>+</button>
                         </p>
 
-                        <p className='text-lg mt-6'>{description}</p>
                     </div>
-                    <div className='flex justify-between mt-16 items-center gap-5'>
-                        <button
-                            className='p-btn text-sm lg:text-2xl uppercase s-bg text-white'
-                            onClick={handleAddToCart}
-                        >
-                            Add to cart
-                        </button>
-                        <button className='p-btn text-sm lg:text-2xl uppercase border'>
-                            Add to Wishlist
-                        </button>
-                    </div>
+                    <p className='text-lg mt-6'>{description}</p>
                 </div>
             </div>
         </div>

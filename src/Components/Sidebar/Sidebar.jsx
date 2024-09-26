@@ -12,10 +12,10 @@ const Sidebar = ({ toggleCart }) => {
                     <IoClose className='text-4xl absolute top-5 left-5 text-gray-500' />
                 </button>
                 <div className='mt-16'>
-                    {cartItems.length > 0 ? (
+                    {cartItems?.length > 0 ? (
                         <>
                             {/* Cart Items */}
-                            {cartItems.map((item) => (
+                            {cartItems?.map((item) => (
                                 <div
                                     key={item._id} // Use item's unique ID as key
                                     className='relative flex gap-3 border-b pb-6 mb-5'
