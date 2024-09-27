@@ -33,8 +33,8 @@ An eCommerce website that allows users to browse products, add them to their car
 - MongoDB
 - npm or yarn
 ### Admin Login
- Admin: nafizalturabi@gmail.com
- Password: 16247
+ -Admin: nafizalturabi@gmail.com
+ -Password: 16247
 ### Installation
 
 1. Clone the repository:
