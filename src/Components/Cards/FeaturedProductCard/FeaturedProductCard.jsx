@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import './FeaturedProductCard.css';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import trendingImage from './../../../assets/images/trending.gif'
 import axiosInstance from '../../../Axios/axiosInstance';
 import { AuthContext } from '../../../Provider/AuthProvider';
@@ -12,6 +12,7 @@ const FeaturedProductCard = ({ product }) => {
     const [loading, setLoading] = useState(true);
     const [isWishlisted, setIsWishlisted] = useState(false);
     const { title, discount, imageMain, imageSecond, trending, _id } = product;
+    const navigate = useNavigate()
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000);
         return () => clearTimeout(timer);

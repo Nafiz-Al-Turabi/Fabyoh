@@ -1,7 +1,7 @@
 import delivery1 from './../../assets/images/fabyoh/delivery1.webp'
 import delivery2 from './../../assets/images/fabyoh/delivery2.webp'
 import delivery3 from './../../assets/images/fabyoh/delivery3.webp'
-import promot from './../../assets/images/fabyoh/promot.webp'
+import promot from './../../assets/images/fabyoh/offer.jpg'
 
 
 const Delivary = () => {

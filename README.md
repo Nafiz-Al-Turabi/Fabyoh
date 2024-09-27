@@ -1,8 +1,44 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# E-Commerce Website
 
-Currently, two official plugins are available:
+![E-Commerce Logo](https://i.ibb.co.com/JkMJCWH/logo.webp)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
+
+An eCommerce website that allows users to browse products, add them to their cart, and complete purchases. This project showcases a fully functional online shopping platform built with modern web technologies.
+
+## Features
+
+- User authentication (sign up, login, logout)
+- Product listing with categories
+- Shopping cart functionality
+- Secure checkout process
+- Admin panel for managing products and orders
+- Responsive design for mobile and desktop
+- Search functionality
+
+## Technologies Used
+
+- Frontend: HTML, CSS, JavaScript, React.js
+- Backend: Node.js, Express.js
+- Database: MongoDB
+- Authentication: JSON Web Tokens (JWT)
+- Payment Processing: Stripe API, Paypal
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- MongoDB
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Nafiz-Al-Turabi/Fabyoh
+   cd Fabyoh
+
+

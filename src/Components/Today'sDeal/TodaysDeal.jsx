@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-// import promot from './../../assets/images/fabyoh/promot1.webp';
-import promot from './../../assets/images/slider/image7.jpg';
+import promot from './../../assets/images/fabyoh/offer2.jpg';
+// import promot from './../../assets/images/slider/image7.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';

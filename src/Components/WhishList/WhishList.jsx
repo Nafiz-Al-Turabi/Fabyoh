@@ -89,9 +89,9 @@ const WhishList = () => {
                                         )}
                                     </div>
                                 </Link>
-                                <button className="absolute bottom-0 bg-black text-white rounded-tl-lg right-0 p-2">
+                                <Link to={`/productDetails/${product._id}`} className="absolute bottom-0 bg-black text-white rounded-tl-lg right-0 p-2">
                                     <FaPlus />
-                                </button>
+                                </Link>
                             </div>
                         ))}
                     </div>
