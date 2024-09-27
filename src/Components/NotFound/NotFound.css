@@ -1,0 +1,26 @@
+.digital-watch {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .digital-watch .time {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .digital-watch .date {
+    font-size: 1.5rem;
+    color: #555;
+  }
+  
+  /* Page change effect */
+  .digital-watch:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  

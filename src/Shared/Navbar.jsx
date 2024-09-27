@@ -12,6 +12,7 @@ import axiosInstance from '../Axios/axiosInstance';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FcBusinessman } from 'react-icons/fc';
 import Loading from '../Components/Loading/Loading';
+import useWishlist from '../Hooks/useWishlist';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +27,7 @@ const Navbar = () => {
   const [products, setProducts] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const { user, loading } = useContext(AuthContext);
+  const{wishlistCount,refetch}=useWishlist()
 
 
 
@@ -106,7 +108,9 @@ const Navbar = () => {
     }
   };
   
-  const  wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  useEffect(() => {
+    refetch()
+  }, [wishlistCount]);
 
 
   if (loading) return <Loading></Loading>;
@@ -180,7 +184,7 @@ const Navbar = () => {
                   {/* <button><CiGlobe className="text-gray-800 cursor-pointer hidden xl:block" size={30} /></button> */}
                   {
                     userInfo ? (<div>
-                      <Link to='/dashboard'><FcBusinessman className='' size={30} /></Link>
+                      <Link to='/dashboard'><FcBusinessman className='hidden md:block' size={30} /></Link>
                     </div>)
                       : <button><FiUser onClick={toggleLogin} className="text-gray-800 hidden xl:block" size={30} /></button>
                   }
@@ -189,8 +193,8 @@ const Navbar = () => {
                     <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems?.length}</p>
                   </div>
                   <div className='relative'>
-                    <Link to='wishlist'><TbHeartFilled className="text-violet-800" size={30} /></Link>
-                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{wishlist?.length}</p>
+                    <Link to='wishlist'  ><TbHeartFilled className="text-violet-800" size={30} /></Link>
+                    <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{wishlistCount}</p>
                   </div>
 
                 </div>

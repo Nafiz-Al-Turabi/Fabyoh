@@ -7,50 +7,11 @@ import { PiHeartStraightFill } from 'react-icons/pi';
 import { FaTimes } from 'react-icons/fa';
 import { FaPlus } from 'react-icons/fa';
 import { CartContext } from '../../Provider/CartProvider';
+import useWishlist from '../../Hooks/useWishlist';
 
 const WhishList = () => {
     const {addToCart}=useContext(CartContext)
-    const token = localStorage.getItem('authToken');
-
-    // Fetch wishlist data
-    const { isLoading, data = [], refetch, isError, error } = useQuery({
-        queryKey: ['wishlist'],
-        queryFn: async () => {
-            const response = await axiosInstance.get('/wishlists', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            return response.data;
-        },
-    });
-
-    const removeFromWishlist = async (id) => {
-        try {
-            const response = await axiosInstance.delete(`/wishlist/${id}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (response.status === 200) {
-                console.log('Wishlist item deleted successfully');
-
-                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-                wishlist = wishlist.filter(itemId => itemId !== id);
-
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-
-                refetch();
-            } else {
-                console.error('Failed to delete item:', response.data.message);
-            }
-        } catch (error) {
-            console.error('Error deleting item:', error.response?.data?.message || error.message);
-        }
-    };
-    
+    const {data,isLoading,removeFromWishlist}=useWishlist()
 
     if (isLoading) {
         return <Loading />;
@@ -78,9 +39,9 @@ const WhishList = () => {
                                         <FaTimes className="absolute top-2 left-2 inset-0 text-red-500 opacity-0 group-hover:opacity-100 duration-200" />
                                     </button>
                                 </div>
-                                <Link to={`/productDetails/${product._id}`} className="w-full flex items-center gap-5">
+                                <Link to={`/productDetails/${product.productId}`} className="w-full flex items-center gap-5">
                                     <div>
-                                        <img src={product.imageMain} alt="" className="h-28" />
+                                        <img src={product.image} alt="" className="h-28" />
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-semibold mt-2 text-center">{product.title}</h3>
@@ -89,7 +50,7 @@ const WhishList = () => {
                                         )}
                                     </div>
                                 </Link>
-                                <Link to={`/productDetails/${product._id}`} className="absolute bottom-0 bg-black text-white rounded-tl-lg right-0 p-2">
+                                <Link to={`/productDetails/${product.productId}`} className="absolute bottom-0 bg-black text-white rounded-tl-lg right-0 p-2">
                                     <FaPlus />
                                 </Link>
                             </div>

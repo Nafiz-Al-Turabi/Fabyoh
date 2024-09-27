@@ -17,11 +17,13 @@ import PrivateRoute from './PrivateRoutes';
 import AdminDashboard from '../Pages/Dashboard/AdminDashboard/AdminDashboard';
 import Dashboard from '../Pages/Dashboard/Dashboard';
 import WhishList from '../Components/WhishList/WhishList';
+import NotFound from '../Components/NotFound/NotFound';
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout></Layout>,
+        errorElement: <NotFound></NotFound>,
         children: [
             {
                 path: '/',

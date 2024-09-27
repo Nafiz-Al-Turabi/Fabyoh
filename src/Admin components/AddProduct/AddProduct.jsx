@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axiosInstance from "../../Axios/axiosInstance";
-const image_token = "6a61f4573470b3c2d847bbcd4cd9b15a";
+const image_token = import.meta.env.VITE_IMAGE_SECRET;
 
 const AddProduct = () => {
     const [isSubmitting, SetIsSubmitting] = useState(false);

@@ -15,7 +15,7 @@ const TransactionCard = ({ transaction }) => {
     } = transaction;
 
     return (
-        <div className="lg:flex justify-between gap-5  bg-white shadow-md rounded-lg p-6 max-w-7xl border-t-4 border-violet-500 mx-auto my-4 ">
+        <div className="lg:flex justify-between gap-5  bg-white shadow-md rounded-lg p-6 w-full border-t-4 border-violet-500 mx-auto my-4 ">
             <div>
                 <h2 className="text-lg font-semibold mb-2">Transaction ID: {transactionId}</h2>
                 <p className="text-base text-gray-500">Email: {email}</p>

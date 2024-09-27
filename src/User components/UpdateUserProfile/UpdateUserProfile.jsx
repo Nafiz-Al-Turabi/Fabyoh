@@ -24,7 +24,7 @@ const UpdateUserProfile = () => {
                 },
             });
             toast.success(' User profile updated successfully');
-            // reset();
+            window.location.reload()
         } catch (error) {
             console.error('Error updating user:', error);
             toast.error('You did not change anything');

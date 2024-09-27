@@ -43,6 +43,8 @@ const FeaturedProducts = () => {
           start = Math.max(1, end - visiblePages + 1);
           return Array.from({ length: end - start + 1 }, (_, index) => start + index);
       };
+
+      
     return (
         <div className='max-w-[1360px] mx-auto my-40'>
             <h1 className='text-[26px] text-center mb-8 uppercase font-josefin font-bold mx-4 xl:mx-0 font-josefin'>Featured Products</h1>

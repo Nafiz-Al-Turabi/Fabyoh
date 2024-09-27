@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
 import './FeaturedProductCard.css';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { Link, useNavigate } from 'react-router-dom';
 import trendingImage from './../../../assets/images/trending.gif'
-import axiosInstance from '../../../Axios/axiosInstance';
 import { AuthContext } from '../../../Provider/AuthProvider';
+import useWishlist from '../../../Hooks/useWishlist';
+
 
 const FeaturedProductCard = ({ product }) => {
     const { user } = useContext(AuthContext);
@@ -13,35 +13,45 @@ const FeaturedProductCard = ({ product }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
     const { title, discount, imageMain, imageSecond, trending, _id } = product;
     const navigate = useNavigate()
+    const { data, addWishlist } = useWishlist()
+
+
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000);
         return () => clearTimeout(timer);
     }, []);
 
+
     useEffect(() => {
-        const wishlistedItems = JSON.parse(localStorage.getItem('wishlist')) || [];
-        setIsWishlisted(wishlistedItems.includes(_id));
-    }, [_id]);
-    const token = localStorage.getItem('authToken')
+        if (data && user) {
+            const isAlreadyWishlisted = data.some(item => item.productId === _id);
+            setIsWishlisted(isAlreadyWishlisted);
+        }
+    }, [data, user, _id]);
+
     const handleWishlistClick = async () => {
         if (!user) {
             navigate('/login');
             return;
         }
-        try {
-            const response = await axiosInstance.post('/wishlist', product, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            setIsWishlisted(true);
 
-            // Update local storage
-            const wishlistedItems = JSON.parse(localStorage.getItem('wishlist')) || [];
-            localStorage.setItem('wishlist', JSON.stringify([...wishlistedItems, _id]));
+        if (isWishlisted) {
+            alert('Product is already in the wishlist');
+            return;
+        }
+
+        const wishlistItem = {
+            productId: _id,
+            title,
+            image: imageMain,
+            user: user.email
+        };
+
+        try {
+            await addWishlist(wishlistItem);
+            setIsWishlisted(true);
         } catch (error) {
-            console.error('Error adding to wishlist:', error);
-            alert('Failed to add to wishlist. Please try again.');
+            console.error("Failed to add to wishlist", error);
         }
     };
 
