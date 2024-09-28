@@ -102,7 +102,7 @@ const Customers = () => {
     }
 
     return (
-        <div className="overflow-x-auto p-4">
+        <div className="p-4">
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -116,12 +116,12 @@ const Customers = () => {
                 theme="light"
                 transition:Bounce
             />
-            <div className='flex justify-between mb-4'>
+            <div className='md:flex justify-between mb-4'>
                 <h2 className="text-2xl font-bold">Customers</h2>
                 <div className='relative'>
                     <input
                         type="text"
-                        className='border w-96 p-2 rounded focus:outline-violet-400'
+                        className='border w-full md:w-96 p-2 rounded focus:outline-violet-400 z-0'
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Search by name or email"
@@ -147,23 +147,25 @@ const Customers = () => {
                         </div>
                     )
                     :
-                    <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-                        <thead>
-                            <tr className="bg-violet-500 border-b text-white">
-                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Name</th>
-                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Role</th>
-                                {
-                                    user.role === 'super-admin' ? <th className="px-4 py-2 text-left md:px-6 md:py-3">Update Role</th> : ''
-                                }
-                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredData.map(userData => (
-                                <CustomersTable userData={userData} key={userData._id} toggleRole={toggleRole} loadingRoleUpdate={loadingRoleUpdate} handleUserDelete={handleUserDelete} />
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className=' w-[320px] lg:w-full  overflow-auto '>
+                        <table className=" bg-white border border-gray-300 rounded-lg shadow-md w-full ">
+                            <thead>
+                                <tr className="bg-violet-500 border-b text-white">
+                                    <th className="px-4 py-2 text-left md:px-6 md:py-3">Name</th>
+                                    <th className="px-4 py-2 text-left md:px-6 md:py-3">Role</th>
+                                    {
+                                        user.role === 'super-admin' ? <th className="px-4 py-2 text-left md:px-6 md:py-3">Update Role</th> : ''
+                                    }
+                                    <th className="px-4 py-2 text-left md:px-6 md:py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredData.map(userData => (
+                                    <CustomersTable userData={userData} key={userData._id} toggleRole={toggleRole} loadingRoleUpdate={loadingRoleUpdate} handleUserDelete={handleUserDelete} />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
             }
         </div>
     );

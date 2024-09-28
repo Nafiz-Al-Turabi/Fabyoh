@@ -7,11 +7,13 @@ import Customers from "../../../Admin components/Customers/Customers";
 import Settings from "../../../Admin components/Settings/Settings";
 import Orders from "../../../Admin components/Orders/Orders";
 import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "../../../Axios/axiosInstance";
 import Products from "../../../Admin components/Products/Products";
+import OrderChart from "../../../Admin components/OrderChart/OrderChart";
+import axiosInstance from "../../../Axios/axiosInstance";
+import PaymentChart from "../../../Admin components/PaymentChart/PaymentChart";
 
 const AdminDashboard = () => {
-    const [products, setProducts]=useState([])
+    const [products, setProducts] = useState([])
     const { user, logout } = useContext(AuthContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("dashboard");
@@ -44,13 +46,15 @@ const AdminDashboard = () => {
                     'Authorization': `Bearer ${token}`,
                 },
             });
+            console.log(response.data);
             return response.data;
         },
     });
+    const totalSales = data.reduce((acc, order) => acc + parseFloat(order.price || 0), 0);
     const pendingOrdersCount = data.filter(order => order.status === 'Pending').length;
-    useEffect(()=>{
+    useEffect(() => {
         productsData()
-    },[])
+    }, [])
     const productsData = async () => {
         try {
             const response = await axiosInstance.get('/products', {
@@ -69,7 +73,7 @@ const AdminDashboard = () => {
             {/* Sidebar */}
             <aside
                 ref={sidebarRef}
-                className={`bg-gray-800 h-dvh text-white w-64 fixed inset-y-0 left-0 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:relative md:translate-x-0`}>
+                className={`bg-gray-800 h-dvh text-white w-64 fixed inset-y-0 left-0 transform z-50 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 md:relative md:translate-x-0`}>
                 <div className="p-4">
                     <h2 className="text-2xl font-bold mb-6 capitalize ">{user.role}</h2>
                     <div className="flex flex-col">
@@ -131,22 +135,29 @@ const AdminDashboard = () => {
                 {/* Main Content */}
                 <main className="p-6 flex-1 bg-white overflow-y-auto">
                     {activeTab === "dashboard" && (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div className="bg-slate-800 text-white p-4 rounded-lg shadow">
-                                <h3 className="text-lg font-semibold mb-2">Total Sales</h3>
-                                <p className="text-2xl font-bold">$10,000</p>
-                            </div>
-                            <div className="bg-slate-800 text-white p-4 rounded-lg shadow">
-                                <h3 className="text-lg font-semibold mb-2">New Orders</h3>
-                                <p className="text-2xl font-bold">{pendingOrdersCount}
+                        <div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="bg-emerald-500 text-center text-white p-4 rounded-lg shadow">
+                                    <h3 className="text-lg font-semibold mb-2">Total Sales</h3>
+                                    <p className="text-2xl font-bold">${totalSales.toFixed(2)}</p>
+                                </div>
+                                <div className="bg-violet-500 text-center text-white p-4 rounded-lg shadow">
+                                    <h3 className="text-lg font-semibold mb-2">New Orders</h3>
+                                    <p className="text-2xl font-bold">{pendingOrdersCount}
 
-                                </p>
+                                    </p>
+                                </div>
+                                <div className="bg-rose-500 text-center text-white p-4 rounded-lg shadow">
+                                    <h3 className="text-lg font-semibold mb-2">Total Products</h3>
+                                    <p className="text-2xl font-bold">{products.length}</p>
+                                </div>
                             </div>
-                            <div className="bg-slate-800 text-white p-4 rounded-lg shadow">
-                                <h3 className="text-lg font-semibold mb-2">Total Products</h3>
-                                <p className="text-2xl font-bold">{products.length}</p>
+                            <div className="md:flex gap-5">
+                                <OrderChart></OrderChart>
+                                <PaymentChart />
                             </div>
                         </div>
+
                     )}
                     {activeTab === "products" && (
                         <div>

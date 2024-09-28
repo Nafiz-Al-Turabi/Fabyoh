@@ -5,6 +5,8 @@ import axiosInstance from '../../Axios/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const image_token = import.meta.env.VITE_IMAGE_SECRET;
+
 const UpdateUserProfile = () => {
     const { user, loading } = useContext(AuthContext);
     const token = localStorage.getItem('authToken')
@@ -15,10 +17,35 @@ const UpdateUserProfile = () => {
         formState: { errors },
     } = useForm({
     });
+    const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_token}`;
 
     const onSubmit = async (updatedData) => {
         try {
-            const response = await axiosInstance.put(`/user/${user?.email}`, updatedData, {
+            let imageUrl = user.image; 
+
+            if (updatedData.image && updatedData.image[0]) {
+                const formData = new FormData();
+                formData.append('image', updatedData.image[0]);
+    
+                const imageUploadResponse = await fetch(image_hosting_url, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const imageUploadResult = await imageUploadResponse.json();
+    
+                if (imageUploadResult.success) {
+                    imageUrl = imageUploadResult.data.url;
+                } else {
+                    toast.error('Image upload failed');
+                    return;
+                }
+            }
+    
+            const updatedUserData = {
+                ...updatedData,
+                image: imageUrl,
+            };
+            const response = await axiosInstance.put(`/user/${user?.email}`, updatedUserData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

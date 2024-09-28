@@ -91,29 +91,31 @@ const ManagesRoles = () => {
                 theme="light"
                 transition:Bounce
             />
-            <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-                <thead>
-                    <tr className="bg-violet-500 border-b text-white">
-                        <th className="px-4 py-2 text-left md:px-6 md:py-3">Name</th>
-                        <th className="px-4 py-2 text-left md:px-6 md:py-3">Role</th>
-                        {user.role === 'super-admin' && (
-                            <th className="px-4 py-2 text-left md:px-6 md:py-3">Update Role</th>
-                        )}
-                        <th className="px-4 py-2 text-left md:px-6 md:py-3">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredData.map(admin => (
-                        <ManagesRoleTable
-                            key={admin._id}
-                            admin={admin}
-                            handleUserDelete={handleUserDelete}
-                            toggleRole={toggleRole}
-                            loadingRoleUpdate={loadingRoleUpdate}
-                        />
-                    ))}
-                </tbody>
-            </table>
+            <div className=' w-[320px] lg:w-full overflow-auto '>
+                <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+                    <thead>
+                        <tr className="bg-violet-500 border-b text-white">
+                            <th className="px-4 py-2 text-left md:px-6 md:py-3">Name</th>
+                            <th className="px-4 py-2 text-left md:px-6 md:py-3">Role</th>
+                            {user.role === 'super-admin' && (
+                                <th className="px-4 py-2 text-left md:px-6 md:py-3">Update Role</th>
+                            )}
+                            <th className="px-4 py-2 text-left md:px-6 md:py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredData.map(admin => (
+                            <ManagesRoleTable
+                                key={admin._id}
+                                admin={admin}
+                                handleUserDelete={handleUserDelete}
+                                toggleRole={toggleRole}
+                                loadingRoleUpdate={loadingRoleUpdate}
+                            />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

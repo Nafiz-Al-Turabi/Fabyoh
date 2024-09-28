@@ -27,7 +27,7 @@ const UserProfile = () => {
                 <div className='md:w-96  bg-gray-50 border border-gray-100 rounded-xl'>
                     <div className='mb-16'>
                         <div className='flex justify-center mt-16'>
-                            <img src="https://img.freepik.com/free-photo/handsome-bearded-guy-posing-against-white-wall_273609-20597.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1726704000&semt=ais_hybrid" alt="image" className='w-32 h-32 object-cover rounded-full border-4 border-violet-400' />
+                            <img src={user.image} alt="image" className='w-32 h-32 object-cover rounded-full border-4 border-violet-400' />
                         </div>
                         <div className='text-center mt-6'>
                             <h1 className='text-xl font-semibold text-gray-700'>{user.name}</h1>
@@ -60,8 +60,8 @@ const UserProfile = () => {
                     </div>
                 </div>
                 <div className='flex justify-between w-3/4 gap-5'>
-                    <div className='h-32 w-full bg-orange-600/50 rounded-xl '></div>
-                    <div className='h-32 w-full bg-amber-200 rounded-xl '></div>
+                    {/* <div className='h-32 w-full bg-orange-600/50 rounded-xl '></div>
+                    <div className='h-32 w-full bg-amber-200 rounded-xl '></div> */}
                 </div>
             </div>
         </div>
