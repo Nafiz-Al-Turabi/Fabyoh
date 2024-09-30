@@ -2,20 +2,24 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const UpdateProductModal = ({ product, onClose, onUpdate, onDelete }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
             title: product.title,
             price: product.price,
             discount: product.discount,
             description: product.description,
             category: product.category,
-            in_stock: product.in_stock,
+            in_stock: product.in_stock.toString(), 
             imageMain: product.imageMain,
         }
     });
 
     const onSubmit = (data) => {
-        onUpdate(data);
+        const formData = {
+            ...data,
+            in_stock: data.in_stock === 'true',
+        };
+        onUpdate(formData); 
     };
 
     return (
@@ -24,7 +28,6 @@ const UpdateProductModal = ({ product, onClose, onUpdate, onDelete }) => {
                 <h2 className="text-xl font-semibold mb-4">Update Product</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 lg:grid-cols-2 lg:gap-5'>
-
                     {/* Title */}
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2">Title</label>
@@ -74,8 +77,8 @@ const UpdateProductModal = ({ product, onClose, onUpdate, onDelete }) => {
                             {...register('in_stock', { required: 'Stock status is required' })}
                             className={`w-full px-3 py-2 border ${errors.in_stock ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-green-300`}
                         >
-                            <option value={true}>In Stock</option>
-                            <option value={false}>Out of Stock</option>
+                            <option value="true">In Stock</option>
+                            <option value="false">Out of Stock</option>
                         </select>
                         {errors.in_stock && <span className="text-red-500 text-sm">{errors.in_stock.message}</span>}
                     </div>
