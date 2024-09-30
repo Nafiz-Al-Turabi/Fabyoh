@@ -67,7 +67,7 @@ const CheckOut = () => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(100, 100)
     }, [])
 
     return (

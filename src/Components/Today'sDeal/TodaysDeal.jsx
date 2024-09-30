@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import promot from './../../assets/images/fabyoh/offer2.jpg';
 // import promot from './../../assets/images/slider/image7.jpg';
@@ -6,9 +6,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
 import axiosInstance from '../../Axios/axiosInstance';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../Loading/Loading';
 
 const TodaysDeal = () => {
     const [deals, setDeals] = useState([]);
+    const { loading } = useContext(AuthContext)
     // Slick slider settings with proper breakpoints for responsiveness
     const settings = {
         dots: true,
@@ -39,18 +43,16 @@ const TodaysDeal = () => {
         ],
     };
 
-    useEffect(() => {
-        fetchProducts()
-    }, []);
+    const { isLoading, isError, data = [], error, refetch } = useQuery({
+        queryKey: ['userOrders'],
+        queryFn: async () => {
+            const response = await axiosInstance.get('/products');
+            return response.data;
+        },
+    });
 
-    const fetchProducts = async () => {
-        try {
-            const response = await axiosInstance('/products');
-            const result = response.data
-            setDeals(result);
-        } catch (error) {
-            console.log("Failed to fetch today deals Products",error);
-        }
+    if (isLoading) {
+        return <Loading />
     }
 
     return (
@@ -60,7 +62,7 @@ const TodaysDeal = () => {
                     Today's Deal
                 </h1>
                 <Slider {...settings}>
-                    {deals.slice(0,4).map((deal) => (
+                    {data.slice(0, 6).map((deal) => (
                         <Link to={`/productDetails/${deal._id}`} key={deal._id} className='pl-4'>
                             <div className='bg-[#F3EFFE] rounded-lg overflow-hidden p-3'>
                                 <img

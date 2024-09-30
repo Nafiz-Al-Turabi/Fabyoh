@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { FaPaypal } from 'react-icons/fa';
 import { CartContext } from '../../Provider/CartProvider';
@@ -10,9 +10,10 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
     const { user } = useContext(AuthContext);
     const { cartItems } = useContext(CartContext);
     const token = localStorage.getItem('authToken');
+    const [loading, setLoading] = useState(false);
 
     const handleApprove = async (data, details) => {
-        // Successful PayPal transaction
+        setLoading(true); 
         toast.success('Transaction completed by ' + details.payer.name.given_name);
 
         // Prepare payment data for storage
@@ -40,12 +41,14 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
             console.log('Payment saved successfully:', response.data);
         } catch (error) {
             console.error('Error saving payment:', error);
+        } finally {
+            setLoading(false); 
         }
     };
 
     return (
-        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md relative z-30"> {/* Add z-50 for high z-index */}
-             <ToastContainer
+        <div className="border border-yellow-400 bg-yellow-50 p-6 rounded-lg shadow-md relative z-30">
+            <ToastContainer
                 position="top-center"
                 autoClose={5000}
                 hideProgressBar={false}
@@ -64,32 +67,38 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
                 <p className="text-gray-600 text-md">Secure and easy payments with PayPal. Your payment of <strong>${totalPrice}</strong> will be processed securely.</p>
             </div>
 
-            <PayPalButtons 
-                createOrder={(data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: totalPrice,
-                            },
-                        }],
-                    });
-                }}
-                onApprove={(data, actions) => {
-                    return actions.order.capture().then((details) => {
-                        handleApprove(data, details);
-                    });
-                }}
-                onError={(err) => {
-                    console.error('PayPal Checkout Error:', err);
-                    alert('Something went wrong with your payment. Please try again.');
-                }}
-                style={{
-                    layout: 'vertical',
-                    color: 'blue',
-                    shape: 'rect',
-                    label: 'paypal',
-                }}
-            />
+            {loading ? (
+                <div className="flex justify-center items-center">
+                    <div className="loader">Loading...</div>
+                </div>
+            ) : (
+                <PayPalButtons 
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: totalPrice,
+                                },
+                            }],
+                        });
+                    }}
+                    onApprove={(data, actions) => {
+                        return actions.order.capture().then((details) => {
+                            handleApprove(data, details);
+                        });
+                    }}
+                    onError={(err) => {
+                        console.error('PayPal Checkout Error:', err);
+                        alert('Something went wrong with your payment. Please try again.');
+                    }}
+                    style={{
+                        layout: 'vertical',
+                        color: 'blue',
+                        shape: 'rect',
+                        label: 'paypal',
+                    }}
+                />
+            )}
 
             {/* Optional Section: Custom error messages */}
             <div id="paypal-error" className="text-red-600 mt-4 hidden">
