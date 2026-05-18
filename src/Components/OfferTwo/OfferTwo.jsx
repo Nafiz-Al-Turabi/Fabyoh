@@ -1,4 +1,4 @@
-import Marquee from 'react-fast-marquee';
+import Marquee from '../../Utils/marquee';
 
 const OfferTwo = () => {
     return (

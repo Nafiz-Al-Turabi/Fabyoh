@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import delivery1 from './../../assets/images/fabyoh/delivery1.webp'
 import delivery2 from './../../assets/images/fabyoh/delivery2.webp'
 import delivery3 from './../../assets/images/fabyoh/delivery3.webp'
@@ -40,9 +41,9 @@ const Delivary = () => {
                     </div>
                 </div>
             </div>
-            <a href=''>
+            <Link to='/hoodies'>
                 <img src={promot} alt="" className='object-cover w-full mt-8' />
-            </a>
+            </Link>
         </div>
     );
 };

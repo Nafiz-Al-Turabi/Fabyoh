@@ -1,18 +1,18 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
-import logo from './../assets/Images/logo.webp'
+import logo from './../assets/images/logo.webp'
 import { IoClose, IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { TbHeartFilled } from "react-icons/tb";
 import ActiveLink from '../ActiveLinks/ActiveLink';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { CartContext } from '../Provider/CartProvider';
-import { Result } from 'postcss';
 import axiosInstance from '../Axios/axiosInstance';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FcBusinessman } from 'react-icons/fc';
 import Loading from '../Components/Loading/Loading';
 import useWishlist from '../Hooks/useWishlist';
+import { loadProducts } from '../Utils/products';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,8 +64,8 @@ const Navbar = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axiosInstance.get('/products')
-      setProducts(response.data);
+      const result = await loadProducts();
+      setProducts(result);
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +93,7 @@ const Navbar = () => {
     const authtoken = localStorage.getItem('authToken');
 
     if (!authtoken) {
-      console.error("No auth token found.");
+      setUserInfo(null);
       return;
     }
     try {
@@ -110,7 +110,7 @@ const Navbar = () => {
   
   useEffect(() => {
     refetch()
-  }, [wishlistCount]);
+  }, [refetch, wishlistCount]);
 
 
   if (loading) return <Loading></Loading>;
@@ -193,7 +193,7 @@ const Navbar = () => {
                     <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{cartItems?.length}</p>
                   </div>
                   <div className='relative'>
-                    <Link to='wishlist'  ><TbHeartFilled className="text-violet-800" size={30} /></Link>
+                    <Link to='/wishlist'  ><TbHeartFilled className="text-violet-800" size={30} /></Link>
                     <p className='w-4 h-4 s-bg text-white text-xs flex justify-center items-center rounded-full absolute -top-1 -right-1.5 '>{wishlistCount}</p>
                   </div>
 
@@ -233,9 +233,9 @@ const Navbar = () => {
                       </ul>
                     )}
                   </li>
-                  <li><ActiveLink to="/profile">Profile</ActiveLink></li>
+                  <li><ActiveLink to={userInfo ? "/dashboard" : "/login"}>Profile</ActiveLink></li>
                   <li><ActiveLink to="/wishlist">Wishlist</ActiveLink></li>
-                  <li><ActiveLink to="/help">Help</ActiveLink></li>
+                  <li><ActiveLink to="/">Help</ActiveLink></li>
                   <li><ActiveLink to="/login">Login</ActiveLink></li>
                 </ul>
               </div>

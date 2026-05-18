@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Slider from 'react-slick';
 import promot from './../../assets/images/fabyoh/offer2.jpg';
 // import promot from './../../assets/images/slider/image7.jpg';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-router-dom';
-import axiosInstance from '../../Axios/axiosInstance';
 import { AuthContext } from '../../Provider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../Loading/Loading';
+import { loadProducts } from '../../Utils/products';
+import Slider from '../../Utils/slickSlider';
 
 const TodaysDeal = () => {
     const [deals, setDeals] = useState([]);
@@ -43,16 +43,17 @@ const TodaysDeal = () => {
         ],
     };
 
-    const { isLoading, isError, data = [], error, refetch } = useQuery({
+    const { isLoading, isError, data = [], error } = useQuery({
         queryKey: ['userOrders'],
-        queryFn: async () => {
-            const response = await axiosInstance.get('/products');
-            return response.data;
-        },
+        queryFn: loadProducts,
     });
 
     if (isLoading) {
         return <Loading />
+    }
+
+    if (isError) {
+        return <p className='px-4 font-josefin'>Error: {error.message}</p>;
     }
 
     return (

@@ -8,7 +8,8 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import PayPalButtonComponent from '../../Components/PayPalButtonComponent/PayPalButtonComponent';
 import { FaStripe, FaPaypal } from 'react-icons/fa'; // Icons for Stripe & PayPal
 
-const stripePromise = loadStripe(import.meta.env.VITE_Stripe_key);
+const stripePublishableKey = import.meta.env.VITE_Stripe_key;
+const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 const CheckOut = () => {
     const { cartItems, calculateTotalPrice } = useContext(CartContext);
@@ -18,7 +19,7 @@ const CheckOut = () => {
     const totalPrice = calculateTotalPrice();
 
     useEffect(() => {
-        if (paymentMethod === 'stripe') {
+        if (paymentMethod === 'stripe' && stripePromise) {
             paymentIntent(); // Only call if Stripe is selected
         }
     }, [totalPrice, paymentMethod]);
@@ -127,9 +128,15 @@ const CheckOut = () => {
 
                         {/* Conditionally render payment options */}
                         {paymentMethod === 'stripe' && (
-                            <Elements stripe={stripePromise}>
-                                <Payment clientSecret={clientSecret} totalPrice={totalPrice} />
-                            </Elements>
+                            stripePromise ? (
+                                <Elements stripe={stripePromise}>
+                                    <Payment clientSecret={clientSecret} totalPrice={totalPrice} />
+                                </Elements>
+                            ) : (
+                                <div className='border border-yellow-300 bg-yellow-50 p-4 rounded-lg'>
+                                    Add `VITE_Stripe_key` to your environment before using Stripe checkout.
+                                </div>
+                            )
                         )}
                         {paymentMethod === 'paypal' && (
                             <PayPalScriptProvider options={{ "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID }}>

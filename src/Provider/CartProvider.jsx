@@ -10,6 +10,11 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem('authToken');
 
     const fetchCartItems = async () => {
+        if (!token) {
+            setCartItems([]);
+            return;
+        }
+
         try {
             setLoading(true);
             const response = await axiosInstance.get('/carts', {
@@ -27,7 +32,7 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         fetchCartItems();
-    }, []);
+    }, [token]);
 
     // Add a new item to the cart and update the server
     const addToCart = async (newItem) => {

@@ -2,19 +2,16 @@ import React, { useEffect, useState } from 'react';
 import FeaturedProductCard from '../Cards/FeaturedProductCard/FeaturedProductCard';
 import Loading from '../Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
-import axiosInstance from '../../Axios/axiosInstance';
+import { loadProducts } from '../../Utils/products';
 
 
 const FeaturedProducts = () => {
     const itemsPerPage = 12;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { isLoading, isError, data = [], error, refetch } = useQuery({
+    const { isLoading, isError, data = [], error } = useQuery({
         queryKey: ['products'],
-        queryFn: async () => {
-            const response = await axiosInstance.get('/products');
-            return response.data;
-        },
+        queryFn: loadProducts,
     });
 
     if (isLoading) {

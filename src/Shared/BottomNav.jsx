@@ -44,7 +44,7 @@ const BottomNav = () => {
         </ActiveBottomNav>
 
         {/* Shop */}
-        <ActiveBottomNav to='/shop' className="flex flex-col items-center ">
+        <ActiveBottomNav to='/' className="flex flex-col items-center ">
           <CiGrid41 className="text-3xl" />
           <span className="font-[300]">Shop</span>
         </ActiveBottomNav>

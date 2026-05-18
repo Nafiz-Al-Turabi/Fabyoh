@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import image1 from './../../assets/images/find style/image1.webp'
 import image2 from './../../assets/images/find style/image2.webp'
 import image3 from './../../assets/images/find style/image3.webp'
@@ -11,21 +12,21 @@ const FindStyle = () => {
                     <img src={image1} alt="" />
                     <div className='absolute inset-0 font-josefin text-white top-1/3 ml-6'>
                         <h1 className='text-3xl font-bold uppercase mb-4'>Premium <br /> Shirts</h1>
-                        <a href="" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</a>
+                        <Link to="/shirts" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</Link>
                     </div>
                 </div>
                 <div className='relative '>
                     <img src={image2} alt="" />
                     <div className='absolute inset-0 font-josefin text-white top-1/3 ml-6'>
                         <h1 className='text-3xl font-bold uppercase mb-4'>Pure <br /> Cotton</h1>
-                        <a href="" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</a>
+                        <Link to="/tshirts" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</Link>
                     </div>
                 </div>
                 <div className='relative '>
                     <img src={image3} alt="" />
                     <div className='absolute inset-0 font-josefin text-white top-1/3 ml-6'>
                         <h1 className='text-3xl font-bold uppercase mb-4'>Newly  <br /> Launched</h1>
-                        <a href="" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</a>
+                        <Link to="/jackets" className='border-b-2 border-[#8cbecf] hover:border-[#dc84ffc0]'>Shop Now</Link>
                     </div>
                 </div>
             </div>

@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../../Provider/CartProvider';
 import { AuthContext } from '../../Provider/AuthProvider';
-import axiosInstance from '../../Axios/axiosInstance';
 import Loading from '../../Components/Loading/Loading';
 import { FaPlus } from 'react-icons/fa';
+import { loadProductById } from '../../Utils/products';
 
 const ProductsDetails = () => {
     const { user } = useContext(AuthContext);
@@ -69,9 +68,8 @@ const ProductsDetails = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axiosInstance.get(`/products/${id}`);
-
-            setDetails(response.data);
+            const result = await loadProductById(id);
+            setDetails(result);
         } catch (error) {
             setError(error.message);
         } finally {
@@ -86,7 +84,7 @@ const ProductsDetails = () => {
     if (loading) return <Loading />;
     if (error) return <p>{error}</p>;
 
-    const { title, colors = [], imageMain, imageSecond, price, description } = details;
+    const { title, colors = [], imageMain, imageSecond = imageMain, price, description } = details;
     // console.log('this is detail',details);
 
     return (

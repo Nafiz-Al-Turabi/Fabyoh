@@ -18,10 +18,13 @@ const Login = () => {
     const onSubmit = async (data) => {
         const { email, password } = data;
         try {
-            await login(email, password);
-            setTimeout(() => {
-                navigate(from, {replace: true});
-            }, 1000);
+            const isLoggedIn = await login(email, password);
+
+            if (isLoggedIn) {
+                setTimeout(() => {
+                    navigate(from, { replace: true });
+                }, 1000);
+            }
         } catch (error) {
             console.error('Login failed:', error);
         }

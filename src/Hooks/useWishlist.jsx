@@ -19,6 +19,7 @@ const useWishlist = () => {
 
     const { isLoading, data = [], refetch, isError, error } = useQuery({
         queryKey: ['wishlist'],
+        enabled: !!token,
         queryFn: async () => {
             const response = await axiosInstance.get('/wishlists', {
                 headers: {
@@ -57,7 +58,7 @@ const useWishlist = () => {
         error,
         removeFromWishlist,
         addWishlist: addWishlistMutation.mutate,
-        wishlistCount: data.length,
+        wishlistCount: Array.isArray(data) ? data.length : 0,
     };
 };
 

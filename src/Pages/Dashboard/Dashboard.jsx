@@ -20,7 +20,11 @@ const Dashboard = () => {
         if (user.role === 'user') {
             return <UserDashboard />
         }
+
+        return <UserDashboard />
     }
+
+    return <Loading />
 };
 
 export default Dashboard;

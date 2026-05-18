@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeaturedProductCard from '../Cards/FeaturedProductCard/FeaturedProductCard';
-import axiosInstance from '../../Axios/axiosInstance';
+import { loadProducts } from '../../Utils/products';
 
 const Filters = () => {
     const itemsPerPage = 12;
@@ -34,8 +34,7 @@ const Filters = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axiosInstance.get('/products');
-            const result = response.data
+            const result = await loadProducts();
             setProducts(result);
             setFilteredProducts(result);
         } catch (error) {

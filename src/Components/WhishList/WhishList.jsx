@@ -13,13 +13,13 @@ const WhishList = () => {
     const { addToCart } = useContext(CartContext)
     const { data, isLoading, removeFromWishlist } = useWishlist()
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     return (
         <div className='h-screen max-w-6xl mx-auto font-josefin'>

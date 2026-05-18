@@ -11,13 +11,13 @@ import paypal from './../assets/images/payment/paypal.webp'
 import applepay from './../assets/images/payment/applepay.webp'
 import googlepay from './../assets/images/payment/googlepay.webp'
 import trending from './../assets/images/trending.gif'
-import Marquee from 'react-fast-marquee';
+import Marquee from '../Utils/marquee';
 import image from './../assets/images/fabyoh/women2.webp'
 import image2 from './../assets/images/fabyoh/menblack.webp'
 import image3 from './../assets/images/fabyoh/manNavy.webp'
 import image4 from './../assets/images/fabyoh/women.webp'
 import { Link } from 'react-router-dom';
-import axiosInstance from '../Axios/axiosInstance';
+import { loadProducts } from '../Utils/products';
 
 
 const Footer = () => {
@@ -28,8 +28,8 @@ const Footer = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axiosInstance.get('/products')
-            setProducts(response.data)
+            const result = await loadProducts();
+            setProducts(result)
         } catch (error) {
             console.log('Error to get products in footer', error);
         }
@@ -77,22 +77,22 @@ const Footer = () => {
                     <div>
                         <h1 className='text-xl lg:text-2xl font-semibold'>Shop Now</h1>
                         <div className='flex flex-col gap-3 mt-5'>
-                            <a href="" className='text-xl font-[300]'>Shop All</a>
-                            <a href="" className='text-xl font-[300]'>Shirts</a>
-                            <a href="" className='text-xl font-[300]'>Tshirts</a>
-                            <a href="" className='text-xl font-[300]'>Hoodies</a>
-                            <a href="" className='text-xl font-[300]'>Jackets</a>
-                            <a href="" className='text-xl font-[300]'>Room</a>
+                            <Link to="/" className='text-xl font-[300]'>Shop All</Link>
+                            <Link to="/shirts" className='text-xl font-[300]'>Shirts</Link>
+                            <Link to="/tshirts" className='text-xl font-[300]'>Tshirts</Link>
+                            <Link to="/hoodies" className='text-xl font-[300]'>Hoodies</Link>
+                            <Link to="/jackets" className='text-xl font-[300]'>Jackets</Link>
+                            <Link to="/" className='text-xl font-[300]'>Room</Link>
                         </div>
                     </div>
                     <div>
                         <h1 className='text-xl lg:text-2xl font-semibold'>Important Links</h1>
                         <div className='flex flex-col gap-3 mt-5'>
-                            <a href="" className='text-xl font-[300]'>Privacy Policy</a>
-                            <a href="" className='text-xl font-[300]'>Terms And Conditions</a>
-                            <a href="" className='text-xl font-[300]'>Shipping And Returns</a>
-                            <a href="" className='text-xl font-[300]'>About Us</a>
-                            <a href="" className='text-xl font-[300]'>Help</a>
+                            <Link to="/" className='text-xl font-[300]'>Privacy Policy</Link>
+                            <Link to="/" className='text-xl font-[300]'>Terms And Conditions</Link>
+                            <Link to="/" className='text-xl font-[300]'>Shipping And Returns</Link>
+                            <Link to="/" className='text-xl font-[300]'>About Us</Link>
+                            <Link to="/" className='text-xl font-[300]'>Help</Link>
                         </div>
                     </div>
                     <div>
