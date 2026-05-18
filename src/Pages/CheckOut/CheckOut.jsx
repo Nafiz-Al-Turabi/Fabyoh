@@ -8,7 +8,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import PayPalButtonComponent from '../../Components/PayPalButtonComponent/PayPalButtonComponent';
 import { FaStripe, FaPaypal } from 'react-icons/fa'; // Icons for Stripe & PayPal
 
-const stripePublishableKey = "pk_test_51S8vqlREJl5NQ0K6cMgt7AfqZ4rKjbQrOsGLUkJisPw5g6353zWldzCQ3qCZwrgeljICbAyPM42ssstsTV0PrLi200xuTmnhpB";
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || "pk_test_51S8vqlREJl5NQ0K6cMgt7AfqZ4rKjbQrOsGLUkJisPw5g6353zWldzCQ3qCZwrgeljICbAyPM42ssstsTV0PrLi200xuTmnhpB";
 const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 const CheckOut = () => {
@@ -16,13 +16,15 @@ const CheckOut = () => {
     const [clientSecret, setClientSecret] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('stripe');
     const token = localStorage.getItem('authToken');
-    const totalPrice = calculateTotalPrice();
+    const totalPrice = Number(calculateTotalPrice());
 
     useEffect(() => {
-        if (paymentMethod === 'stripe' && stripePromise) {
-            paymentIntent(); // Only call if Stripe is selected
+        if (paymentMethod === 'stripe' && stripePromise && token && totalPrice > 0) {
+            paymentIntent();
+        } else {
+            setClientSecret('');
         }
-    }, [totalPrice, paymentMethod]);
+    }, [totalPrice, paymentMethod, token]);
 
     const paymentIntent = async () => {
         try {
@@ -34,6 +36,7 @@ const CheckOut = () => {
             setClientSecret(response.data.clientSecret);
         } catch (error) {
             console.error('Payment Intent Error:', error);
+            setClientSecret('');
         }
     };
 
@@ -134,7 +137,7 @@ const CheckOut = () => {
                                 </Elements>
                             ) : (
                                 <div className='border border-yellow-300 bg-yellow-50 p-4 rounded-lg'>
-                                    Add `VITE_Stripe_key` to your environment before using Stripe checkout.
+                                    Add `VITE_STRIPE_PUBLISHABLE_KEY` to your environment before using Stripe checkout.
                                 </div>
                             )
                         )}

@@ -7,21 +7,29 @@ import { CartContext } from '../../Provider/CartProvider';
 import axiosInstance from '../../Axios/AxiosInstance';
 
 const Payment = ({ clientSecret, totalPrice }) => {
-    const { user, deleteAllCartItems } = useContext(AuthContext);
-    const { cartItems } = useContext(CartContext);
-    // console.log(cartItems);
+    const { user } = useContext(AuthContext);
+    const { cartItems, clearCart } = useContext(CartContext);
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('');
-    const [successeId, setSuccessId] = useState('');
-    // console.log('Client Secret:', clientSecret);
     const token = localStorage.getItem('authToken');
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setCardError('');
 
         if (!stripe || !elements) {
+            return;
+        }
+
+        if (!clientSecret) {
+            setCardError('Payment setup failed. Please wait and try again.');
+            return;
+        }
+
+        if (!user?.email) {
+            setCardError('You need to be logged in before making a payment.');
             return;
         }
 
@@ -31,10 +39,16 @@ const Payment = ({ clientSecret, totalPrice }) => {
             return;
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error } = await stripe.createPaymentMethod({
             type: 'card',
             card,
         });
+
+        if (error) {
+            setCardError(error.message);
+            return;
+        }
+
         // for confirm payment
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -45,51 +59,41 @@ const Payment = ({ clientSecret, totalPrice }) => {
                 }
             }
         })
+
         if (confirmError) {
-            console.log("confirm error", error);
-        } else {
-            // console.log("Payment intent", paymentIntent);
-            if (paymentIntent.status === 'succeeded') {
-                // console.log('transuction id', paymentIntent.id);
-                setSuccessId(paymentIntent.id)
-                toast.success('Payment Successfull')
-
-                // Payment data save to database..
-                const payment = {
-                    email: user.email,
-                    price: totalPrice,
-                    date: new Date(),
-                    transactionId: paymentIntent.id,
-                    id: cartItems.map(cart => cart._id),
-                    title: cartItems.map(cart => cart.title),
-                    size: cartItems.map(cart => cart.size),
-                    color: cartItems.map(cart => cart.color),
-                    totalItems: cartItems.map(cart => cart.totalItems),
-                    image: cartItems.map(cart => cart.image),
-                    status: 'Pending'
-
-                }
-                try {
-                    const response = await axiosInstance.post('/payment', payment, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    })
-                    await deleteAllCartItems(user.email);
-                    // console.log('Payment saved successfully:', response.data);
-                } catch (error) {
-                    console.error('Error saving payment:', error);
-                }
-
-            }
+            console.log('confirm error', confirmError);
+            setCardError(confirmError.message || 'Payment confirmation failed.');
+            return;
         }
 
-        if (error) {
-            // console.log('[error]', error);
-            setCardError(error.message);
-        } else {
-            setCardError('');
-            // console.log('[PaymentMethod]', paymentMethod);
+        if (paymentIntent?.status === 'succeeded') {
+            toast.success('Payment successful');
+
+            const payment = {
+                email: user.email,
+                price: totalPrice,
+                date: new Date(),
+                transactionId: paymentIntent.id,
+                id: cartItems.map(cart => cart._id),
+                title: cartItems.map(cart => cart.title),
+                size: cartItems.map(cart => cart.size),
+                color: cartItems.map(cart => cart.color),
+                totalItems: cartItems.map(cart => cart.totalItems),
+                image: cartItems.map(cart => cart.image),
+                status: 'Pending'
+            };
+
+            try {
+                await axiosInstance.post('/payment', payment, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                await clearCart();
+            } catch (error) {
+                console.error('Error saving payment:', error);
+                setCardError(error.response?.data?.message || 'Payment was completed, but saving the order failed.');
+            }
         }
     };
 

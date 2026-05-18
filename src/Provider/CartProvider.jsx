@@ -7,9 +7,22 @@ export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const token = localStorage.getItem('authToken');
+
+    const getAuthConfig = () => {
+        const token = localStorage.getItem('authToken');
+        return {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+    };
+
+    const deleteCartItemFromServer = async (itemId) => {
+        await axiosInstance.delete(`/carts/${itemId}`, getAuthConfig());
+    };
 
     const fetchCartItems = async () => {
+        const token = localStorage.getItem('authToken');
         if (!token) {
             setCartItems([]);
             return;
@@ -17,11 +30,7 @@ export const CartProvider = ({ children }) => {
 
         try {
             setLoading(true);
-            const response = await axiosInstance.get('/carts', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axiosInstance.get('/carts', getAuthConfig());
             setCartItems(response.data);
         } catch (error) {
             setError('Failed to load cart items from the server.');
@@ -32,7 +41,7 @@ export const CartProvider = ({ children }) => {
 
     useEffect(() => {
         fetchCartItems();
-    }, [token]);
+    }, []);
 
     // Add a new item to the cart and update the server
     const addToCart = async (newItem) => {
@@ -54,11 +63,7 @@ export const CartProvider = ({ children }) => {
 
         try {
             // Send updated cart to the server
-            await axiosInstance.post('/cart', newItem, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await axiosInstance.post('/cart', newItem, getAuthConfig());
             setCartItems(updatedCart);
         } catch (error) {
             // console.error('Error adding to cart:', error.response || error.message);
@@ -69,11 +74,7 @@ export const CartProvider = ({ children }) => {
     // Update cart item quantity on the server
     const updateCartItem = async (itemId, updateData) => {
         try {
-            await axiosInstance.patch(`/cart/${itemId}`, updateData, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            await axiosInstance.patch(`/cart/${itemId}`, updateData, getAuthConfig());
         } catch (error) {
             // console.error('Error updating cart item:', error.response || error.message);
             setError('Failed to update the cart item on the server.');
@@ -133,16 +134,31 @@ export const CartProvider = ({ children }) => {
     // Remove item from the cart and update the server
     const removeItem = async (itemId) => {
         try {
-            await axiosInstance.delete(`/carts/${itemId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
+            await deleteCartItemFromServer(itemId);
             setCartItems((prevItems) => prevItems.filter(item => item._id !== itemId));
         } catch (error) {
-            // console.error('Error removing item:', error.response || error.message);
+            console.error('Error removing item:', error.response || error.message);
             setError('Failed to remove the item from the server.');
+        }
+    };
+
+    const clearCart = async () => {
+        const token = localStorage.getItem('authToken');
+        if (!token || cartItems.length === 0) {
+            setCartItems([]);
+            return;
+        }
+
+        try {
+            await Promise.all(
+                cartItems.map((item) => deleteCartItemFromServer(item._id))
+            );
+
+            setCartItems([]);
+        } catch (error) {
+            console.error('Error clearing cart items:', error.response || error.message);
+            setError('Failed to clear cart items from the server.');
+            throw error;
         }
     };
 
@@ -159,6 +175,7 @@ export const CartProvider = ({ children }) => {
             increaseQuantity,
             decreaseQuantity,
             removeItem,
+            clearCart,
             calculateTotalPrice,
             loading,
             error
