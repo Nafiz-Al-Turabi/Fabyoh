@@ -8,7 +8,7 @@ import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import PayPalButtonComponent from '../../Components/PayPalButtonComponent/PayPalButtonComponent';
 import { FaStripe, FaPaypal } from 'react-icons/fa'; // Icons for Stripe & PayPal
 
-const stripePublishableKey = import.meta.env.VITE_Stripe_key;
+const stripePublishableKey = "pk_test_51S8vqlREJl5NQ0K6cMgt7AfqZ4rKjbQrOsGLUkJisPw5g6353zWldzCQ3qCZwrgeljICbAyPM42ssstsTV0PrLi200xuTmnhpB";
 const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 const CheckOut = () => {
