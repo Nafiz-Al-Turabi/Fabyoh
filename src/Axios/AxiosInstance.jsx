@@ -2,8 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
-    // baseURL: 'https://fabyoh-backend-two.vercel.app',
+    baseURL: 'http://localhost:8000',
 });
 
 export default axiosInstance;

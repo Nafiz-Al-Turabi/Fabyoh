@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import ReactApexChart from 'react-apexcharts';
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../Axios/axiosInstance";
 
 const ApexChart = () => {
     const token = localStorage.getItem('authToken')
-    const { isLoading, isError, data = [], error, refetch } = useQuery({
+    const chartRef = useRef(null);
+    const chartInstanceRef = useRef(null);
+    const { isLoading, isError, data = [], error } = useQuery({
         queryKey: ['userOrders'],
         queryFn: async () => {
             const response = await axiosInstance.get('/adminOrders', {
@@ -50,12 +51,53 @@ const ApexChart = () => {
         }
     }, [data]);
 
+    useEffect(() => {
+        if (isLoading || isError || !chartRef.current) {
+            return undefined;
+        }
+
+        let isActive = true;
+
+        const renderChart = async () => {
+            const apexChartsModule = await import("apexcharts");
+            const ApexCharts = apexChartsModule.default?.default ?? apexChartsModule.default ?? apexChartsModule;
+
+            if (!isActive || !chartRef.current) {
+                return;
+            }
+
+            chartInstanceRef.current?.destroy();
+
+            const chart = new ApexCharts(chartRef.current, {
+                ...options,
+                series,
+            });
+
+            chartInstanceRef.current = chart;
+            await chart.render();
+        };
+
+        renderChart();
+
+        return () => {
+            isActive = false;
+            chartInstanceRef.current?.destroy();
+            chartInstanceRef.current = null;
+        };
+    }, [isLoading, isError, options, series]);
+
 
     return (
         <div className="mt-20 bg-amber-50 w-full rounded">
-            <div id="chart" className="flex justify-center items-center">
-                <ReactApexChart options={options} series={series} type="pie" width={580} />
-            </div>
+            {isLoading ? (
+                <p className="p-4 text-center">Loading...</p>
+            ) : isError ? (
+                <p className="p-4 text-center">Error: {error.message}</p>
+            ) : (
+                <div id="chart" className="flex justify-center items-center">
+                    <div ref={chartRef} />
+                </div>
+            )}
             <div id="html-dist"></div>
         </div>
     );

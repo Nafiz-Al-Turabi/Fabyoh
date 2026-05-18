@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useEffect } from "react";
-import ReactApexChart from "react-apexcharts";
+import { useState, useEffect, useRef } from "react";
 import axiosInstance from "../../Axios/axiosInstance";
 
 const PaymentChart = () => {
   const token = localStorage.getItem("authToken");
+  const chartRef = useRef(null);
+  const chartInstanceRef = useRef(null);
 
   const { isLoading, isError, data = [], error } = useQuery({
     queryKey: ["userOrders"],
@@ -84,6 +85,41 @@ const PaymentChart = () => {
     },
   };
 
+  useEffect(() => {
+    if (isLoading || isError || !chartRef.current) {
+      return undefined;
+    }
+
+    let isActive = true;
+
+    const renderChart = async () => {
+      const apexChartsModule = await import("apexcharts");
+      const ApexCharts = apexChartsModule.default?.default ?? apexChartsModule.default ?? apexChartsModule;
+
+      if (!isActive || !chartRef.current) {
+        return;
+      }
+
+      chartInstanceRef.current?.destroy();
+
+      const chart = new ApexCharts(chartRef.current, {
+        ...chartOptions,
+        series,
+      });
+
+      chartInstanceRef.current = chart;
+      await chart.render();
+    };
+
+    renderChart();
+
+    return () => {
+      isActive = false;
+      chartInstanceRef.current?.destroy();
+      chartInstanceRef.current = null;
+    };
+  }, [isLoading, isError, chartOptions, series]);
+
   return (
     <div className="w-full mt-20 bg-rose-100 rounded-lg pt-2">
       {isLoading ? (
@@ -91,7 +127,7 @@ const PaymentChart = () => {
       ) : isError ? (
         <p>Error: {error.message}</p>
       ) : (
-        <ReactApexChart options={chartOptions} series={series} type="bar" height={350} />
+        <div ref={chartRef} />
       )}
     </div>
   );
