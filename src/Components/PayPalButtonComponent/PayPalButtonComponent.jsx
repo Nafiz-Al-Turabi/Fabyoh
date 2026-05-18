@@ -8,7 +8,7 @@ import axiosInstance from '../../Axios/axiosInstance';
 
 const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
     const { user } = useContext(AuthContext);
-    const { cartItems } = useContext(CartContext);
+    const { cartItems, clearCart } = useContext(CartContext);
     const token = localStorage.getItem('authToken');
     const [loading, setLoading] = useState(false);
 
@@ -39,6 +39,7 @@ const PayPalButtonComponent = ({ createOrder, onApprove, totalPrice }) => {
                 },
             });
             console.log('Payment saved successfully:', response.data);
+            await clearCart();
         } catch (error) {
             console.error('Error saving payment:', error);
         } finally {
